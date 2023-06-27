@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ restaurant["name"] }}</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+    <!-- css -->
+    <link rel="stylesheet" href="/static/css/restaurant.css">
+    <!-- Nav -->
+    <link rel="stylesheet" href="/static/navbar/navbar.css">
+    <script src="/static/navbar/navbar.js"></script>
+</head>
+
+<body>
+    <!-- Nav -->
+    <nav>
+        <a id="nav_marque" href="/">Taste IT</a>
+        
+        <button id="nav_button">
+            <img src="/static/navbar/menu.png" alt="menu">
+        </button>
+
+        <div id="nav_add">
+        <a id="nav_home" class="nav_el" href="/">Home</a>
+        <a class="nav_el" href="/dishes">Dishes</a>
+        <a class="nav_el" href="/restaurants">Restaurants</a>
+        <a class="nav_el" href="/aboutus">About us</a>
+        <!-- Compte / Connexion -->
+        {% if 'compte' in session %}
+            {% if session['compte']['pdp'] != '' %}
+                <img class="nav_pdp" src="data:;base64,{{ session['compte']['pdp'] }}" alt="PDP"
+                onclick="window.location = '/profil';">
+            {% else %}
+                <img class="nav_pdp" src="/static/img/pdp.png" alt="PDP"
+                onclick="window.location = '/profil';">
+            {% endif %}
+        {% else %}
+            <a class="nav_el" href="/signin">Sign in</a>
+        {% endif %}
+        </div>
+    </nav>
+
+    <!-- Content -->
+    <div class="main">
+        <div class="UpPart">
+                <section class="Lside">
+                    <section class="flesh">
+                        <!-- <i class="ri-skip-back-line"></i> -->
+                        <h3 class="nom">{{ restaurant["name"] }}</h3></section>
+                    <div class="line"></div>
+                    <ul>
+                        <!-- Type -->
+                        <li> Type : <span class="org" >{{ restaurant["type"] }}</span> </li>
+                        <!-- Specialities -->
+                        <li>Specialities : 
+                            <span class="org">
+                                {% for speciality in restaurant["specialities"] %}
+                                    <!-- La virgule -->
+                                    {% if speciality != restaurant["specialities"][0] %}
+                                        ,
+                                    {% endif %}
+                                    <!-- L'ingredient -->
+                                    {{ speciality }}
+                                {% endfor %}
+                            .</span>
+                        </li>
+                        <!-- Adress -->
+                        <li>Adress : <span class="org">{{ restaurant["adress"] }}</span></li>
+                        <!-- Working hours -->
+                        <li>Working Hours : <span class="org">{{ restaurant["work_hours"] }}H / 24h</span></li>
+                        <!-- Working days -->
+                        <li>Working Days : <span class="org">{{ restaurant["work_days"] }}J / 7J</span></li>
+                        <!-- Rating -->
+                        <li>Rating : <span class="org">{{ restaurant["rating"] }} %</span></li>
+                    </ul>
+                </section>
+
+                <!-- Image -->
+                <section class="Rside">
+                    {% if restaurant["photo"] in ['', '0', 0] %}
+                        <img src="/static/img/restaurant 1.png" alt="Photo" style="object-fit: cover">
+                    {% else %}
+                        <img src="data:;base64,{{ restaurant['photo'] }}" alt="Photo" style="object-fit: cover">
+                    {% endif %}
+                </section>
+                
+            </div>
+
+
+        <!-- Reserver -->
+        <div class="MidPart">
+            <div class="line1"></div>
+            <div  data-aos="fade-zoom-in"
+                data-aos-easing="ease-in-back"
+                data-aos-delay="300"
+                data-aos-offset="0">
+                <div class="button">
+                    <span style="display: block;"><a href="ppp">Reserve</a></span>
+                </div>
+            </div>   
+            <div class="line2"></div>   
+        </div>
+
+
+        <!-- Commentaires -->
+        <div class="BotPart">
+            <h3>Commantaires</h3>
+            <div class="line2"></div>
+
+            
+            <div data-aos="fade-right">
+                <div class="Old">
+                    <div class="comments">
+                        <img src="img/Ellipse 8.png">
+                        <span>
+                            <h4 style="color: orange;">Ayoub</h4>
+                            <h6>Good One ! </h6>
+                        </span>
+                
+                    </div>
+                    <div class="comments">
+                        <img src="img/Ellipse 8.png">
+                        <span>
+                            <h4 style="color: orange;">Jack Paterson</h4>
+                            <h6>Nice Service !</h6>
+                        </span>
+                    </div>
+                
+                </div>
+            </div>
+            <div data-aos="fade-right">
+                <div class="comments">
+                    <input type="text" placeholder=" Ajouter un Commantaires ">
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init();
+    </script>
+
+</body>
+</html>

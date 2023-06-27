@@ -1,0 +1,34 @@
+{% extends "template.html" %}
+
+{% block body %}
+    <ul>
+        {% for person in registrants %}
+            <div style="width: 70vw; display: flex; justify-content: space-between; align-items: center;">
+                <li style="margin-bottom: 50px; width: 40vw; display: flex; justify-content: space-between; align-items: center;">
+                    <p>{{ person["username"] }}</p>
+                    <p>{{ person["email"] }}</p>
+                    <p>{{ person["password"] }}</p>
+
+                    {% if person['pdp'] != '' %}
+                        <img src="data:;base64,{{ person['pdp'] }}" style="width : 10vw;" alt="PDP" >
+                    {% else %}
+                        <img src="/static/img/pdp.png" style="width : 10vw;" alt="PDP" >
+                    {% endif %}
+
+                </li>
+
+                <!-- {% for connected in session %}
+                    {% if connected == person["username"] %}
+                        <form action="/logout" method="post">
+                            <input name="username" hidden value={{ connected }}>
+                            <input style="display: inline" type="submit" value="Se deconnecter">
+                        </form>
+                    {% endif %}
+                {% endfor %} -->
+            </div>
+
+        {% endfor %}
+    </ul>
+
+    Retourner à <a href="/">Home</a>
+{% endblock %}

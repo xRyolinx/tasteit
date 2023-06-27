@@ -1,0 +1,277 @@
+:root {
+    --radius : 30px;
+    --blanc : #FFFFFF;
+}
+
+*, *:before, *:after {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+}
+
+#bg {
+    width: 100vw;
+    object-fit: cover;
+
+    position: fixed;
+    z-index: -10;
+    right: 0;
+}
+
+
+/* TOUT APRES NAV */
+.contenu {
+    width: 100%;
+    height: 92vh;
+
+    padding: 2rem;
+
+    /* background-color: blue; */
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* RECTANGLE GAUCHE */
+.choices {
+    width: 20vw;
+    height: 100%;
+
+    border-radius: var(--radius) 0 0 var(--radius);
+
+    box-shadow: 5px 8px 10px rgb(110, 109, 109);
+    background-color: var(--blanc);
+
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    /* BONJOUR + PDP  */
+    .top {
+        height: 30%;
+        width: 100%;
+
+        /* background-color: aqua; */
+
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+
+        padding: 1rem 0;
+
+
+        /* Bonjour */
+        .bonjour {
+            margin: 0;
+        }
+
+        /* PDP */
+        .pdp {
+            width: 80px;
+            aspect-ratio: 1/1;
+            object-fit: cover;
+
+            border-radius: 100%;
+
+            cursor: pointer;
+        }
+    }
+
+    /* SEPARATEUR ENTRE TOP ET BOTTOM */
+    .divider-choices {
+        height: 5px;
+        width: 80%;
+
+        margin: 10px auto;
+
+        background-color: orange;
+    }
+
+    /* CHOIX DE FONCTIONNALITÉS */
+    .bottom {
+        height: 60%;
+        width: 100%;
+
+        padding: 2rem 0;
+
+        /* background-color: aquamarine; */
+
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+
+        /* CHOICE */
+        .element {
+            width: 70%;
+            height: 35px;
+            /* background-color: darkmagenta; */
+
+            display: flex;
+            justify-content: left;
+            align-items: center;
+
+
+            /* Icone */
+            .image {
+                height: 70%;
+                aspect-ratio: 1/1;
+                object-fit: cover;
+
+                border-radius: 100%;
+                margin-right: 20px;
+            }
+        }
+    }
+}
+
+/* LIGNE VERTICAL SEPARANT CHOIX ET FONCTION */
+.separator {
+    height: 100%;
+    width: 5px;
+}
+
+
+/* FONCTIONNALITÉ */
+.fonction {
+    width: 70vw;
+    height: 100%;
+
+    padding: 1rem 3rem 1rem 3rem;
+
+    border-radius: 0 var(--radius) var(--radius) 0;
+
+    box-shadow: 5px 8px 10px rgb(110, 109, 109);
+    background-color: var(--blanc);
+
+
+    display: flex;
+    flex-direction: column;
+
+    /* TITRE */
+    .titre-edit {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        
+        /* Titre */
+        .titre{
+            margin: 0 0 0.5rem 0;
+
+            font-weight: bold;
+            font-style: oblique;
+            font-size: 2.2rem;
+        }
+
+        /* edit */
+        #edit {
+            width: 20px;
+            aspect-ratio: 1/1;
+            object-fit: cover;
+
+            cursor: pointer;
+        }
+
+        #save {
+            width: 40px;
+            aspect-ratio: 1/1;
+            object-fit: cover;
+
+            cursor: pointer;
+            display: none;
+        }
+    }
+
+
+    /* SEPARATOR */
+    .divider-fonction {
+        height: 5px;
+        width: 40%;
+
+        background-color: orange;
+    }
+
+    /* INFO */
+    .informations {
+        width: 100%;
+        flex-grow: 1;
+
+        padding: 30px 0;
+
+        /* background-color: aqua; */
+
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+        
+        /* CHAQUE INFO */
+        .info {
+            height: 40px;
+            width: 100%;
+
+            /* background-color: blue; */
+
+            display: flex;
+            justify-content: left;
+            align-items: center;
+
+            font-size: 1.2rem;
+            font-style: italic;
+
+
+            /* Key */
+            .key {
+                width: 40%;
+                height: 100%;
+                /* background-color: brown; */
+
+                font-weight: bolder;
+                
+                display: flex;
+                align-items: center;
+            }
+
+            /* Value */
+            .value {
+                height: 100%;
+                width: 55%;
+
+                display: flex;
+                align-items: center;
+
+                /* background-color:blueviolet; */
+            }
+
+            .input {
+                height: 80%;
+                width: 60%;
+                border: 1px solid orange;
+
+                border-radius: 15px;
+                padding: 0 20px;
+                margin-left: -20px;
+
+                font-size: 1.1rem;
+                font-style: italic;
+                font-family: Arial, Helvetica, sans-serif;
+
+                display: none;
+            }
+        }
+    }
+}

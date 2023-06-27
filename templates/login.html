@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="static/css/signin_signup.css">
+    <!-- Nav -->
+    <link rel="stylesheet" href="/static/navbar/navbar.css">
+    <script src="/static/navbar/navbar.js"></script>
+</head>
+<body>
+    <!-- Nav -->
+    <nav>
+        <a id="nav_marque" href="/">Taste IT</a>
+        
+        <button id="nav_button">
+            <img src="/static/navbar/menu.png" alt="menu">
+        </button>
+
+        <div id="nav_add">
+        <a id="nav_home" class="nav_el" href="/">Home</a>
+        <a class="nav_el" href="/dishes">Dishes</a>
+        <a class="nav_el" href="/restaurants">Restaurants</a>
+        <a class="nav_el" href="/aboutus">About us</a>
+        <a class="nav_el" href="/signin">Sign in</a>
+        </div>
+    </nav>
+
+    <!-- Content -->
+
+    <!-- Intro -->
+    <p>Connectez-vous pour profiter de toutes les fonctionnalitées <br>
+        de notre site</p>
+
+    <!-- Champs a remplir -->
+    <form class="container" method="POST" action="/loggedin">
+        <h1 class="titre_connect">Connexion</h1>
+
+        <input name="username" type="text" placeholder="Enter you username or email" class="champ" >
+        <input name="password" type="password" placeholder="Enter your password" class="champ">
+
+        <a href="javascript:{}" onclick="document.querySelector('form').submit();" class="bouton_connect">Se connecter</a>
+
+        <button type="submit" style="display: none;"></button>
+       
+    </form>
+
+    <!-- Create account -->
+    <p>Don't have an account ? <a href="/register" id="create">Create one now</a></p>
+
+        
+</body>
+</html>

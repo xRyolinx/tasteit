@@ -1,0 +1,127 @@
+/* Fonts */
+
+@font-face {
+    font-family: PoppinsMd;
+    src: url(/static/fonts/Poppins/Poppins-Medium.ttf);
+}
+
+@font-face {
+    font-family: Pacifico;
+    src: url(/static/fonts/Pacifico-Regular.ttf);
+}
+
+/* Var */
+:root {
+    --beige: #FAEDCD;
+    --beige_fonce: #E9DCBC;
+    --vert: #A3B18A;
+    
+    --bleu: #264653;
+    --bleu_fonce: #162e38;
+    --orange: #f7a04e;
+    --orange_fonce: #f99436;
+
+    --white: #FFFFFF;
+    --black: #111111;
+}
+
+
+
+/* Nav */
+nav {
+    height:8vh;
+    min-height: 45px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 3rem 0 2rem;
+    background-color: var(--orange);
+}
+/* Mobile */
+@media (max-width: 992px) {
+    nav {
+        padding: 0 1rem 0 1rem;
+    }
+}
+
+
+/* Suite de navbar */
+#nav_add {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 45vw;
+    height: auto;
+}
+
+/* Mobile */
+@media (max-width: 992px) {
+    #nav_add {
+        flex-direction: column;
+        justify-content: space-between;
+        padding: 0 0 0 1.1rem;
+        width: 100%;
+        min-height: 180px;
+        background-color: var(--orange);
+        border-top: 2px solid var(--orange_fonce);
+        border-bottom: 2px solid var(--orange_fonce);
+        position: absolute;
+    }
+}
+
+
+/* Elements de la nav bar */
+#nav_marque {
+    font-family: Pacifico;
+    font-size: 1.25rem;
+    color: var(--bleu_fonce);
+    text-decoration: none;
+}
+
+.nav_el {
+    color: var(--bleu_fonce);
+    font-size: 0.9rem;
+    padding-top: 1vh;
+    padding-bottom: 1vh;
+    border-top: 2px transparent solid;
+    border-bottom: 2px transparent solid;
+    text-decoration: none;
+}
+.nav_el:hover {
+    border-bottom: 2px var(--black) solid;
+    color: var(--black);
+}
+.nav_el:hover a {
+    color: inherit;
+}
+/* Mobile */
+@media (max-width: 992px) {
+    .nav_el, .nav_el:hover {
+        padding-top: 2vh;
+        padding-bottom: 2vh;
+        border: none;
+    }
+}
+
+/* PDP */
+.nav_pdp {
+    width: 38px;
+    aspect-ratio: 1/1;
+    object-fit: cover;
+
+    border-radius: 100%;
+
+    cursor: pointer;
+}
+
+/* Bouton */
+#nav_button {
+    border: none;
+    padding: 0;
+    background-color: inherit;
+}
+#nav_button img {
+    width:30px;
+    border: none;
+}

@@ -1,0 +1,173 @@
+  @font-face {
+    font-family: 'poppins';
+    src: url(Poppins-Regular.ttf);
+  }
+
+body{
+    background-color: #f5f5f5;    
+}
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+a{
+    color: black;
+    text-decoration: none;
+    
+}
+
+.nom-food{
+    margin-left: 30px;
+    font-weight: 500;
+    display: flex;
+    gap: 5px;
+    align-items: center;
+}
+.nom-food h1 {
+    border: 5px solid orange;
+    border-top: none;
+    border-left: none;
+    border-right:none ;
+    border-radius: -10px;
+
+}
+.information-image{
+    font-family: 'poppins';
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-left: 40px;
+}
+.information-image img{
+    width: 60%;
+    height: auto;
+    transform: translate(50% );
+    object-fit: cover;
+}
+.image{
+    flex: 50% 0;
+    margin-right: 40px;
+
+}
+.information{
+    padding: 10px;
+    flex: 50% 0;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+.rating-favor{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.proprity{
+    font-weight: 500;
+    font-size: 20px;
+}
+.val{
+    color:orange;
+    font-weight: 500;
+    font-size: 17px;
+}
+
+.test-order{
+    display: flex;
+    justify-content: space-evenly;
+    margin: 30px;
+    align-items: center;
+}
+.ligne{
+    height: 100px;
+    width: 8px;
+    background-color:orange ;
+    border-radius: 30px;
+}
+.test-order_button{
+    margin-left: 50px;
+    font-weight:bold ;
+    font-size: 13px;
+    padding: 12px;
+    width: 100px;
+    
+    background-color:  #ff922c ;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+}
+p{
+    font-size: 15px;
+}
+.favor{
+    margin-right: 10px;
+}
+
+.commentaire-image img{
+    width: 30px;
+    height: 30px;
+    object-fit: cover;  
+
+}
+.commentaire-image{
+    margin: 10px;
+    width: 30px;
+    height: 30px;
+    border-radius: 50px;
+}
+.commentaire{
+    padding: 10px;
+    margin-top: 10px;
+    border-radius: 30px;
+    gap: 10px;
+    display: flex;
+    padding: 10px;
+    width: 70%;
+    margin-right:10px ;
+    background-color:white ;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
+.commentaire .name{
+    margin-bottom: 5px;
+    color: orange;
+    font-weight: 500;
+    font-family: 'poppins';
+}
+.commentaire-place{
+    margin-left: 10px;
+}
+.ajoute-commentaire input{
+    margin-top: 40px;
+    padding: 15px ;
+    border-radius: 30px;
+    width: 70%;
+    border-color: orange;
+
+}
+.commentaire-place{
+    margin: 80px 50px 50px 50px;
+}
+
+h1{
+    color: orange;
+}
+
+.previous{
+    color: orange;
+    font-size: 30px;
+
+}
+a{
+    font-size: 15px;
+    color: white;
+}
+#heart{
+    margin-right: 150px;
+    font-size: 30px;
+   color:orange;
+}
+
+.container {
+    margin-top : 20px
+}

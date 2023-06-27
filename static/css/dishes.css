@@ -1,0 +1,262 @@
+*, *:before, *:after {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+}
+
+a{
+    text-decoration: none;
+    color: black;
+}
+
+
+/* Barre de recherche */
+/* Container */
+.search {
+    width: 100%;
+    margin-top: 0;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Titre */
+.text {
+    margin-bottom: 30px;
+    color: orange;
+}
+/* Barre */
+.barre {
+    width: 500px;
+    padding: 9px 9px 9px 15px;
+    border-radius: 20px;
+    background-color: #FFEEDE;
+    border: none;
+}
+/* Bouton */
+.button {
+    margin-left: 5px;
+    padding: 9px 18px;
+    border-radius: 20px;
+    background-color: orange;
+    border: none;
+
+    cursor: pointer;
+}
+
+
+/* Titre 'our menu' */
+.titre{
+    font-weight: 700;
+    color: black;
+    text-align: center;
+    margin-top: 70px;
+}
+
+.seemore{
+    text-align: center;
+    margin: 30px;
+    cursor: pointer;
+    margin-top: 90px;
+
+}
+
+
+
+
+/* Les boites */
+main {
+    width: 100%;
+    display: grid;
+    justify-content: space-around;
+    justify-items: center;
+    align-items: center;
+    grid-template-columns: repeat(4, 1fr);
+
+    padding: 1rem 3rem 2rem 3rem;
+   
+    column-gap: 3vw;
+    row-gap: 5vw;
+    width: 100%;
+}
+
+.element, .element:hover {
+    width: 20vw;
+    aspect-ratio: 1/1;
+    border-radius: 5%;
+
+    text-decoration: none;
+    color: var(--bleu);
+    text-align: center;
+
+    transition: width 0.5s;
+    z-index: 0;
+
+    background-color: grey;
+    box-shadow: 5px 8px 10px rgb(110, 109, 109);
+}
+.element:hover {
+    width: 21vw;
+}
+
+/* 3 par ligne */
+@media (max-width: 1024px) {
+    main {
+        grid-template-columns: repeat(3, 1fr);
+    }
+    .element {
+        width: 25vw;
+    }
+    .element:hover {
+        width: 27vw;
+    }
+}
+
+/* 2 par ligne */
+@media (max-width: 830px) {
+    main {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .element {
+        width: 35vw;
+    }
+    .element:hover {
+        width: 38vw;
+    }
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+    main {
+        grid-template-columns: repeat(1, 1fr);
+        row-gap: 10vw;
+    }
+    .element, .element:hover{
+        width: 65vw;
+    }
+}
+
+
+
+/* Contenu de boite */
+/* Image */
+.image {
+    height: 65%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0.1rem 0.5rem 0 0.5rem;
+}
+
+.image img {
+    border-radius: 5% 5% 0 0;
+    
+    min-width: 50%;
+    max-width: 70%;
+    height: auto;   
+}
+
+
+
+/* Description */
+.ecriture {
+    height: 35%;
+    position: relative;
+}
+
+/* Carre blanc */
+.bg-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -100;
+
+    height: 100%;
+}
+.img-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 100%;
+    height: 100%;
+
+    overflow: hidden;
+}
+.img-container img {
+    width: 120%;
+    aspect-ratio: 1/0.3;
+}
+
+/* Ecriture */
+.el_txt {
+    position: relative;
+    z-index: 100;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    padding: 0.1rem 0.5rem;
+    font-size: small;
+    overflow: hidden;
+}
+.plat {
+    padding: 0;
+    margin: 0;
+    margin-top: 5px;
+}
+.restaurant {
+    font-size: small;
+}
+
+/* Info */
+.info {
+    width: 100%;
+    margin-top: 5px;
+    
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+}
+
+.more {
+    color: black;
+    font-weight: bold;
+    background-color: orange;
+    border-radius: 20px;
+    padding: 3px 10px;
+    margin-left: -15px;
+
+    cursor: pointer;
+    border: none;
+}
+
+.prix {
+    color: orange;
+    font-size: 0.9rem;
+    font-weight: bold;
+}
+
+.seemore {
+    width: 100%;
+    margin: 2rem 0;
+
+    display: flex;
+    justify-content: center;
+    pointer-events: none;
+}
+
+.seemore a {
+    color : orange;
+    display: inline;
+    pointer-events: stroke;
+}

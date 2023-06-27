@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dishes</title>
+
+    <!-- css -->
+    <link rel="stylesheet" href="/static/css/restaurants.css">
+    <!-- js -->
+    <script>
+        // Recherche
+        let query = {{ search | tojson }};
+        if (query != '')
+        {
+            query = '&q=' + query;
+        }
+    </script>
+    <script src="/static/js/restaurants.js"></script>
+    <!-- Nav -->
+    <link rel="stylesheet" href="/static/navbar/navbar.css">
+    <script src="/static/navbar/navbar.js"></script>
+</head>
+<body>
+    <!-- Nav -->
+    <nav>
+        <a id="nav_marque" href="/">Taste IT</a>
+        
+        <button id="nav_button">
+            <img src="/static/navbar/menu.png" alt="menu">
+        </button>
+
+        <div id="nav_add">
+        <a id="nav_home" class="nav_el" href="/">Home</a>
+        <a class="nav_el" href="/dishes">Dishes</a>
+        <a class="nav_el" href="/restaurants">Restaurants</a>
+        <a class="nav_el" href="/aboutus">About us</a>
+        <!-- Compte / Connexion -->
+        {% if 'compte' in session %}
+            {% if session['compte']['pdp'] != '' %}
+                <img class="nav_pdp" src="data:;base64,{{ session['compte']['pdp'] }}" alt="PDP"
+                onclick="window.location = '/profil';">
+            {% else %}
+                <img class="nav_pdp" src="/static/img/pdp.png" alt="PDP"
+                onclick="window.location = '/profil';">
+            {% endif %}
+        {% else %}
+            <a class="nav_el" href="/signin">Sign in</a>
+        {% endif %}
+        </div>
+    </nav>
+
+    <!-- Content -->
+    <!-- Barre de recherche -->
+    <div class="search">
+        <!-- Titre -->
+        <h1 class="text">Restaurants</h1>
+        <!-- Barre -->
+        <form method="get" action="/restaurants/search">
+            <input name="q" type="search" class="barre" placeholder="search">
+            <input type="submit" value="search" class="button">
+        </form>
+    </div>
+     
+    <!-- Titre -->
+    <div class="titre">
+        {% if search == '' %}
+            <h1>Our Popular Restaurants</h1>
+        {% else %}
+            <h1>Results of : ' {{ search }} '</h1>
+        {% endif %}
+    </div>
+
+    <!-- Cards -->
+    <main>
+        <!-- Card -->
+        <article href="/" class="element">
+            <!-- Image -->
+            <div class="image">
+                <img name="photo" src="/static/img/restaurant 1.png" alt="">
+            </div>
+
+            <!-- Details -->
+            <div class="ecriture">
+                <!-- Arriere plan blanc -->
+                <div class="bg-container">
+                    <div class="img-container">
+                        <img src="/static/img/rectangle.png" alt="Image" />
+                    </div>
+                </div> 
+                <!-- Description -->
+                <div class="el_txt">
+                    <h3 name="nom" class="restaurant">Arabesque</h3>
+                    <i name="adresse" class="adresse">Didouch Mourad, Alger</i>   
+                    <form method="get" action="/restaurant" class="info">
+                        <p name="rating" class="rating">50 %</p>
+                        <input name="id" type="hidden" value="id">
+                        <input type="submit" class="more" value="more">
+                        <img src="/static/img/coeur.png" class="like">
+                    </form>
+                </div>
+            </div>
+        </article>
+    </main>
+
+    <div class="seemore">
+        <a id="plus" href="">see more</a>
+    </div>
+
+</body>
+</html>

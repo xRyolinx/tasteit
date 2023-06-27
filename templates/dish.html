@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ dish["name"] }}</title>
+    <!-- Bibli -->
+    <!-- <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet"> -->
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+    <!-- <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script> -->
+    <!-- css -->
+    <link rel="stylesheet" href="/static/css/dish.css">
+    <!-- Nav -->
+    <link rel="stylesheet" href="/static/navbar/navbar.css">
+    <script src="/static/navbar/navbar.js"></script>
+</head>
+<body>
+    <!-- Nav -->
+    <nav>
+        <a id="nav_marque" href="/">Taste IT</a>
+        
+        <button id="nav_button">
+            <img src="/static/navbar/menu.png" alt="menu">
+        </button>
+
+        <div id="nav_add">
+        <a id="nav_home" class="nav_el" href="/">Home</a>
+        <a class="nav_el" href="/dishes">Dishes</a>
+        <a class="nav_el" href="/restaurants">Restaurants</a>
+        <a class="nav_el" href="/aboutus">About us</a>
+        <!-- Compte / Connexion -->
+        {% if 'compte' in session %}
+            {% if session['compte']['pdp'] != '' %}
+                <img class="nav_pdp" src="data:;base64,{{ session['compte']['pdp'] }}" alt="PDP"
+                onclick="window.location = '/profil';">
+            {% else %}
+                <img class="nav_pdp" src="/static/img/pdp.png" alt="PDP"
+                onclick="window.location = '/profil';">
+            {% endif %}
+        {% else %}
+            <a class="nav_el" href="/signin">Sign in</a>
+        {% endif %}
+        </div>
+    </nav>
+
+    <!-- Content -->
+    <div class="container">
+        <div class="nom-food">
+            <div class="previous"><i class="ri-skip-back-line"></i></div>
+            <h1>{{ dish["name"] }}</h1>
+            
+        </div>
+        <div class="information-image">
+            <div class="information">
+                <!-- Restau -->
+                <h2 class="nom-restaurant" data-aos="fade-right" >Restaurant : {{ dish["restaurant"] }}</h2>
+                <!-- Type -->
+                <div class="type" data-aos="fade-right"><span class="proprity">Type : </span><span class="val">{{ dish["type"] }}</span></div>
+                <!-- Ingredients -->
+                <div class="Ingreduents" data-aos="fade-right"><span class="proprity">Intgrédients :
+                    <span class="val">
+                        {% for ingredient in dish["ingredients"] %}
+                            <!-- La virgule -->
+                            {% if ingredient != dish["ingredients"][0] %}
+                                ,
+                            {% endif %}
+                            <!-- L'ingredient -->
+                            {{ ingredient }}
+                        {% endfor %}
+                    .</span>
+                </div>
+                <!-- Price -->
+                <div class="price" data-aos="fade-right"><span class="proprity">Price : </span><span class="val">{{ dish["price"] }} DA</span></div>
+                <!-- Rating -->
+                <div class="rating-favor" data-aos="fade-right">
+                    <div class="rating">
+                        <span class="proprity">Rating : </span> 
+                        <span class="val">{{ dish["rating"] }} %</span>
+                    </div>
+                    <div class="favor" id="heart" >
+                        <i class="ri-heart-line" i ></i>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Image -->
+            <div class="image">
+                {% if dish["photo"] == '' %}
+                    <img src="/static/img/food1.png" alt="Photo">
+                {% else %}
+                    <img src="data:;base64,{{ dish['photo'] }}" alt="Photo">
+                {% endif %}
+            </div>
+        </div>
+        <div class="test-order">
+            <div class="button-text">
+            <button class="test-order_button test" data-aos="zoom-out-up">test</button>
+            <br><br>
+            <p>Use your mask to smell and taste it !</p>
+        </div>
+            <div class="ligne"></div>
+            
+            <div class="button-text">
+                <button class="test-order_button order" data-aos="zoom-out-up">order</button>
+                <br><br>
+                <p>Food delivered directly to your home !</p>
+        </div>
+    </div>
+
+    
+    <!-- Commentaires -->
+    <div class="commentaire-place">
+        <h1>Commentaires :</h1>
+        <div class="commentaire"  data-aos="fade-right"
+        data-aos-offset="300"
+        data-aos-easing="ease-in-sine">
+                <div class="commentaire-image"> <img src="img/food1.png" alt=""> </div> 
+                <div class="name-commentaire">
+                    <div class="name">Azzoug ayoub</div>
+                    <p class="commentaire-text">I wish i had enough place to eat more of this</p>
+                </div>
+        </div>
+          <div class="commentaire" data-aos="fade-right"
+          data-aos-offset="100"
+          data-aos-easing="ease-in-sine">
+                <div class="commentaire-image"> <img src="img/food1.png" alt=""> </div> 
+                <div class="name-commentaire">
+                    <div class="name" style="color : orange">Azzoug ayoub</div>
+                    <p class="commentaire-text">I wish i had enough place to eat more of this</p>
+                </div>
+        </div>
+        <div class="ajoute-commentaire">
+            <input type="text" placeholder="Ajouter un commnetaire">
+        </div>
+    </div>
+
+
+    <!-- <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script> -->
+    <script>
+        AOS.init();
+    </script>
+</body>
+</html>

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Taste It - Home</title>
+    <meta charset="UTF-8">
+    <meta name="viewport">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <!-- Custom -->
+    <link rel="stylesheet" href="/static/css/home.css">
+    <!-- Nav -->
+    <link rel="stylesheet" href="/static/navbar/navbar.css">
+    <script src="/static/navbar/navbar.js"></script>
+</head>
+<body>
+    <img id="bg" src="/static/img/bg_img_home.png" alt="bg_img">
+
+    <!-- Nav -->
+    <nav>
+        <a id="nav_marque" href="/">Taste IT</a>
+        
+        <button id="nav_button">
+            <img src="/static/navbar/menu.png" alt="menu">
+        </button>
+
+        <div id="nav_add">
+        <a id="nav_home" class="nav_el" href="/">Home</a>
+        <a class="nav_el" href="/dishes">Dishes</a>
+        <a class="nav_el" href="/restaurants">Restaurants</a>
+        <a class="nav_el" href="/aboutus">About us</a>
+        <!-- Compte / Connexion -->
+        {% if 'compte' in session %}
+            {% if session['compte']['pdp'] != '' %}
+                <img class="nav_pdp" src="data:;base64,{{ session['compte']['pdp'] }}" alt="PDP"
+                onclick="window.location = '/profil';">
+            {% else %}
+                <img class="nav_pdp" src="/static/img/pdp.png" alt="PDP"
+                onclick="window.location = '/profil';">
+            {% endif %}
+        {% else %}
+            <a class="nav_el" href="/signin">Sign in</a>
+        {% endif %}
+        </div>
+    </nav>
+
+    <!-- Content -->
+    <div id = "main">
+    <div data-aos="fade-right">
+        <div class="text">
+            <h3 style="color: #FF922C;"><b>Taste it</b></h3>
+
+            <p>
+                <b>Delicious Food <br> Will Make You Say</b>
+            </p>
+
+            <p style="color: #FF922C;">
+                <b>Yummy!</b>
+            </p>
+        </div>
+    </div>
+
+    <!-- Order now -->
+    </div>
+        <div class="buttons">
+            <div class="button">
+                <a href="/dishes">Order Now</a>
+            </div>
+    </div>
+            
+    
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init();
+    </script>
+</body>
+
+</html>
