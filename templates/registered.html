@@ -1,7 +1,16 @@
 {% extends "template.html" %}
 
 {% block body %}
-    Inscrit avec succes !
-    <p> Retourner à <a href="/">page d'inscription</a></p>
-    <p> Voir les <a href="/inscrits">inscrits</a></p>
+
+<style>
+    body {
+        width: 50%;
+        margin: 100px auto 0 auto;
+        text-align: center;
+    }
+</style>
+    <p style="font-size: 2rem;">Inscrit avec succes !</p>
+    <br>
+    <p><a href="/">Home</a></p>
+    <p><a href="/signin">Se connecter</a></p>
 {% endblock %}

@@ -127,7 +127,7 @@ def registerants():
 def logout():
     if 'compte' in session:
         session.pop('compte')
-    return redirect("/")
+    return redirect("/signin")
 
 
 # ------------------------------- FONCTIONNALITÉS -------------------------------------

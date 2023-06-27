@@ -51,6 +51,7 @@ a {
 
     box-shadow: 5px 8px 10px rgb(110, 109, 109);
     background-color: var(--blanc);
+    /* background-color: red; */
 
 
     display: flex;
@@ -60,7 +61,7 @@ a {
 
     /* BONJOUR + PDP  */
     .top {
-        height: 30%;
+        height: 24%;
         width: 100%;
 
         /* background-color: aqua; */
@@ -70,7 +71,7 @@ a {
         justify-content: space-between;
         align-items: center;
 
-        padding: 1rem 0;
+        padding: 0.2rem 0;
 
 
         /* Bonjour */
@@ -102,10 +103,10 @@ a {
 
     /* CHOIX DE FONCTIONNALITÉS */
     .bottom {
-        height: 60%;
+        height: 50%;
         width: 100%;
 
-        padding: 2rem 0;
+        padding: 0.2rem 0;
 
         /* background-color: aquamarine; */
 
@@ -134,6 +135,26 @@ a {
                 border-radius: 100%;
                 margin-right: 20px;
             }
+        }
+    }
+
+    /* Dexonnexion */
+    .deconnexion {
+        height: 10%;
+        width: 100%;
+        /* background-color: green; */
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+
+        /* Button */
+        .button {
+            background-color: orange;
+            padding: 8px 12px;
+            border-radius: 20px;
+            
         }
     }
 }
