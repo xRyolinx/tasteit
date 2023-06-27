@@ -4,11 +4,8 @@ function convert_to_form(container)
     // Create the form
     let form = document.createElement("form");
     form.classList.add("informations");
-
     form.id = 'form';
-    form.method = 'post';
-    form.action = '/update';
-
+    // When submit, simulate a click on save
     form.addEventListener("submit", function(event) {
         document.querySelector('#save').click();
         event.preventDefault();
@@ -16,13 +13,14 @@ function convert_to_form(container)
 
 
     // Insert the children
-    container.childNodes.forEach(child => {
-        form.append(child.cloneNode(true));
-    });
+    for(let i = 0 ; i < container.children.length;)
+    {
+        form.appendChild(container.children[i]);
+    }
 
     // Insert the form
     let parent = container.parentElement;
-    parent.append(form);
+    parent.appendChild(form);
 
     // Delete the container
     container.remove();
@@ -36,15 +34,16 @@ function convert_to_div(form)
     container.classList.add("informations");
 
     // Insert the children
-    form.childNodes.forEach(child => {
-        container.append(child.cloneNode(true));
-    });
+    for(let i = 0 ; i < form.children.length;)
+    {
+        container.appendChild(form.children[i]);
+    }
 
-    // Insert the form
+    // Insert the div
     let parent = form.parentElement;
-    parent.append(container);
+    parent.appendChild(container);
 
-    // Delete the container
+    // Delete the form
     form.remove();
 }
 
@@ -56,7 +55,6 @@ function convert_to_div(form)
 document.addEventListener('DOMContentLoaded', function() {
     let edit = document.querySelector("#edit");
     let save = document.querySelector("#save");
-
 
 
     // Edit
@@ -83,9 +81,21 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
     // Save
-    save.addEventListener("click", function() {
+    save.addEventListener("click", async function() {
         // Send to DB
+        let form = document.querySelector('.informations');
+        
+        // Grab the data inside the form fields
+        const formData = new FormData(form);
+        
+        // Fetch
+        let response = await fetch('/profil', {   
+            method: 'POST',
+            body: formData,
+        });
 
+        // What the server sent back as dict
+        let result = await response.json();
 
         // Convert all the fields and get values
         let spans = document.querySelectorAll(".stat");
@@ -103,10 +113,19 @@ document.addEventListener('DOMContentLoaded', function() {
             span.style.display = 'inline';
             i++;
         });
+
+        // Update username
+        console.log(result);
+        if (result['check'] == false)
+        {
+            // Input
+            document.querySelector('#username').value = result['value'];
+            // Div
+            document.querySelector('#username').parentElement.firstChild.innerHTML = result['value'];
+        }
         
 
         // Convert the form to a container
-        let form = document.querySelector('.informations');
         convert_to_div(form);
 
 

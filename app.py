@@ -20,6 +20,12 @@ app.config["SESSION_PERMANENT"] = False
 app.config["SESSION_TYPE"] = "filesystem"
 Session(app)
 
+# -------------------------- FONCTIONS ---------------------
+def convertion(dictionnaire):
+    for key in dictionnaire:
+        if (dictionnaire[key] == None) or (dictionnaire[key] == 'None'):
+            dictionnaire[key] = ''
+
 
 # ---------------------------------- HOME -------------------------------------
 
@@ -27,6 +33,10 @@ Session(app)
 @app.route("/")
 def home():
     return render_template("home.html", session=session)
+
+@app.route("/home")
+def home_red():
+    return redirect("/")
 
 
 # -------------------------------- LOGIN -----------------------------------------
@@ -47,12 +57,15 @@ def loggedin():
     inscrits = db.execute("SELECT * FROM people")
     for person in inscrits:
         if (username == person["username"]) and (password == person["password"]):
-            if person['pdp'] == 0:
-                person['pdp'] = ''
-            else:
+            # Convert
+            convertion(person)
+            
+            # Image
+            if person['pdp'] != '':
                 person['pdp'] = b64encode(person['pdp']).decode("utf-8")
-                
+            # Save in session
             session['compte'] = person.copy()
+            
             
             return render_template("loggedin.html", name=username)
 
@@ -77,11 +90,10 @@ def registered():
     password = request.form.get("password")
 
     # PDP
+    pdp = None
     img_bytes = request.files["pdp"]
     if img_bytes != None:
         pdp = img_bytes.stream.read()
-    else:
-        pdp = 0
 
     # Champs manquants
     if (not username) or (not email) or (not password):
@@ -101,20 +113,21 @@ def registered():
 def registerants():
     # If not connected
     global session
-    if 'compte' not in session:
+    if 'compte' not in session: #NOT LOGGED IN
         return redirect("/signin")
-    if session['compte']['admin'] == 0:
+    if session['compte']['admin'] == 0: #NOT ADMIN
         return redirect("/signin")
     
     
-    # Connected
+    # Inscrits
     inscrits = db.execute("SELECT * FROM people")
-    # Convert to image
     for person in inscrits:
-        if person['pdp'] != 0:
+        # Convert types of none
+        convertion(person)
+        
+        # pdp
+        if person['pdp'] != '':
             person['pdp'] = b64encode(person['pdp']).decode("utf-8")
-        else:
-            person['pdp'] = ''
         
 
     return render_template("inscrits.html", registrants=inscrits)
@@ -472,17 +485,68 @@ def restaurant():
 
 
 
-# ------------------ About us---------------------------
+# ------------------------------ About us ----------------------------------------
 @app.route("/aboutus", methods=["GET"])
 def aboutus():
     return render_template("aboutus.html", session=session)
 
 
 
-# -------------------- Profil -------------------
-@app.route("/profil", methods=["GET"])
+# ------------------------------- Profil ----------------------------------
+@app.route("/profil", methods=["GET", "POST"])
 def profil():
-    if 'compte' not in session:
-        return redirect("/login") 
+    # Normal page
+    if request.method == 'GET':
+        if 'compte' not in session:
+            return redirect("/login") 
+        
+        return render_template("profil.html", person=session['compte'])
     
-    return render_template("profil.html", person=session['compte'])
+    # Update page
+    if request.method == 'POST':
+        # Data
+        id = request.form.get("id")
+        username = request.form.get("username")
+        password = request.form.get("password")
+        first_name = request.form.get("first_name")
+        last_name = request.form.get("last_name")
+        adress = request.form.get("adress")
+        phone = request.form.get("phone")
+        email = request.form.get("email")
+        
+        # Check if username not used
+        # Response to JS (DEFAULT IS OK)
+        check_username = {
+            'check' : True,
+            'value' : username
+        }
+        # Search in DB
+        response = db.execute("SELECT id FROM people WHERE username=?", username)
+        
+        if response == []:    # DOESN'T EXIST
+            # Update
+            db.execute("UPDATE people SET username=? WHERE id=?", username, id)
+        else:
+            # Response to JS (NOT OK)
+            username = db.execute("SELECT username FROM people WHERE id=?", id)
+            check_username = {
+                'check' : False,
+                'value' : username[0]['username']
+            }
+            
+
+        # Update DB
+        db.execute('''UPDATE people SET
+                   password=?, first_name=?, last_name=?, adress=?, phone=?, email=?
+                   WHERE id=?''',password, first_name, last_name, adress, phone, email ,id)
+        
+        
+        # Update SESSION
+        persons = db.execute("SELECT * FROM people WHERE id=?", id)
+        person = persons[0]
+        convertion(person)
+        session['compte'] = person.copy()
+        
+        
+        
+        return check_username

@@ -13,5 +13,22 @@
 
 -- SELECT * FROM ingredients WHERE id IN (SELECT ingredient_id FROM dish_ingredient WHERE dish_id = 14);
 
-INSERT INTO people (username, email, password, pdp, admin)
-VALUES ('admin', 'admin@taste.com', 'admin123', 0, 1);
+INSERT INTO people (username, email, password, admin)
+VALUES ('admin', 'admin@taste.com', 'admin123', 1);
+
+-- CREATE TABLE people
+-- (
+--     id INTEGER NOT NULL PRIMARY KEY,
+
+--     username TEXT NOT NULL,
+--     email TEXT NOT NULL,
+--     password TEXT NOT NULL,
+
+--     pdp BLOB,
+--     admin INTEGER NOT NULL,
+
+--     first_name TEXT,
+--     last_name TEXT,
+--     adress TEXT,
+--     phone TEXT
+-- );

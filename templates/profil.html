@@ -97,6 +97,7 @@
 
             <!-- Infos -->
             <div class="informations">
+                <input name="id" type="hidden" value="{{ person['id'] }}">
                 <div class="info">
                     <div class="key">Username</div>
                     <div class="value">
@@ -114,15 +115,15 @@
                 <div class="info">
                     <div class="key">Nom</div>
                     <div class="value">
-                        <span class="stat">{{ person['nom'] }}</span>
-                        <input id="nom" name="nom" class="input" type="text" value="{{ person['name'] }}">
+                        <span class="stat">{{ person['last_name'] }}</span>
+                        <input id="last_name" name="last_name" class="input" type="text" value="{{ person['last_name'] }}">
                     </div>
                 </div>
                 <div class="info">
                     <div class="key">Prenom</div>
                     <div class="value">
-                        <span class="stat">{{ person['prenom'] }}</span>
-                        <input id="prenom" name="prenom" class="input" type="text" value="{{ person['prenom'] }}">
+                        <span class="stat">{{ person['first_name'] }}</span>
+                        <input id="first_name" name="first_name" class="input" type="text" value="{{ person['first_name'] }}">
                     </div>
                 </div>
                 <div class="info">
