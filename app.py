@@ -574,3 +574,8 @@ def profil():
         update_session(id)
         
         return check_username
+    
+    
+@app.route("/messages", methods=["GET", "POST"])
+def messagerie():
+    return render_template('messages.html', person=session['compte'])
