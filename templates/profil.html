@@ -46,8 +46,35 @@
         <div class="choices">
             <!-- Bonjour + pdp -->
             <div class="top">
+                <!-- Bonjour -->
                 <p class="bonjour">Bonjour, {{ person['username'] }}</p>
-                <img class="pdp" src="/static/img/pdp.png" alt="">
+                <!-- pdp -->
+                <div class="pdp_and_buttons">
+                    <div class="pdp_container">
+                        <!-- photo -->
+                        <div class="img_container">
+                            {% if person['pdp'] != '' %}
+                                <img class="pdp" src="data:;base64,{{ person['pdp'] }}" alt="PDP">
+                            {% else %}
+                                <img class="pdp" src="/static/img/pdp.png" alt="PDP">
+                            {% endif %}
+                        </div>
+
+                        <!-- Edit -->
+                        <label id="label_edit_pdp" class="label" for="pdp">
+                            <img class="edit_pdp" src="/static/img/edit.png" alt="">
+                        </label>
+                        <!-- Input -->
+                        <input id="pdp" type="file" name="pdp" hidden>
+                    </div>
+
+                    <!-- Save and cancel -->
+                    <div id="changes_pdp">
+                        <img id="cancel_pdp" src="/static/img/cancel.png" alt="">
+                        <img id="save_pdp" src="/static/img/save.png" alt="">
+                    </div>
+                </div>
+                
             </div>
             <!-- Separator -->
             <div class="divider-choices"></div>
@@ -89,7 +116,11 @@
             <div class="titre-edit">
                 <p class="titre">Informations</p>
                 <img id="edit" src="/static/img/edit.png" alt="">
-                <img id="save" src="/static/img/save.png" alt="">
+                <div id="changes">
+                    <img id="cancel" src="/static/img/cancel.png" alt="">
+                    <img id="save" src="/static/img/save.png" alt="">
+                </div>
+                
             </div>
 
             <!-- Separator -->
@@ -97,13 +128,14 @@
 
             <!-- Infos -->
             <div class="informations">
-                <input name="id" type="hidden" value="{{ person['id'] }}">
+                <input id="id" name="id" type="hidden" value="{{ person['id'] }}">
                 <div class="info">
                     <div class="key">Username</div>
                     <div class="value">
                         <span class="stat">{{ person['username'] }}</span>
                         <input id="username" name="username" class="input" type="text" value="{{ person['username'] }}">
                     </div>
+                    <span class="status"></span>
                 </div>
                 <div class="info" style="margin-bottom: 10px;">
                     <div class="key">Passsword</div>
@@ -111,6 +143,7 @@
                         <span class="stat">{{ person['password'] }}</span>
                         <input id="password" name="password" class="input" type="text" value="{{ person['password'] }}">
                     </div>
+                    <span class="status"></span>
                 </div>
                 <div class="info">
                     <div class="key">Nom</div>
@@ -118,6 +151,7 @@
                         <span class="stat">{{ person['last_name'] }}</span>
                         <input id="last_name" name="last_name" class="input" type="text" value="{{ person['last_name'] }}">
                     </div>
+                    <span class="status"></span>
                 </div>
                 <div class="info">
                     <div class="key">Prenom</div>
@@ -125,6 +159,7 @@
                         <span class="stat">{{ person['first_name'] }}</span>
                         <input id="first_name" name="first_name" class="input" type="text" value="{{ person['first_name'] }}">
                     </div>
+                    <span class="status"></span>
                 </div>
                 <div class="info">
                     <div class="key">Adresse</div>
@@ -132,6 +167,7 @@
                         <span class="stat">{{ person['adress'] }}</span>
                         <input id="adress" name="adress" class="input" type="text" value="{{ person['adress'] }}">
                     </div>
+                    <span class="status"></span>
                     
                 </div>
                 <div class="info">
@@ -140,6 +176,7 @@
                         <span class="stat">{{ person['phone'] }}</span>
                         <input id="phone" name="phone" class="input" type="text" value="{{ person['phone'] }}">
                     </div>
+                    <span class="status"></span>
                 </div>
                 <div class="info">
                     <div class="key">Email</div>
@@ -147,6 +184,7 @@
                         <span class="stat">{{ person['email'] }}</span>
                         <input id="email" name="email" class="input" type="text" value="{{ person['email'] }}">
                     </div>
+                    <span class="status"></span>
                 </div>
                 <input type="submit" hidden>
             </div>

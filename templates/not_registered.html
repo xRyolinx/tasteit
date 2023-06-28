@@ -1,6 +1,19 @@
 {% extends "template.html" %}
 
 {% block body %}
-    Echec d'inscription !
-    <p> Retourner à <a href="/">Home</a></p>
+    <p style="text-align: center; margin-top: 200px;">Echec d'inscription !</p>
+    <p style="text-align: center;"> Retourner à <a href="/">Home</a> dans <span>3</span> sec</p>
+
+    <script>
+        let i = 2;
+
+        setInterval(function() {
+            document.querySelector('span').innerHTML = i;
+            i--;
+        }, 1000);
+
+        setInterval(function() {
+            window.location = '/';
+        }, 3000);
+    </script>
 {% endblock %}

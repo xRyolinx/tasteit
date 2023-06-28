@@ -79,16 +79,105 @@ a {
             margin: 0;
         }
 
-        /* PDP */
-        .pdp {
-            width: 80px;
-            aspect-ratio: 1/1;
-            object-fit: cover;
+        /* PDP - edit */
+        .pdp_and_buttons {
+            /* position: relative; */
+            height: 80px;
+            width: 120px;
 
-            border-radius: 100%;
 
-            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+
+            /* background-color: red; */
+
+
+            /* pdp */
+            .pdp_container {
+                position: relative;
+                /* position: absolute; */
+
+                display: flex;
+                justify-content: flex-end;
+                align-items: flex-end;
+
+                height: 100%;
+                aspect-ratio: 1/1;
+
+                /* background-color: green; */
+
+                /* Image and edit */
+                .img_container {
+                    position: absolute;
+                    /* background-color: blue; */
+
+                    height: 100%;
+                    aspect-ratio: 1/1;
+
+                    left: 0;
+                    right: 0;
+                    margin: 0 auto;
+
+                    /* photo */
+                    .pdp {
+                        height: 100%;
+                        aspect-ratio: 1/1;
+                        object-fit: cover;
+            
+                        border-radius: 100%;
+                    }
+                }
+
+                /* Edit */
+                .label {
+                    z-index: 100;
+                    /* background-color: red; */
+                    
+                    display: flex;
+                    align-items: flex-end;
+
+                    /* display: none; */
+
+
+                    /* Button */
+                    .edit_pdp {
+                        width: 15px;
+                        cursor: pointer;
+
+                        /* background-color: gray; */
+                    }
+                }
+
+
+            }
+
+
+            /* save and cancel */
+            #changes_pdp {
+                width: 100%;
+                z-index: 100;
+
+                /* background-color: blue; */
+
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+
+                display: none;
+
+                /* Save, Cancel */
+                #save_pdp, #cancel_pdp {
+                    height: 15px;
+                    object-fit: cover;
+
+                    cursor: pointer;
+                }
+
+            }
+            
         }
+
     }
 
     /* SEPARATEUR ENTRE TOP ET BOTTOM */
@@ -185,17 +274,22 @@ a {
     /* TITRE */
     .titre-edit {
         width: 100%;
+        margin: 0 0 0.5rem 0;
+
         display: flex;
         justify-content: space-between;
         align-items: center;
+
+        /* background-color: blueviolet; */
         
         /* Titre */
-        .titre{
-            margin: 0 0 0.5rem 0;
-
+        .titre {
+            margin: 0;
             font-weight: bold;
             font-style: oblique;
             font-size: 2.2rem;
+
+            /* background-color: green; */
         }
 
         /* edit */
@@ -207,13 +301,29 @@ a {
             cursor: pointer;
         }
 
-        #save {
-            width: 40px;
-            aspect-ratio: 1/1;
-            object-fit: cover;
+        /* changes */
+        #changes {
 
-            cursor: pointer;
+            width: 80px;
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
             display: none;
+
+            /* background-color: red; */
+
+            /* Buttons */
+            #save, #cancel {
+                height: 20px;
+                /* aspect-ratio: 1/1; */
+                object-fit: cover;
+    
+                cursor: pointer;
+
+                /* background-color: blue; */
+            }
         }
     }
 
@@ -270,28 +380,49 @@ a {
             /* Value */
             .value {
                 height: 100%;
-                width: 55%;
+                width: 35%;
 
                 display: flex;
+                justify-content: left;
                 align-items: center;
 
                 /* background-color:blueviolet; */
+                
+                /* DIV */
+                .stat {
+                    width: 100%;
+                    padding: 0 10px;
+    
+                    /* background-color: red; */
+                }
+
+                /* input */
+                .input {
+                    height: 80%;
+                    width: 100%;
+                    border: 1px solid orange;
+    
+                    border-radius: 10px;
+                    padding: 0 10px;
+    
+                    font-size: 1.1rem;
+                    font-style: italic;
+                    font-family: Arial, Helvetica, sans-serif;
+    
+                    display: none;
+                }
             }
 
-            .input {
-                height: 80%;
-                width: 60%;
-                border: 1px solid orange;
+            /* SERVER MSG */
+            .status {
+                flex-grow: 1;
+                font-size: 0.8rem;
 
-                border-radius: 15px;
-                padding: 0 20px;
-                margin-left: -20px;
+                padding-left: 2rem;
 
-                font-size: 1.1rem;
-                font-style: italic;
-                font-family: Arial, Helvetica, sans-serif;
-
-                display: none;
+                color: red;
+                
+                /* background-color: blue; */
             }
         }
     }

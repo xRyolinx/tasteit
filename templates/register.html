@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sign Up</title>
     <!-- CSS -->
-    <link rel="stylesheet" href="/static/css/signin_signup.css">
+    <link rel="stylesheet" href="/static/css/signup.css">
     <!-- Nav -->
     <link rel="stylesheet" href="/static/navbar/navbar.css">
     <script src="/static/navbar/navbar.js"></script>
@@ -45,22 +45,25 @@
     <p>Inscrivez-vous pour profiter de toutes les fonctionnalitées de notre site</p>
     
     <!-- Inscription -->
-    <form method="POST" action="/registered" class="container" enctype = "multipart/form-data">
+    <form method="POST" action="/register" class="container" enctype = "multipart/form-data">
         <h1 class="titre_connect">Inscription</h1>
-        <input name="username" type="text" placeholder="Enter your user name" class="champ">
-        <input name="email" type="email" placeholder="Enter your email" class="champ">
-        <input name="password" type="password" placeholder="Enter your password" class="champ">
-        <input id="pdp" name="pdp" type="file">
+        <div class="champs">
+            <input name="username" type="text" autofocus
+            placeholder="Enter your username" class="champ">
 
+            <input name="email" type="email"
+            placeholder="Enter your email" class="champ">
 
-        <a href="javascript:{}" onclick="document.querySelector('form').submit();" class="bouton_connect">S'inscrire</a>
+            <input name="password" type="password"
+            placeholder="Enter your password" class="champ">
 
-        <button type="submit" style="display: none;"></button>
+            <input type="submit" class="bouton_connect" value="S'inscrire">
+        </div>
     </form>
 
     <!-- Fin -->
     <p>En cliquant sur Inscrivez vous, vous indiquez que vous avez lu, compris et accepté les
-        <a href="">conditions d'utilisation</a>.</p>
+        <a class="conditions" href="">conditions d'utilisation</a>.</p>
 
 </body>
 </html>

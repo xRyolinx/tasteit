@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="static/css/signin_signup.css">
+    <link rel="stylesheet" href="static/css/signin.css">
     <!-- Nav -->
     <link rel="stylesheet" href="/static/navbar/navbar.css">
     <script src="/static/navbar/navbar.js"></script>
@@ -37,18 +37,26 @@
     <!-- Champs a remplir -->
     <form class="container" method="POST" action="/loggedin">
         <h1 class="titre_connect">Connexion</h1>
+        <div class="champs">
+            <input name="username" type="text"
+            placeholder="Enter you username or email" class="champ" autofocus>
 
-        <input name="username" type="text" placeholder="Enter you username or email" class="champ" >
-        <input name="password" type="password" placeholder="Enter your password" class="champ">
+            <input name="password" type="password"
+            placeholder="Enter your password" class="champ">  
+            
+            <!-- <div class="submit_container"> -->
+                <input type="submit" class="bouton_connect" value="S'inscrire">
+            <!-- </div> -->
+        </div>
 
-        <a href="javascript:{}" onclick="document.querySelector('form').submit();" class="bouton_connect">Se connecter</a>
-
-        <button type="submit" style="display: none;"></button>
        
     </form>
 
     <!-- Create account -->
-    <p>Don't have an account ? <a href="/register" id="create">Create one now</a></p>
+    <p>
+        Don't have an account ?
+        <a class="inscrire" href="/register" id="create">Create one now</a>
+    </p>
 
         
 </body>

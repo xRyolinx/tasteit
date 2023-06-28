@@ -21,10 +21,25 @@ app.config["SESSION_TYPE"] = "filesystem"
 Session(app)
 
 # -------------------------- FONCTIONS ---------------------
+
+# Convert none values to ''
 def convertion(dictionnaire):
     for key in dictionnaire:
         if (dictionnaire[key] == None) or (dictionnaire[key] == 'None'):
             dictionnaire[key] = ''
+            
+
+# Update session
+def update_session(id):
+    # Values
+    results = db.execute("SELECT * FROM people WHERE id = ?", id)
+    person = results[0]
+    convertion(person)
+    # PDP
+    if person['pdp'] != '':
+        person['pdp'] = b64encode(person['pdp']).decode("utf-8")
+    # Save in session
+    session['compte'] = person.copy()
 
 
 # ---------------------------------- HOME -------------------------------------
@@ -44,7 +59,7 @@ def home_red():
 # Connexion
 @app.route("/signin", methods=["GET", "POST"])
 def login():
-    return render_template("login.html", session=session)
+    return render_template("signin.html", session=session)
 
 
 # Loggedin
@@ -57,15 +72,8 @@ def loggedin():
     inscrits = db.execute("SELECT * FROM people")
     for person in inscrits:
         if (username == person["username"]) and (password == person["password"]):
-            # Convert
-            convertion(person)
-            
-            # Image
-            if person['pdp'] != '':
-                person['pdp'] = b64encode(person['pdp']).decode("utf-8")
             # Save in session
-            session['compte'] = person.copy()
-            
+            update_session(person['id'])
             
             return render_template("loggedin.html", name=username)
 
@@ -78,33 +86,34 @@ def loggedin():
 # Page d'inscription
 @app.route("/register", methods=["GET", "POST"])
 def register():
-    return render_template("register.html", session=session)
+    # S'inscrire
+    if request.method == 'GET':
+        return render_template("register.html", session=session)
+    
+    # Inscrire l'eleve
+    if request.method == 'POST':
+        # Sauvergarder l'eleve
+        username = request.form.get("username")
+        email = request.form.get("email")
+        password = request.form.get("password")
 
+        # PDP
+        pdp = None
+        # img_bytes = request.files["pdp"]
+        # if img_bytes != None:
+            # pdp = img_bytes.stream.read()
 
-# Inscrire l'eleve
-@app.route("/registered", methods=["GET", "POST"])
-def registered():
-    # Sauvergarder l'eleve
-    username = request.form.get("username")
-    email = request.form.get("email")
-    password = request.form.get("password")
+        # Champs manquants
+        if (not username) or (not email) or (not password):
+            return render_template("not_registered.html")
 
-    # PDP
-    pdp = None
-    img_bytes = request.files["pdp"]
-    if img_bytes != None:
-        pdp = img_bytes.stream.read()
+        # Inserer
+        db.execute("INSERT INTO people (username, email, password, pdp, admin) VALUES(?, ?, ?, ?, 0)",
+                username, email, password, pdp)
 
-    # Champs manquants
-    if (not username) or (not email) or (not password):
-        return render_template("not_registered.html")
+        return render_template("registered.html")
 
-    # Inserer
-    db.execute("INSERT INTO people (username, email, password, pdp, admin) VALUES(?, ?, ?, ?, 0)",
-               username, email, password, pdp)
-
-    return render_template("registered.html")
-
+    
 
 # ------------------------------- ADMIN ----------------------------------------
 
@@ -498,12 +507,32 @@ def profil():
     # Normal page
     if request.method == 'GET':
         if 'compte' not in session:
-            return redirect("/login") 
+            return redirect("/signin") 
         
         return render_template("profil.html", person=session['compte'])
     
     # Update page
     if request.method == 'POST':
+        # UPDATE PDP
+        pdp = request.files.get('pdp')
+        if pdp != None:
+            id = request.form.get('id')
+            pdp = pdp.stream.read()
+            
+            # Add to database
+            db.execute("UPDATE people SET pdp = ? WHERE id = ?", pdp, id)
+            
+            # Save in session
+            update_session(id)
+            
+            return {
+                'rep' : 'ok',
+            }
+            
+        
+        
+        
+        
         # Data
         id = request.form.get("id")
         username = request.form.get("username")
@@ -541,12 +570,7 @@ def profil():
                    WHERE id=?''',password, first_name, last_name, adress, phone, email ,id)
         
         
-        # Update SESSION
-        persons = db.execute("SELECT * FROM people WHERE id=?", id)
-        person = persons[0]
-        convertion(person)
-        session['compte'] = person.copy()
-        
-        
+        # Save in session
+        update_session(id)
         
         return check_username
