@@ -71,7 +71,7 @@ let last_id = 0;
 //Start
 document.addEventListener('DOMContentLoaded', function() {
     // Web socket
-    const socket = io({autoConnect: false});
+    // const socket = io({autoConnect: false});
 
     // Get first child
     let first = document.querySelector('.courrier').firstElementChild.id;

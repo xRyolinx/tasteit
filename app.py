@@ -1,11 +1,11 @@
 from flask import Flask, render_template, request, redirect, session
 from flask_session import Session
 
-from flask_socketio import SocketIO, send, emit
+# from flask_socketio import SocketIO, send, emit
 
 from cs50 import SQL
 
-from werkzeug.utils import secure_filename
+# from werkzeug.utils import secure_filename
 from base64 import b64encode
 
 
@@ -17,8 +17,8 @@ app = Flask(__name__)
 app.debug = True
 
 # Web socket
-socketio = SocketIO(app)
-socketio.run(app)
+# socketio = SocketIO(app)
+# socketio.run(app)
 
 
 # Configure Session
