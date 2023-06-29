@@ -13,22 +13,22 @@
 
 -- SELECT * FROM ingredients WHERE id IN (SELECT ingredient_id FROM dish_ingredient WHERE dish_id = 14);
 
-INSERT INTO people (username, email, password, admin)
-VALUES ('admin', 'admin@taste.com', 'admin123', 1);
+-- INSERT INTO people (username, email, password, admin)
+-- VALUES ('admin', 'admin@taste.com', 'admin123', 1);
 
--- CREATE TABLE people
--- (
---     id INTEGER NOT NULL PRIMARY KEY,
+CREATE TABLE messages
+(
+    id INTEGER NOT NULL PRIMARY KEY,
 
---     username TEXT NOT NULL,
---     email TEXT NOT NULL,
---     password TEXT NOT NULL,
+    id_sent INTEGER NOT NULL,
+    id_received INTEGER NOT NULL,
 
---     pdp BLOB,
---     admin INTEGER NOT NULL,
+    message TEXT NOT NULL,
 
---     first_name TEXT,
---     last_name TEXT,
---     adress TEXT,
---     phone TEXT
--- );
+    FOREIGN KEY (id_sent) REFERENCES people (id),
+    FOREIGN KEY (id_received) REFERENCES people (id)
+);
+
+
+
+SELECT * FROM messages WHERE ( (id > 3) AND ((1 = id_sent AND 2 = id_received)OR(1 = id_received AND 2 = id_sent)));

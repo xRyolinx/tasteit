@@ -104,37 +104,24 @@
 
             <!-- Courrier -->
             <div class="courrier">
-                <div class="person" style="background-color: orange;">
-                    <input id="id" name="id" type="hidden" value="">
-                    <div class="pdp_courrier_container">
-                        <img class="pdp_courrier" src="/static/img/pdp.png" alt="">
+                {% for user in people %}
+                {% if user['id'] != person['id'] %}
+                    <div id={{ user['id'] }} onClick="load_destinataire({{ user['id'] }})" class="person">
+                        <!-- style="background-color: orange;" -->
+                        <div class="pdp_courrier_container">
+                            {% if user['pdp'] != '' %}
+                                <img class="nav_pdp" style="cursor: default;" src="data:;base64,{{ user['pdp'] }}" alt="PDP">
+                            {% else %}
+                                <img class="nav_pdp" style="cursor: default;" src="/static/img/pdp.png" alt="PDP">
+                            {% endif %}
+                        </div>
+                        <div class="courrier_txt">
+                            <p class="name_courrier">{{ user['username'] }}</p>
+                            <!-- <em class="last_mail">Coucou</em> -->
+                        </div>
                     </div>
-                    <div class="courrier_txt">
-                        <p class="name_courrier">Rabia Manil</p>
-                        <em class="last_mail">Coucou</em>
-                    </div>
-                </div>
-                <div class="person">
-                    <input id="id" name="id" type="hidden" value="">
-                    <div class="pdp_courrier_container">
-                        <img class="pdp_courrier" src="/static/img/pdp.png" alt="">
-                    </div>
-                    <div class="courrier_txt">
-                        <p class="name_courrier">Gucci Amira</p>
-                        <em class="last_mail">Zipette...</em>
-                    </div>
-                </div>
-                <div class="person">
-                    <input id="id" name="id" type="hidden" value="">
-                    <div class="pdp_courrier_container">
-                        <img class="pdp_courrier" src="/static/img/pdp.png" alt="">
-                    </div>
-                    <div class="courrier_txt">
-                        <p class="name_courrier">Amine kalitous</p>
-                        <em class="last_mail">Eh nigga</em>
-                    </div>
-                </div>
-                
+                {% endif %}
+                {% endfor %}
             </div>
 
         </div>
@@ -144,7 +131,7 @@
         <!-- Messagerie -->
         <div class="messagerie">
             <!-- Info destinataire -->
-            <div class="destinataire">
+            <div id="1" class="destinataire">
                 <div class="info">
                     <img class="pdp_messagerie" src="/static/img/pdp.png" alt="">
                     <p class="name_message">Rabia Manil</p>
@@ -155,30 +142,16 @@
             <!-- Messages -->
             <div class="messages_container">
                 <div class="messages">
-                    <div class="msg_sent">
-                        <p class="msg">Cc ziiiiiiiine waaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa3333333333333</p>
-                    </div>
-
-                    <div class="msg_received">
-                        <img class="pdp_message" src="/static/img/pdp.png" alt="">
-                        <div class="txt_msg">
-                            <p class="name_msg">Manil</p>
-                            <p class="msg">Wiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaasel3a aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaasel3a</p>
-                        </div>
-                    </div>
-
-                    <div class="msg_sent">
-                        <p class="msg">Khlas bela3</p>
-                    </div>
+                    <input id='0' type="hidden">
                 </div>
             </div>
 
             <!-- Input -->
             <div class="user_input">
-                <input class="text_zone" type="text" name="" placeholder="Your message...">
+                <input class="text_zone" type="text" name="input" placeholder="Your message...">
                 <div class="icones">
-                    <img class="icone" src="/static/img/coeur.png" alt="">
-                    <img class="icone" src="/static/img/save.png" alt="">
+                    <img id="file" class="icone" src="/static/img/coeur.png" alt="">
+                    <img id="send" class="icone" src="/static/img/save.png" alt="">
                 </div>
             </div>
         </div>

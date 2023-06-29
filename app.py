@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, redirect, session
 from flask_session import Session
 
-from flask_socketio import SocketIO
+from flask_socketio import SocketIO, send, emit
 
 from cs50 import SQL
 
@@ -12,12 +12,13 @@ from base64 import b64encode
 # DB
 db = SQL("sqlite:///tasteit.db")
 
-# Web socket
-socketio = SocketIO()
-
 # Run flask
 app = Flask(__name__)
 app.debug = True
+
+# Web socket
+socketio = SocketIO(app)
+socketio.run(app)
 
 
 # Configure Session
@@ -41,10 +42,22 @@ def update_session(id):
     person = results[0]
     convertion(person)
     # PDP
-    if person['pdp'] != '':
-        person['pdp'] = b64encode(person['pdp']).decode("utf-8")
+    update_person(person)
     # Save in session
     session['compte'] = person.copy()
+
+
+# Update person
+def update_person(person):
+    if person['pdp'] != None:
+            person['pdp'] = b64encode(person['pdp']).decode("utf-8")
+
+
+# Update people
+def update_people(people):
+    for person in people:
+        update_person(person)
+        convertion(person)
 
 
 # ---------------------------------- HOME -------------------------------------
@@ -580,7 +593,49 @@ def profil():
         
         return check_username
     
-    
+
+# ------------------------------ MESSAGES ----------------------------
 @app.route("/messages", methods=["GET", "POST"])
 def messagerie():
-    return render_template('messages.html', person=session['compte'])
+    # Get all people
+    people = db.execute('SELECT * FROM people')
+    update_people(people)
+    
+    return render_template('messages.html', person=session['compte'], people=people)
+
+# Connected
+@socketio.on("connect")
+def handle_connect():
+    print('CONNECTED SUCCESSFULLY')
+    
+
+# Message sent
+@socketio.on("send")
+def send(msg, id_destinataire):
+    # Id of logged account
+    id = session['compte']['id']
+    
+    # Send to db
+    db.execute("INSERT INTO messages (id_sent, message, id_received) VALUES (?, ?, ?)", id, msg, id_destinataire)
+
+
+# Receiving messages
+@socketio.on("receive")
+def receive(id_destinataire, last_id):
+    # Id of logged account
+    id = session['compte']['id']
+        
+    # Search
+    responses = db.execute('''
+                            SELECT * FROM messages WHERE ((id > ?) AND
+                            (
+                                (? = id_sent AND ? = id_received)
+                                OR
+                                (? = id_received AND ? = id_sent)
+                            )
+                        )''', last_id, id, id_destinataire, id, id_destinataire) 
+    
+    # Send response 
+    if responses != []:
+        emit('receive', responses)
+    

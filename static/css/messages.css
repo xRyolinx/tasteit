@@ -232,6 +232,8 @@ a {
             justify-content: left;
             align-items: center;
 
+            cursor: pointer;
+
 
             /* photo */
             .pdp_courrier_container {
@@ -266,6 +268,7 @@ a {
                 display: flex;
                 flex-direction: column;
                 justify-content: space-between;
+                justify-content: center;
                 align-items: flex-start;
 
 
@@ -389,7 +392,7 @@ a {
 
     .messages {
         /* background-color: red; */
-        min-height: 120%;
+        min-height: 100%;
 
         padding: 1rem;
 
