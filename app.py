@@ -1,6 +1,8 @@
 from flask import Flask, render_template, request, redirect, session
 from flask_session import Session
 
+from flask_socketio import SocketIO
+
 from cs50 import SQL
 
 from werkzeug.utils import secure_filename
@@ -9,6 +11,9 @@ from base64 import b64encode
 
 # DB
 db = SQL("sqlite:///tasteit.db")
+
+# Web socket
+socketio = SocketIO()
 
 # Run flask
 app = Flask(__name__)

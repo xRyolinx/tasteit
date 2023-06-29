@@ -5,10 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Messagerie</title>
 
+    <!-- socket -->
+    <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
+
     <!-- css -->
     <link rel="stylesheet" href="/static/css/messages.css">
     <!-- js -->
     <script src="/static/js/messages.js"></script>
+
     <!-- Nav -->
     <link rel="stylesheet" href="/static/navbar/navbar.css">
     <script src="/static/navbar/navbar.js"></script>
@@ -149,20 +153,23 @@
             </div>
 
             <!-- Messages -->
-            <div class="messages">
-                <div class="msg_sent">
-                    <p class="msg">Cc ziiiiiiiine waaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa3333333333333</p>
-                </div>
-
-                <div class="msg_received">
-                    <img class="pdp_message" src="/static/img/pdp.png" alt="">
-                    <div class="txt_msg">
-                        <p class="msg">Wiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaasel3a aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaasel3a</p>
+            <div class="messages_container">
+                <div class="messages">
+                    <div class="msg_sent">
+                        <p class="msg">Cc ziiiiiiiine waaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa3333333333333</p>
                     </div>
-                </div>
 
-                <div class="msg_sent">
-                    <p class="msg">Khlas bela3</p>
+                    <div class="msg_received">
+                        <img class="pdp_message" src="/static/img/pdp.png" alt="">
+                        <div class="txt_msg">
+                            <p class="name_msg">Manil</p>
+                            <p class="msg">Wiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaasel3a aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaasel3a</p>
+                        </div>
+                    </div>
+
+                    <div class="msg_sent">
+                        <p class="msg">Khlas bela3</p>
+                    </div>
                 </div>
             </div>
 
