@@ -40,9 +40,11 @@ def update_session(id):
     # Values
     results = db.execute("SELECT * FROM people WHERE id = ?", id)
     person = results[0]
-    convertion(person)
     # PDP
     update_person(person)
+    # Blank
+    convertion(person)
+
     # Save in session
     session['compte'] = person.copy()
 
