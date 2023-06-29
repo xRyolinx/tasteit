@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, redirect, session
 from flask_session import Session
 
-from flask_socketio import SocketIO, send, emit
+# from flask_socketio import SocketIO, send, emit
 
 from cs50 import SQL
 
@@ -17,8 +17,8 @@ app = Flask(__name__)
 app.debug = True
 
 # Web socket
-socketio = SocketIO(app)
-socketio.run(app)
+# socketio = SocketIO(app)
+# socketio.run(app)
 
 
 # Configure Session
@@ -604,27 +604,39 @@ def messagerie():
     return render_template('messages.html', person=session['compte'], people=people)
 
 # Connected
-@socketio.on("connect")
-def handle_connect():
-    print('CONNECTED SUCCESSFULLY')
+# @socketio.on("connect")
+# def handle_connect():
+#     print('CONNECTED SUCCESSFULLY')
     
 
 # Message sent
-@socketio.on("send")
-def send(msg, id_destinataire):
+# @socketio.on("send")
+@app.route('/send', methods=['POST'])
+def send():
     # Id of logged account
     id = session['compte']['id']
+    # Data sent
+    id_destinataire = request.form.get('id_destinataire')
+    msg = request.form.get('msg')
     
     # Send to db
     db.execute("INSERT INTO messages (id_sent, message, id_received) VALUES (?, ?, ?)", id, msg, id_destinataire)
 
+    # end
+    return {'status' : 'ok'}
 
 # Receiving messages
-@socketio.on("receive")
-def receive(id_destinataire, last_id):
+# @socketio.on("receive")
+@app.route('/receive', methods=['POST'])
+def receive():
+    
     # Id of logged account
     id = session['compte']['id']
-        
+    # Data sent
+    id_destinataire = request.form.get('id_destinataire')
+    last_id = request.form.get('last_id')
+    
+            
     # Search
     responses = db.execute('''
                             SELECT * FROM messages WHERE ((id > ?) AND
@@ -637,5 +649,13 @@ def receive(id_destinataire, last_id):
     
     # Send response 
     if responses != []:
-        emit('receive', responses)
+        # emit('receive', responses)
+        return {
+            'status' : True,
+            'data' : responses
+        }
+    else:
+        return {
+            'status' : False,
+        }
     
