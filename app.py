@@ -603,39 +603,39 @@ def messagerie():
     
     return render_template('messages.html', person=session['compte'], people=people)
 
-# Connected
-@socketio.on("connect")
-def handle_connect():
-    print('CONNECTED SUCCESSFULLY')
+# # Connected
+# @socketio.on("connect")
+# def handle_connect():
+#     print('CONNECTED SUCCESSFULLY')
     
 
-# Message sent
-@socketio.on("send")
-def send(msg, id_destinataire):
-    # Id of logged account
-    id = session['compte']['id']
+# # Message sent
+# @socketio.on("send")
+# def send(msg, id_destinataire):
+#     # Id of logged account
+#     id = session['compte']['id']
     
-    # Send to db
-    db.execute("INSERT INTO messages (id_sent, message, id_received) VALUES (?, ?, ?)", id, msg, id_destinataire)
+#     # Send to db
+#     db.execute("INSERT INTO messages (id_sent, message, id_received) VALUES (?, ?, ?)", id, msg, id_destinataire)
 
 
-# Receiving messages
-@socketio.on("receive")
-def receive(id_destinataire, last_id):
-    # Id of logged account
-    id = session['compte']['id']
+# # Receiving messages
+# @socketio.on("receive")
+# def receive(id_destinataire, last_id):
+#     # Id of logged account
+#     id = session['compte']['id']
         
-    # Search
-    responses = db.execute('''
-                            SELECT * FROM messages WHERE ((id > ?) AND
-                            (
-                                (? = id_sent AND ? = id_received)
-                                OR
-                                (? = id_received AND ? = id_sent)
-                            )
-                        )''', last_id, id, id_destinataire, id, id_destinataire) 
+#     # Search
+#     responses = db.execute('''
+#                             SELECT * FROM messages WHERE ((id > ?) AND
+#                             (
+#                                 (? = id_sent AND ? = id_received)
+#                                 OR
+#                                 (? = id_received AND ? = id_sent)
+#                             )
+#                         )''', last_id, id, id_destinataire, id, id_destinataire) 
     
-    # Send response 
-    if responses != []:
-        emit('receive', responses)
+#     # Send response 
+#     if responses != []:
+#         emit('receive', responses)
     

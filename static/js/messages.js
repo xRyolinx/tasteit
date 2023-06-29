@@ -111,37 +111,37 @@ document.addEventListener('DOMContentLoaded', function() {
     formData = new FormData();
     formData.append('id_destinataire', id_destinataire);
 
-    // Long polling
-    setInterval(function() {
-        socket.connect();
-        socket.emit("receive", id_destinataire, last_id);
-    },500);
+    // // Long polling
+    // setInterval(function() {
+    //     socket.connect();
+    //     socket.emit("receive", id_destinataire, last_id);
+    // },500);
 
-    // Get response
-    socket.on('receive', function(data) {
-        // Update chat box
-        let messages = document.querySelector('.messages');
-        data.forEach(message => {
-            // Name and pdp
-            let destinataire = document.querySelector('.destinataire');
-            let username = destinataire.children[0].children[1].innerHTML;
-            let pdp = destinataire.children[0].children[0].src;
+    // // Get response
+    // socket.on('receive', function(data) {
+    //     // Update chat box
+    //     let messages = document.querySelector('.messages');
+    //     data.forEach(message => {
+    //         // Name and pdp
+    //         let destinataire = document.querySelector('.destinataire');
+    //         let username = destinataire.children[0].children[1].innerHTML;
+    //         let pdp = destinataire.children[0].children[0].src;
 
-            if (message['id_sent'] == id_destinataire)
-            {
-                add_new_msg_received(messages, message, username, pdp);
-            }
-            else
-            {
-                add_new_msg_sent(messages, message);
-            }
+    //         if (message['id_sent'] == id_destinataire)
+    //         {
+    //             add_new_msg_received(messages, message, username, pdp);
+    //         }
+    //         else
+    //         {
+    //             add_new_msg_sent(messages, message);
+    //         }
 
-            last_id = message['id'];
-        });
+    //         last_id = message['id'];
+    //     });
 
-        // Scroll
-        let msg_container = document.querySelector('.messages_container');
-        msg_container.scrollTop = msg_container.scrollHeight;
-    });
+    //     // Scroll
+    //     let msg_container = document.querySelector('.messages_container');
+    //     msg_container.scrollTop = msg_container.scrollHeight;
+    // });
 
 });
