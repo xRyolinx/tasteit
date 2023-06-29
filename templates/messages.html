@@ -103,25 +103,27 @@
             <div class="divider-boite"></div>
 
             <!-- Courrier -->
-            <div class="courrier">
-                {% for user in people %}
-                {% if user['id'] != person['id'] %}
-                    <div id={{ user['id'] }} onClick="load_destinataire({{ user['id'] }})" class="person">
-                        <!-- style="background-color: orange;" -->
-                        <div class="pdp_courrier_container">
-                            {% if user['pdp'] != '' %}
-                                <img class="nav_pdp" style="cursor: default;" src="data:;base64,{{ user['pdp'] }}" alt="PDP">
-                            {% else %}
-                                <img class="nav_pdp" style="cursor: default;" src="/static/img/pdp.png" alt="PDP">
-                            {% endif %}
+            <div class="courrier_container">
+                <div class="courrier">
+                    {% for user in people %}
+                    {% if user['id'] != person['id'] %}
+                        <div id={{ user['id'] }} onClick="load_destinataire({{ user['id'] }})" class="person">
+                            <!-- style="background-color: orange;" -->
+                            <div class="pdp_courrier_container">
+                                {% if user['pdp'] != '' %}
+                                    <img class="nav_pdp" style="cursor: default;" src="data:;base64,{{ user['pdp'] }}" alt="PDP">
+                                {% else %}
+                                    <img class="nav_pdp" style="cursor: default;" src="/static/img/pdp.png" alt="PDP">
+                                {% endif %}
+                            </div>
+                            <div class="courrier_txt">
+                                <p class="name_courrier">{{ user['username'] }}</p>
+                                <!-- <em class="last_mail">Coucou</em> -->
+                            </div>
                         </div>
-                        <div class="courrier_txt">
-                            <p class="name_courrier">{{ user['username'] }}</p>
-                            <!-- <em class="last_mail">Coucou</em> -->
-                        </div>
-                    </div>
-                {% endif %}
-                {% endfor %}
+                    {% endif %}
+                    {% endfor %}
+                </div>
             </div>
 
         </div>
