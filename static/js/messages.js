@@ -39,48 +39,10 @@ function removeChildren(parent) {
     }
 }
 
-// Load Destinataire
-function load_destinataire(id) {
-    let person = document.getElementById(id);
 
-    // Change informations at the top of discussion
-    // id
-    let destinataire = document.querySelector('.destinataire');
-    destinataire.id = id;
-    // pdp
-    let pdp = destinataire.children[0].children[0];
-    pdp.src = person.children[0].children[0].src;
-    // username
-    let username = destinataire.children[0].children[1];
-    username.innerHTML = person.children[1].children[0].innerHTML;
-
-    // Clear discussion
-    removeChildren(document.querySelector('.messages'));
-    
-    // Change global data
-    formData.set('id_destinataire' , id);
-    formData.set('last_id', 0);
-}
-
-
-// 1. Call helloCatAsync passing a callback function,
-//    which will be called receiving the result from the async operation
-
-
-// Long polling
-async function polling() {
-    // socket.connect();
-    // socket.emit("receive", id_destinataire, last_id);
-    let response = await fetch('/receive', {
-        method : 'post',
-        body : formData
-    })
-    response = await response.json();
-
-    console.log(response);
-
-    // Get response
-    let last_id = 0;
+// Update messages
+function update_messages(response)
+{
     if (response['status'] == true)
     {
         // data
@@ -102,23 +64,129 @@ async function polling() {
                 add_new_msg_sent(messages, message);
             }
 
-            last_id = message['id'];
+            formData.set('last_id', message['id']);
         });
 
         // Scroll
         let msg_container = document.querySelector('.messages_container');
         msg_container.scrollTop = msg_container.scrollHeight;
     }
-
-    // Return
-    return last_id;
 }
+
+
+// Polling from db
+async function polling(formdata) {
+    // To abort
+    console.log('start');
+    return (
+        fetch('/poll', {
+            method : 'post',
+            body : formdata,
+        })
+
+        // Get response
+        .then(response => response.json())
+    );
+}
+
+
+
+// Long polling
+function long_polling()
+{
+    // Prepare data
+    formData.set('stop', false)
+    request_sent = true;
+
+    // Wait response
+    polling(formData)   //get data
+    .then( function(response) {
+        // Process aborted
+        if (response['status'] == false)
+        {
+            console.log('Flask process aborted !');
+            long_polling();
+            return;
+        }
+
+        // Update messages
+        console.log(response);
+        update_messages(response);
+
+        // Relance polling
+        long_polling();
+    })
+}
+
+
+async function stop_receive()
+{
+    // Stop running request in server
+    return (
+        await fetch('/poll', {
+        method : 'post',
+        body : formData,
+        })
+    );
+}
+
+
+// Load Destinataire
+function load_destinataire(id) {
+    if(request_sent == true)
+    {
+        // Stopping current process
+        console.log('Stoping flask request...');
+    }
+
+    // Prepare data
+    formData.set('stop', true);
+
+    stop_receive()
+    .then(function() {
+        console.log('Request to stop sent...');
+        relance_apres_arret = true;
+
+        // Person choosen
+        let person = document.getElementById(id);
+
+        // Change informations at the top of discussion :
+        // id
+        let destinataire = document.querySelector('.destinataire');
+        destinataire.id = id;
+        // pdp
+        let pdp = destinataire.children[0].children[0];
+        pdp.src = person.children[0].children[0].src;
+        // username
+        let username = destinataire.children[0].children[1];
+        username.innerHTML = person.children[1].children[0].innerHTML;
+
+        // Clear discussion
+        removeChildren(document.querySelector('.messages'));
+        
+        // Change global data
+        formData.set('id_destinataire' , id);
+        formData.set('last_id', 0);
+
+        // polling at the start
+        if(request_sent == false)
+        {
+            long_polling();
+        }
+    });
+}
+
 
 
 // Global data
 let formData = new FormData();
 formData.set('id_destinataire' , 0);
 formData.set('last_id', 0);
+formData.set('stop', false);
+
+// To resend fetch after abort
+request_sent = false;
+
 
 
 //Start
@@ -171,18 +239,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
     // Long polling
-    setInterval(function() {
-        polling().then(function(result) {
-            // update last id
-            if (result != 0)
-            {
-                formData.set('last_id', result);
-            }
-            console.log(formData.get('last_id'));
-            
-        });
-    }, 1000);
-    
+    // setInterval(function()
+    // {
+    // long_polling();
+    // }, 4000);
     
 
     // Get response

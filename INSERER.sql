@@ -16,19 +16,34 @@
 -- INSERT INTO people (username, email, password, admin)
 -- VALUES ('admin', 'admin@taste.com', 'admin123', 1);
 
-CREATE TABLE messages
+-- CREATE TABLE messages
+-- (
+--     id INTEGER NOT NULL PRIMARY KEY,
+
+--     id_sent INTEGER NOT NULL,
+--     id_received INTEGER NOT NULL,
+
+--     message TEXT NOT NULL,
+
+--     FOREIGN KEY (id_sent) REFERENCES people (id),
+--     FOREIGN KEY (id_received) REFERENCES people (id)
+-- );
+
+
+
+-- SELECT * FROM messages WHERE ( (id > 3) AND ((1 = id_sent AND 2 = id_received)OR(1 = id_received AND 2 = id_sent)));
+
+
+
+CREATE TABLE receive
 (
     id INTEGER NOT NULL PRIMARY KEY,
 
-    id_sent INTEGER NOT NULL,
-    id_received INTEGER NOT NULL,
+    id_user INTEGER NOT NULL,
+    id_dest INTEGER NOT NULL,
+    val TEXT NOT NULL,
 
-    message TEXT NOT NULL,
 
-    FOREIGN KEY (id_sent) REFERENCES people (id),
-    FOREIGN KEY (id_received) REFERENCES people (id)
+    FOREIGN KEY (id_user) REFERENCES people (id),
+    FOREIGN KEY (id_dest) REFERENCES people (id)
 );
-
-
-
-SELECT * FROM messages WHERE ( (id > 3) AND ((1 = id_sent AND 2 = id_received)OR(1 = id_received AND 2 = id_sent)));

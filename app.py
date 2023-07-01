@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, redirect, session
 from flask_session import Session
+import time
 
 # from flask_socketio import SocketIO, send, emit
 
@@ -661,3 +662,71 @@ def receive():
             'status' : False,
         }
     
+    
+@app.route('/poll', methods=['POST'])
+def poll():    
+    # Prepare return value if false
+    ret = {
+        'status' : False
+    }
+    
+    # Data sent
+    id = session['compte']['id']
+    id_destinataire = request.form.get('id_destinataire')
+    stop = request.form.get('stop')
+    
+    # First run
+    if id_destinataire == '0':
+        # print('START')
+        return ret
+        
+    
+    # Stop
+    if stop == 'true':
+        db.execute('UPDATE receive SET val = ? WHERE id_user = ? AND id_dest = ?', 'false', id, id_destinataire)
+        # print('receive = false !')
+        return ret
+    
+    # Last id sent
+    last_id = request.form.get('last_id')
+    
+    # Initialize Request
+    results = db.execute('SELECT * FROM receive WHERE id_user = ? AND id_dest = ?', id, id_destinataire)
+    if results == []:
+        db.execute('INSERT INTO receive (id_user, id_dest, val) VALUES (?, ?, ?)', id, id_destinataire,'true')
+    else:
+        db.execute('UPDATE receive SET val = ? WHERE id_user = ? AND id_dest = ?', 'true', id, id_destinataire)
+    
+    # Search
+    while True:
+        val = db.execute('SELECT val FROM receive WHERE id_user = ? AND id_dest = ?', id, id_destinataire)
+        val = val[0]['val']
+        # print(val)
+        if val == 'false':
+            break
+        
+        # Search
+        responses = db.execute('''
+                                SELECT * FROM messages WHERE ((id > ?) AND
+                                (
+                                    (? = id_sent AND ? = id_received)
+                                    OR
+                                    (? = id_received AND ? = id_sent)
+                                )
+                            )''', last_id, id, id_destinataire, id, id_destinataire) 
+        
+        # print(id_destinataire)
+        # Result
+        if responses != []:
+            # emit('receive', responses)
+            return {
+                'status' : True,
+                'data' : responses
+            }
+            
+        # Wait a little
+        time.sleep(0.1)
+    
+    # End
+    # print('REQUEST ARRESTED')
+    return ret

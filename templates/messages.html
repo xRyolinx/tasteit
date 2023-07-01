@@ -107,7 +107,7 @@
                 <div class="courrier">
                     {% for user in people %}
                     {% if user['id'] != person['id'] %}
-                        <div id={{ user['id'] }} onClick="load_destinataire({{ user['id'] }})" class="person">
+                        <div id={{ user['id'] }} onClick="load_destinataire({{ user['id'] }});" class="person">
                             <!-- style="background-color: orange;" -->
                             <div class="pdp_courrier_container">
                                 {% if user['pdp'] != '' %}
