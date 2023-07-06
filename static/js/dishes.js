@@ -44,8 +44,6 @@ async function add_el(template, add) {
         id.value = plats[i]["id"];
 
  
-
-
         // Insert
         main.append(element);
 
@@ -85,9 +83,9 @@ let last_id = 0;
 
 
 //Start
-document.addEventListener('DOMContentLoaded', function() {
-    // Total
-    last_async();
+document.addEventListener('DOMContentLoaded', async function() {
+    // Last id
+    await last_async();
 
     //Starting element of global
     if ((window.matchMedia("(max-width: 1024px)").matches))
@@ -99,6 +97,7 @@ document.addEventListener('DOMContentLoaded', function() {
     //Save template
     let element = document.querySelector('.element');
     let copy = element.cloneNode(true);
+    copy.style.display = 'block';
 
     // Delete template
     element.remove();

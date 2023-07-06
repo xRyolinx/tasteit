@@ -111,9 +111,9 @@
                             <!-- style="background-color: orange;" -->
                             <div class="pdp_courrier_container">
                                 {% if user['pdp'] != '' %}
-                                    <img class="nav_pdp" style="cursor: default;" src="data:;base64,{{ user['pdp'] }}" alt="PDP">
+                                    <img class="pdp_courrier" style="cursor: default;" src="data:;base64,{{ user['pdp'] }}" alt="PDP">
                                 {% else %}
-                                    <img class="nav_pdp" style="cursor: default;" src="/static/img/pdp.png" alt="PDP">
+                                    <img class="pdp_courrier" style="cursor: default;" src="/static/img/pdp.png" alt="PDP">
                                 {% endif %}
                             </div>
                             <div class="courrier_txt">

@@ -262,7 +262,12 @@ a {
                 /* Image */
                 .pdp_courrier {
                     height: 80%;
+                    aspect-ratio: 1/1;
                     object-fit: cover;
+
+                    border-radius: 100%;
+
+                    cursor: pointer;
                 }
             }
 
@@ -349,7 +354,12 @@ a {
             /* pdp */
             .pdp_messagerie {
                 height: 80%;
+                aspect-ratio: 1/1;
                 object-fit: cover;
+
+                border-radius: 100%;
+
+                cursor: pointer;
             }
 
             /* Nom */
@@ -386,19 +396,6 @@ a {
     .messages_container::-webkit-scrollbar-thumb {
         background: orange; 
     }
-
-    /* Hide scrollbar for Chrome, Safari and Opera */
-    /* .messages_container::-webkit-scrollbar { */
-        /* display: none; */
-    /* } */
-
-    /* Hide scrollbar for IE, Edge and Firefox */
-    /* .messages_container { */
-        /* -ms-overflow-style: none;  IE and Edge */
-        /* scrollbar-width: none;  Firefox */
-    /* } */
-
-    
     
 
 
@@ -442,9 +439,14 @@ a {
             /* PDP OF MESSAGE RECEIVED */
             .pdp_message {
                 height: 2.13rem;
-                object-fit: cover;
                 margin-right: 0.5rem;
-                /* background-color: green; */
+                
+                aspect-ratio: 1/1;
+                object-fit: cover;
+
+                border-radius: 100%;
+
+                cursor: pointer;
             }
             /* TEXT OF MSG */
             .txt_msg {

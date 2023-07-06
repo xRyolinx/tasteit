@@ -16,11 +16,7 @@ db = SQL("sqlite:///tasteit.db")
 # Run flask
 app = Flask(__name__)
 app.debug = True
-
-# Web socket
-# socketio = SocketIO(app)
-# socketio.run(app)
-
+app.use_reloader=True
 
 # Configure Session
 app.config["SESSION_PERMANENT"] = False
@@ -219,13 +215,14 @@ def dishes_list():
         # Query depuis bdd
         query = 'SELECT MAX(id) as max FROM dishes' + condition
         response = db.execute(query)
+        response = response[0]['max']
         
         # Last id
-        if response == []:
+        last = response
+        if response == None:
             last = 0
-        else:
-            last = response[0]["max"]
-            
+        
+                    
         return str(last)
     
         
@@ -243,7 +240,7 @@ def dishes_list():
     # Number of results wanted
     nb = int(request.args.get("n"))
     
-    # query from sqlite
+    # query for sqlite
     query = 'SELECT * FROM dishes WHERE ' + condition + ' LIMIT ' + str(nb)
     
     # Selectionner les plats de la bdd
@@ -551,10 +548,7 @@ def profil():
             }
             
         
-        
-        
-        
-        # Data
+        # UPDATE INFO
         id = request.form.get("id")
         username = request.form.get("username")
         password = request.form.get("password")
@@ -572,8 +566,8 @@ def profil():
         }
         # Search in DB
         response = db.execute("SELECT id FROM people WHERE username=?", username)
-        
-        if response == []:    # DOESN'T EXIST
+        # DOESN'T EXIST
+        if response == []:
             # Update
             db.execute("UPDATE people SET username=? WHERE id=?", username, id)
         else:
@@ -606,14 +600,8 @@ def messagerie():
     
     return render_template('messages.html', person=session['compte'], people=people)
 
-# Connected
-# @socketio.on("connect")
-# def handle_connect():
-#     print('CONNECTED SUCCESSFULLY')
-    
 
-# Message sent
-# @socketio.on("send")
+# ---------------------------------- ENVOYER MSG ------------------------------
 @app.route('/send', methods=['POST'])
 def send():
     # Id of logged account
@@ -628,8 +616,7 @@ def send():
     # end
     return {'status' : 'ok'}
 
-# Receiving messages
-# @socketio.on("receive")
+# -------------------------------- Receiving messages ----------------------------------
 @app.route('/receive', methods=['POST'])
 def receive():
     
@@ -661,7 +648,6 @@ def receive():
         return {
             'status' : False,
         }
-    
     
 @app.route('/poll', methods=['POST'])
 def poll():    
@@ -730,3 +716,4 @@ def poll():
     # End
     # print('REQUEST ARRESTED')
     return ret
+

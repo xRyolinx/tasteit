@@ -34,7 +34,8 @@ function add_new_msg_received(parent, dict, username, pdp)
 
 // Remove child nodes
 function removeChildren(parent) {
-    while (parent.firstChild) {
+    while (parent.firstChild)
+    {
         parent.removeChild(parent.firstChild);
     }
 }
@@ -47,6 +48,7 @@ function update_messages(response)
     {
         // data
         response = response['data'];
+
         // Update chat box
         let messages = document.querySelector('.messages');
         response.forEach(message => {
@@ -73,107 +75,76 @@ function update_messages(response)
     }
 }
 
+// sleep time expects milliseconds
+function sleep(time)
+{
+    return new Promise((resolve) => setTimeout(resolve, time));
+}
+
 
 // Polling from db
 async function polling(formdata) {
-    // To abort
-    console.log('start');
-    return (
-        fetch('/poll', {
+    // Fetch
+    let result = await fetch('/receive', {
             method : 'post',
             body : formdata,
-        })
+        });
 
-        // Get response
-        .then(response => response.json())
-    );
+    // Get response
+    result = await result.json();
+
+    // Return
+    return result;
 }
 
-
-
-// Long polling
-function long_polling()
-{
-    // Prepare data
-    formData.set('stop', false)
-    request_sent = true;
-
-    // Wait response
-    polling(formData)   //get data
-    .then( function(response) {
-        // Process aborted
-        if (response['status'] == false)
-        {
-            console.log('Flask process aborted !');
-            long_polling();
-            return;
-        }
-
-        // Update messages
-        console.log(response);
-        update_messages(response);
-
-        // Relance polling
-        long_polling();
-    })
-}
-
-
-async function stop_receive()
-{
-    // Stop running request in server
-    return (
-        await fetch('/poll', {
-        method : 'post',
-        body : formData,
-        })
-    );
-}
 
 
 // Load Destinataire
 function load_destinataire(id) {
-    if(request_sent == true)
+    // Person choosen
+    let person = document.getElementById(id);
+
+    // Change informations at the top of discussion :
+    // id
+    let destinataire = document.querySelector('.destinataire');
+    destinataire.id = id;
+    // pdp
+    let pdp = destinataire.children[0].children[0];
+    pdp.src = person.children[0].children[0].src;
+    // username
+    let username = destinataire.children[0].children[1];
+    username.innerHTML = person.children[1].children[0].innerHTML;
+
+    // Clear discussion
+    removeChildren(document.querySelector('.messages'));
+    
+    // Change global data
+    formData.set('id_destinataire' , id);
+    formData.set('last_id', 0);
+}
+
+
+// Short polling
+async function short_polling()
+{
+    console.log('ok');
+    // Wait response
+    let result = await polling(formData);
+
+    // There are new messages
+    if (result['status'] == true)
     {
-        // Stopping current process
-        console.log('Stoping flask request...');
+        // Update messages
+        update_messages(result);
+    }
+    else
+    {
+        // Wait a little before fetching again
+        await sleep(500);
     }
 
-    // Prepare data
-    formData.set('stop', true);
-
-    stop_receive()
-    .then(function() {
-        console.log('Request to stop sent...');
-        relance_apres_arret = true;
-
-        // Person choosen
-        let person = document.getElementById(id);
-
-        // Change informations at the top of discussion :
-        // id
-        let destinataire = document.querySelector('.destinataire');
-        destinataire.id = id;
-        // pdp
-        let pdp = destinataire.children[0].children[0];
-        pdp.src = person.children[0].children[0].src;
-        // username
-        let username = destinataire.children[0].children[1];
-        username.innerHTML = person.children[1].children[0].innerHTML;
-
-        // Clear discussion
-        removeChildren(document.querySelector('.messages'));
-        
-        // Change global data
-        formData.set('id_destinataire' , id);
-        formData.set('last_id', 0);
-
-        // polling at the start
-        if(request_sent == false)
-        {
-            long_polling();
-        }
-    });
+    // Re-run polling
+    short_polling();
 }
 
 
@@ -182,18 +153,10 @@ function load_destinataire(id) {
 let formData = new FormData();
 formData.set('id_destinataire' , 0);
 formData.set('last_id', 0);
-formData.set('stop', false);
-
-// To resend fetch after abort
-request_sent = false;
-
 
 
 //Start
 document.addEventListener('DOMContentLoaded', function() {
-    // Web socket
-    // const socket = io({autoConnect: false});
-
     // Get first child
     let first = document.querySelector('.courrier').firstElementChild.id;
     load_destinataire(first);
@@ -216,9 +179,6 @@ document.addEventListener('DOMContentLoaded', function() {
             return;
         }
 
-        // Connect to websocket
-        // socket.connect();
-
         // Send message
         let id_destinataire = document.querySelector('.destinataire').id;
 
@@ -231,23 +191,12 @@ document.addEventListener('DOMContentLoaded', function() {
             body : formData
         });
 
-        // socket.emit("send", input.value, id_destinataire);
-
         // Input to blank
         input.value = '';
     });
 
 
-    // Long polling
-    // setInterval(function()
-    // {
-    // long_polling();
-    // }, 4000);
+    // Short polling
+    short_polling();
     
-
-    // Get response
-    // socket.on('receive', function(data) {
-        
-    // });
-
 })

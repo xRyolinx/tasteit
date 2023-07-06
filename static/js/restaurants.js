@@ -4,10 +4,6 @@
 
 // Ajouter elements
 async function add_el(template, add) {
-    // Last id
-    let response = await fetch("/restaurants_list?t=0" + query);
-    last_id = await response.json();
-    
     // BDD de plats
     response = await fetch("/restaurants_list?id=" + id + "&n=" + add + query);
     let plats = await response.json();
@@ -69,6 +65,13 @@ async function add_el(template, add) {
     }
 }
 
+//-----------------------------//
+
+// Last id
+async function last_async() {
+    let response = await fetch("/restaurants_list?t=0" + query);
+    last_id = await response.json();
+}
 
 //-----------------------------//
 
@@ -80,7 +83,10 @@ let last_id = 0;
 
 
 //Start
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', async function() {
+    // Last id
+    await last_async();
+
     //Starting element of global
     if ((window.matchMedia("(max-width: 1024px)").matches))
     {
@@ -91,6 +97,7 @@ document.addEventListener('DOMContentLoaded', function() {
     //Save template
     let element = document.querySelector('.element');
     let copy = element.cloneNode(true);
+    copy.style.display = 'block';
 
     // Delete template
     element.remove();
