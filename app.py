@@ -634,12 +634,12 @@ def receive():
                                 (? = id_sent AND ? = id_received)
                                 OR
                                 (? = id_received AND ? = id_sent)
-                            )
-                        )''', last_id, id, id_destinataire, id, id_destinataire) 
+                            ))
+                        ORDER BY id ASC''', last_id, id, id_destinataire, id, id_destinataire) 
     
     # Send response 
     if responses != []:
-        # emit('receive', responses)
+        print(responses)
         return {
             'status' : True,
             'data' : responses

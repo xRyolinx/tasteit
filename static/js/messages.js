@@ -72,6 +72,8 @@ function update_messages(response)
         // Scroll
         let msg_container = document.querySelector('.messages_container');
         msg_container.scrollTop = msg_container.scrollHeight;
+
+        console.log('added');
     }
 }
 
@@ -127,9 +129,10 @@ function load_destinataire(id) {
 // Short polling
 async function short_polling()
 {
-    console.log('ok');
     // Wait response
     let result = await polling(formData);
+
+    console.log('Result : ', result);
 
     // There are new messages
     if (result['status'] == true)
