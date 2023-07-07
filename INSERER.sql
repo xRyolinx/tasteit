@@ -33,17 +33,3 @@
 
 -- SELECT * FROM messages WHERE ( (id > 3) AND ((1 = id_sent AND 2 = id_received)OR(1 = id_received AND 2 = id_sent)));
 
-
-
-CREATE TABLE receive
-(
-    id INTEGER NOT NULL PRIMARY KEY,
-
-    id_user INTEGER NOT NULL,
-    id_dest INTEGER NOT NULL,
-    val TEXT NOT NULL,
-
-
-    FOREIGN KEY (id_user) REFERENCES people (id),
-    FOREIGN KEY (id_dest) REFERENCES people (id)
-);

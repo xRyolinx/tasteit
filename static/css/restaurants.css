@@ -196,6 +196,8 @@ main {
 
 /* Ecriture */
 .el_txt {
+    height: 100%;
+    width: 100%;
     position: relative;
     z-index: 100;
 
@@ -226,6 +228,7 @@ main {
     justify-content: space-between;
     align-items: center;
 
+    flex-grow: 1;
 }
 
 .more {

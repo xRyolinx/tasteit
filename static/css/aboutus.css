@@ -9,6 +9,16 @@ body {
     margin : 0px;
 }
 
+#bg {
+    width: 100vw;
+    object-fit: cover;
+
+    position: fixed;
+    z-index: -10;
+    right: 0;
+}
+
+
 .about {
     width : 60%;
     margin : 0 auto;
@@ -16,6 +26,9 @@ body {
     padding: 1% 6% 0 6%;
     background-color: rgb(255, 255, 255);
     border-radius: 20px;
+
+    box-shadow: 5px 5px 10px rgb(110, 109, 109);
+
 }
 
 .titre {

@@ -126,8 +126,6 @@ a {
                 height: 70%;
                 object-fit: cover;
 
-                border-radius: 100%;
-
                 cursor: pointer;
             }
         }
@@ -261,7 +259,7 @@ a {
 
                 /* Image */
                 .pdp_courrier {
-                    height: 80%;
+                    height: 70%;
                     aspect-ratio: 1/1;
                     object-fit: cover;
 
@@ -353,7 +351,7 @@ a {
 
             /* pdp */
             .pdp_messagerie {
-                height: 80%;
+                height: 70%;
                 aspect-ratio: 1/1;
                 object-fit: cover;
 

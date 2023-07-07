@@ -1,6 +1,8 @@
 from flask import Flask, render_template, request, redirect, session
 from flask_session import Session
 import time
+import psycopg2
+from psycopg2.extras import RealDictCursor
 
 # from flask_socketio import SocketIO, send, emit
 
@@ -11,7 +13,10 @@ from base64 import b64encode
 
 
 # DB
-db = SQL("sqlite:///tasteit.db")
+# db = SQL("sqlite:///tasteit.db")
+conn = psycopg2.connect(database='tasteit', user='tasteit_user', host='dpg-cijh0senqql0l1rkun1g-a.frankfurt-postgres.render.com', password='Kp2hBNSkUL6ZKyV0jyPGUeu14sXWSpl4')
+db = conn.cursor(cursor_factory=RealDictCursor)
+
 
 # Run flask
 app = Flask(__name__)
@@ -23,6 +28,10 @@ app.config["SESSION_PERMANENT"] = False
 app.config["SESSION_TYPE"] = "filesystem"
 Session(app)
 
+
+# ------------------------------ DB FUNCTIONS-----------------------
+# def select()
+
 # -------------------------- FONCTIONS ---------------------
 
 # Convert none values to ''
@@ -31,11 +40,12 @@ def convertion(dictionnaire):
         if (dictionnaire[key] == None) or (dictionnaire[key] == 'None'):
             dictionnaire[key] = ''
             
-
+            
 # Update session
 def update_session(id):
     # Values
-    results = db.execute("SELECT * FROM people WHERE id = ?", id)
+    db.execute("SELECT * FROM people WHERE id = %s", [id])
+    results = db.fetchall()
     person = results[0]
     # PDP
     update_person(person)
@@ -86,7 +96,9 @@ def loggedin():
     password = request.form.get("password")
     
     # Check dans la base de donnees
-    inscrits = db.execute("SELECT * FROM people")
+    db.execute("SELECT * FROM people")
+    inscrits = db.fetchall()
+    
     for person in inscrits:
         if (username == person["username"]) and (password == person["password"]):
             # Save in session
@@ -115,7 +127,7 @@ def register():
         password = request.form.get("password")
 
         # PDP
-        pdp = None
+        # pdp = None
         # img_bytes = request.files["pdp"]
         # if img_bytes != None:
             # pdp = img_bytes.stream.read()
@@ -125,8 +137,9 @@ def register():
             return render_template("not_registered.html")
 
         # Inserer
-        db.execute("INSERT INTO people (username, email, password, pdp, admin) VALUES(?, ?, ?, ?, 0)",
-                username, email, password, pdp)
+        db.execute("INSERT INTO people (username, email, password, admin) VALUES(%s, %s, %s, 0)",
+                (username, email, password))
+        conn.commit()
 
         return render_template("registered.html")
 
@@ -146,7 +159,9 @@ def registerants():
     
     
     # Inscrits
-    inscrits = db.execute("SELECT * FROM people")
+    db.execute("SELECT * FROM people")
+    inscrits = db.fetchall()
+    
     for person in inscrits:
         # Convert types of none
         convertion(person)
@@ -214,7 +229,8 @@ def dishes_list():
                     
         # Query depuis bdd
         query = 'SELECT MAX(id) as max FROM dishes' + condition
-        response = db.execute(query)
+        db.execute(query)
+        response = db.fetchall()
         response = response[0]['max']
         
         # Last id
@@ -244,13 +260,16 @@ def dishes_list():
     query = 'SELECT * FROM dishes WHERE ' + condition + ' LIMIT ' + str(nb)
     
     # Selectionner les plats de la bdd
-    plats = db.execute(query)
+    db.execute(query)
+    plats = db.fetchall()
     
     # Trouver les restaurants associés
     for i in range(0,len(plats)):
-        restauts = db.execute( '''SELECT name FROM restaurants WHERE id =
-                                (SELECT restaurant_id FROM restaurant_dish WHERE dish_id = ?)
-                                ''', plats[i]["id"])
+        db.execute('''SELECT name FROM restaurants WHERE id =
+                   (SELECT restaurant_id FROM restaurant_dish WHERE dish_id = %s)'''
+                   , [plats[i]["id"]])
+        
+        restauts = db.fetchall()
         
         # Valeur du restau
         restaurant = "Inconnu"
@@ -261,7 +280,7 @@ def dishes_list():
         
     # Arranger les images
     for plat in plats:
-        if plat['photo'] != 0:
+        if plat['photo'] != None:
             plat['photo'] = b64encode(plat['photo']).decode("utf-8")
     
     return plats
@@ -282,10 +301,10 @@ def insert_dish():
     img_bytes = request.files["photo"]
     photo = img_bytes.stream.read()
     
-    db.execute('''
-                    INSERT INTO dishes (name, type, price, rating, photo)
-                    VALUES(?, ?, ?, 0, ?)
-               ''', nom, type, price, photo)
+    db.execute('''INSERT INTO dishes (name, type, price, rating, photo) VALUES(%s, %s, %s, 0, %s)'''
+               , (nom, type, price, photo))
+    
+    conn.commit()
     
     return redirect("/dishes")
 
@@ -300,7 +319,8 @@ def dish():
     id = request.args.get("id")
     
     # Get dish from bdd
-    plat = db.execute("SELECT * FROM dishes WHERE id = ?", id)
+    db.execute("SELECT * FROM dishes WHERE id = %s", [id])
+    plat = db.fetchall()
     
     # Check
     if (plat == []):
@@ -312,9 +332,11 @@ def dish():
 
     
     # Get ingredients
-    ingredients_list = db.execute('''SELECT name FROM ingredients WHERE id IN
-                             (SELECT ingredient_id FROM dish_ingredient WHERE dish_id = ?);
-                             ''', id)
+    db.execute('''SELECT name FROM ingredients WHERE id IN
+                (SELECT ingredient_id FROM dish_ingredient WHERE dish_id = %s);
+                ''', id)
+    
+    ingredients_list = db.fetchall()
     
     # If no ingredient
     ingredients = []
@@ -332,9 +354,11 @@ def dish():
     
         
     # Get restaurant
-    restauts = db.execute( '''SELECT name FROM restaurants WHERE id =
-                                (SELECT restaurant_id FROM restaurant_dish WHERE dish_id = ?)
-                                ''', id)  
+    db.execute( '''SELECT name FROM restaurants WHERE id =
+                (SELECT restaurant_id FROM restaurant_dish WHERE dish_id = ?)
+                ''', id)  
+    restauts = db.fetchall()
+    
     # Check
     restaurant = "Inconnu"
     if (restauts != []):        
@@ -399,14 +423,17 @@ def restaurants_list():
                     
         # Query depuis bdd
         query = 'SELECT MAX(id) as max FROM restaurants' + condition
-        response = db.execute(query)
+        db.execute(query)
+        
+        response = db.fetchall()
+        response = response[0]['max']
         
         # Last id
-        if response == []:
+        last = response
+        if response == None:
             last = 0
-        else:
-            last = response[0]["max"]
-            
+        
+        # Return 
         return str(last)
     
         
@@ -428,11 +455,12 @@ def restaurants_list():
     query = 'SELECT * FROM restaurants WHERE ' + condition + ' LIMIT ' + str(nb)
     
     # Selectionner les restaurants de la bdd
-    plats = db.execute(query)
+    db.execute(query)
+    plats = db.fetchall()
         
     # Arranger les images
     for plat in plats:
-        if plat['photo'] != 0:
+        if plat['photo'] != None:
             plat['photo'] = b64encode(plat['photo']).decode("utf-8")
     
     return plats
@@ -455,8 +483,9 @@ def insert_restaurant():
     
     db.execute('''
                     INSERT INTO restaurants (name, type, work_hours, work_days, adress, rating, photo)
-                    VALUES(?, ?, 0, 0, ?, 0, ?)
-               ''', nom, type, adress, photo)
+                    VALUES(%s, %s, 0, 0, %s, 0, %s)
+               ''', (nom, type, adress, photo))
+    conn.commit()
     
     return redirect("/restaurants")
 
@@ -471,7 +500,8 @@ def restaurant():
     id = request.args.get("id")
     
     # Get restaurant from bdd
-    restau = db.execute("SELECT * FROM restaurants WHERE id = ?", id)
+    db.execute("SELECT * FROM restaurants WHERE id = ?", [id])
+    restau = db.fetchall()
     
     # Check
     if (restau == []):
@@ -483,9 +513,10 @@ def restaurant():
 
     
     # Get specialities
-    specialities_list = db.execute('''SELECT name FROM specialities WHERE id IN
-                             (SELECT speciality_id FROM restaurant_speciality WHERE restaurant_id = ?);
-                             ''', id)
+    db.execute('''SELECT name FROM specialities WHERE id IN
+                (SELECT speciality_id FROM restaurant_speciality WHERE restaurant_id = %s);
+                ''', [id])
+    specialities_list = db.fetchall()
     
     # If no restaurant
     specialities = []
@@ -503,7 +534,7 @@ def restaurant():
     
     
     # Arranger l'image
-    if restau['photo'] != 0:
+    if restau['photo'] != None:
         restau['photo'] = b64encode(restau['photo']).decode("utf-8")
     
 
@@ -538,7 +569,8 @@ def profil():
             pdp = pdp.stream.read()
             
             # Add to database
-            db.execute("UPDATE people SET pdp = ? WHERE id = ?", pdp, id)
+            db.execute("UPDATE people SET pdp = %s WHERE id = %s", (pdp, id))
+            conn.commit()
             
             # Save in session
             update_session(id)
@@ -565,14 +597,19 @@ def profil():
             'value' : username
         }
         # Search in DB
-        response = db.execute("SELECT id FROM people WHERE username=?", username)
+        db.execute("SELECT id FROM people WHERE username=%s", username)
+        response = db.fetchall()
+        
         # DOESN'T EXIST
         if response == []:
             # Update
-            db.execute("UPDATE people SET username=? WHERE id=?", username, id)
+            db.execute("UPDATE people SET username=%s WHERE id=%s", (username, id))
+            conn.commit()
         else:
             # Response to JS (NOT OK)
-            username = db.execute("SELECT username FROM people WHERE id=?", id)
+            db.execute("SELECT username FROM people WHERE id=%s", [id])
+            username = db.fetchall()
+            
             check_username = {
                 'check' : False,
                 'value' : username[0]['username']
@@ -581,8 +618,8 @@ def profil():
 
         # Update DB
         db.execute('''UPDATE people SET
-                   password=?, first_name=?, last_name=?, adress=?, phone=?, email=?
-                   WHERE id=?''',password, first_name, last_name, adress, phone, email ,id)
+                   password=%s, first_name=%s, last_name=%s, adress=%s, phone=%s, email=%s
+                   WHERE id=%s''',(password, first_name, last_name, adress, phone, email ,id))
         
         
         # Save in session
@@ -595,7 +632,9 @@ def profil():
 @app.route("/messages", methods=["GET", "POST"])
 def messagerie():
     # Get all people
-    people = db.execute('SELECT * FROM people')
+    db.execute('SELECT * FROM people')
+    people = db.fetchall()
+    
     update_people(people)
     
     return render_template('messages.html', person=session['compte'], people=people)
@@ -611,7 +650,9 @@ def send():
     msg = request.form.get('msg')
     
     # Send to db
-    db.execute("INSERT INTO messages (id_sent, message, id_received) VALUES (?, ?, ?)", id, msg, id_destinataire)
+    db.execute("INSERT INTO messages (id_sent, message, id_received) VALUES (%s, %s, %s)",
+               (id, msg, id_destinataire))
+    conn.commit()
 
     # end
     return {'status' : 'ok'}
@@ -628,14 +669,14 @@ def receive():
     
             
     # Search
-    responses = db.execute('''
-                            SELECT * FROM messages WHERE ((id > ?) AND
-                            (
-                                (? = id_sent AND ? = id_received)
-                                OR
-                                (? = id_received AND ? = id_sent)
-                            ))
-                        ORDER BY id ASC''', last_id, id, id_destinataire, id, id_destinataire) 
+    db.execute('''SELECT * FROM messages WHERE ((id > %s) AND
+                (
+                    (%s = id_sent AND %s = id_received)
+                    OR
+                    (%s = id_received AND %s = id_sent)
+                ))
+                ORDER BY id ASC''', (last_id, id, id_destinataire, id, id_destinataire)) 
+    responses = db.fetchall()
     
     # Send response 
     if responses != []:
@@ -669,7 +710,8 @@ def poll():
     
     # Stop
     if stop == 'true':
-        db.execute('UPDATE receive SET val = ? WHERE id_user = ? AND id_dest = ?', 'false', id, id_destinataire)
+        db.execute('''UPDATE receive SET val = 'false' WHERE id_user = %s AND id_dest = %s'''
+                   , (id, id_destinataire))
         # print('receive = false !')
         return ret
     
