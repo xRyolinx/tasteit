@@ -597,7 +597,7 @@ def profil():
             'value' : username
         }
         # Search in DB
-        db.execute("SELECT id FROM people WHERE username=%s", username)
+        db.execute("SELECT id FROM people WHERE username=%s", [username])
         response = db.fetchall()
         
         # DOESN'T EXIST
