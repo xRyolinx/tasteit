@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Messagerie</title>
+
+    <!-- css -->
+    <link rel="stylesheet" href="/static/css/mes_restaurants.css">
+    <!-- js -->
+    <script src="/static/js/mes_restaurants.js"></script>
+
+    <!-- Nav -->
+    <link rel="stylesheet" href="/static/navbar/navbar.css">
+    <script src="/static/navbar/navbar.js"></script>
+</head>
+<body>
+    <img id="bg" src="/static/img/fond2.png" alt="bg_img">
+
+    <!-- Nav -->
+    <nav>
+        <a id="nav_marque" href="/">Taste IT</a>
+        
+        <button id="nav_button">
+            <img src="/static/navbar/menu.png" alt="menu">
+        </button>
+
+        <div id="nav_add">
+        <a id="nav_home" class="nav_el" href="/">Home</a>
+        <a class="nav_el" href="/dishes">Dishes</a>
+        <a class="nav_el" href="/restaurants">Restaurants</a>
+        <a class="nav_el" href="/aboutus">About us</a>
+        <!-- Compte -->
+        {% if person['pdp'] != '' %}
+            <img class="nav_pdp" src="data:;base64,{{ person['pdp'] }}" alt="PDP"
+            onclick="window.location = '/profil';">
+        {% else %}
+            <img class="nav_pdp" src="/static/img/pdp.png" alt="PDP"
+            onclick="window.location = '/profil';">
+        {% endif %}
+        
+        </div>
+    </nav>
+
+    <!-- Content -->
+    <div class="contenu">
+        <!-- Rectangle gauche de choix -->
+        <div class="choices">
+            <!-- pdp -->
+            <div class="top">
+                {% if person['pdp'] != '' %}
+                    <img onclick="window.location='/profil'" class="pdp" src="data:;base64,{{ person['pdp'] }}" alt="PDP">
+                {% else %}
+                    <img onclick="window.location='/profil'" class="pdp" src="/static/img/pdp.png" alt="PDP">
+                {% endif %}
+
+            </div>
+
+            <!-- Separator -->
+            <div class="divider-choices"></div>
+
+            <!-- Fonctionanalities -->
+            <div class="bottom">
+                <div class="element">
+                    <img onclick="window.location='/profil';" class="image" src="/static/img/info.png" alt="">
+                </div>
+                <div class="element">
+                    <img onclick="window.location='/messages';" class="image" src="/static/img/messages.png" alt="">
+                </div>
+                <div class="element">
+                    <img class="image" src="/static/img/coeur.png" alt="">
+                </div>
+                <div class="element">
+                    <img class="image" src="/static/img/restaurant.png" alt="">
+                </div>
+                <div class="element">
+                    <img class="image" src="/static/img/commande.png" alt="">
+                </div>
+            </div>
+
+            <!-- Separator -->
+            <div class="divider-choices"></div>
+
+            <!-- Deconnexion -->
+            <div class="deconnexion">
+                <img src="/static/img/logout.png" class="button" onclick="window.location='/logout';">
+            </div>
+        </div>
+
+
+        <div class="separator"></div>
+
+        <!-- Restau -->
+        <div class="restaurant_container">
+            <!-- Titre -->
+            <div class="titre_container">
+                <p class="titre">Restaurant : </p>
+                <div class="name_container">
+                    <p class="name">La baraque</p>
+                    <img class="choose" src="/static/img/save.png" alt="">
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+</body>
+</html>

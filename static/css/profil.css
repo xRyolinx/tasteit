@@ -33,7 +33,7 @@ a {
     width: 100%;
     height: 92vh;
 
-    padding: 2rem;
+    /* padding: 2rem; */
 
     /* background-color: blue; */
 
@@ -47,7 +47,7 @@ a {
     width: 20vw;
     height: 100%;
 
-    border-radius: var(--radius) 0 0 var(--radius);
+    /* border-radius: var(--radius) 0 0 var(--radius); */
 
     box-shadow: 5px 8px 10px rgb(110, 109, 109);
     background-color: var(--blanc);
@@ -84,7 +84,6 @@ a {
             /* position: relative; */
             height: 80px;
             width: 120px;
-
 
             display: flex;
             justify-content: center;
@@ -266,12 +265,12 @@ a {
 
 /* FONCTIONNALITÉ */
 .fonction {
-    width: 70vw;
     height: 100%;
+    flex-grow: 1;
 
     padding: 1rem 3rem 1rem 3rem;
 
-    border-radius: 0 var(--radius) var(--radius) 0;
+    /* border-radius: 0 var(--radius) var(--radius) 0; */
 
     box-shadow: 5px 8px 10px rgb(110, 109, 109);
     background-color: var(--blanc);
