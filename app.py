@@ -332,21 +332,21 @@ def dish():
 
     
     # Get ingredients
-    db.execute('''SELECT name FROM ingredients WHERE id IN
-                (SELECT ingredient_id FROM dish_ingredient WHERE dish_id = %s);
-                ''', id)
+    # db.execute('''SELECT name FROM ingredients WHERE id IN
+    #             (SELECT ingredient_id FROM dish_ingredient WHERE dish_id = %s);
+    #             ''', id)
     
-    ingredients_list = db.fetchall()
+    # ingredients_list = db.fetchall()
     
     # If no ingredient
     ingredients = []
     ingredients.append("Inconnu")
-    # else
-    if (ingredients_list != []): 
-        # From dict to array
-        ingredients = []
-        for ingredient in ingredients_list:
-            ingredients.append(ingredient["name"])
+    # # else
+    # if (ingredients_list != []): 
+    #     # From dict to array
+    #     ingredients = []
+    #     for ingredient in ingredients_list:
+    #         ingredients.append(ingredient["name"])
 
     # Insert ingredients into plat
     plat["ingredients"] = ingredients
@@ -355,7 +355,7 @@ def dish():
         
     # Get restaurant
     db.execute( '''SELECT name FROM restaurants WHERE id =
-                (SELECT restaurant_id FROM restaurant_dish WHERE dish_id = ?)
+                (SELECT restaurant_id FROM restaurant_dish WHERE dish_id = %s)
                 ''', id)  
     restauts = db.fetchall()
     
@@ -513,20 +513,20 @@ def restaurant():
 
     
     # Get specialities
-    db.execute('''SELECT name FROM specialities WHERE id IN
-                (SELECT speciality_id FROM restaurant_speciality WHERE restaurant_id = %s);
-                ''', [id])
-    specialities_list = db.fetchall()
+    # db.execute('''SELECT name FROM specialities WHERE id IN
+    #             (SELECT speciality_id FROM restaurant_speciality WHERE restaurant_id = %s);
+    #             ''', [id])
+    # specialities_list = db.fetchall()
     
     # If no restaurant
     specialities = []
     specialities.append("Inconnu")
     # else
-    if (specialities_list != []): 
-        # From dict to array
-        specialities = []
-        for speciality in specialities_list:
-            specialities.append(speciality["name"])
+    # if (specialities_list != []): 
+    #     # From dict to array
+    #     specialities = []
+    #     for speciality in specialities_list:
+    #         specialities.append(speciality["name"])
 
     # Insert ingredients into plat
     restau["specialities"] = specialities

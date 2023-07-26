@@ -168,9 +168,6 @@ main {
 .ecriture {
     height: 35%;
     position: relative;
-
-    display: flex;
-    align-items: flex-start;
 }
 
 /* Carre blanc */
