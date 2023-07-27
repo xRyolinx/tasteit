@@ -1,10 +1,13 @@
 * {
-    font-family: poppins;
     box-sizing: border-box;
 }
 
 body {
+    height: 100vh;
     margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
 }
 
 #bg {
@@ -31,6 +34,10 @@ main  {
 
 .text {
     font-size: 2.9rem;
+}
+
+.text h3, .text p {
+    margin: 0;
 }
 
 .button {
