@@ -36,6 +36,8 @@ nav {
     align-items: center;
     padding: 0 3rem 0 2rem;
     background-color: var(--orange);
+
+    z-index: 1000;
 }
 /* Mobile */
 @media (max-width: 992px) {
