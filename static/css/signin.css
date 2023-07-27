@@ -80,6 +80,10 @@ p {
 	.titre_connect {
 		font-size: 1.8rem;
 	}
+
+	p {
+		font-size: 0.8rem;
+	}
 }
 
 

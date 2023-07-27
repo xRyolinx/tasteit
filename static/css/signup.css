@@ -85,6 +85,10 @@ p {
 	.titre_connect {
 		font-size: 1.8rem;
 	}
+
+	p {
+		font-size: 0.8rem;
+	}
 }
 
 .champ {
@@ -124,8 +128,9 @@ p {
 }
 
 #end {
-	max-width: 70%;
 	margin: 20px auto;
 	margin-top: 30px;
+	padding: 0 20px;
+
 	text-align: center;
 }
