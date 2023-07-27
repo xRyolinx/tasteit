@@ -19,6 +19,7 @@ a{
 .search {
     width: 100%;
     margin-top: 0;
+    padding: 0 20px;
 
     display: flex;
     flex-direction: column;
@@ -34,6 +35,8 @@ a{
 /* Barre */
 .barre {
     width: 500px;
+    max-width: 100%;
+
     padding: 9px 9px 9px 15px;
     border-radius: 20px;
     background-color: #FFEEDE;
@@ -43,11 +46,28 @@ a{
 .button {
     margin-left: 5px;
     padding: 9px 18px;
+
     border-radius: 20px;
     background-color: orange;
     border: none;
 
     cursor: pointer;
+}
+
+@media (max-width: 600px) {
+    #recherche {
+        width: 100%;
+    }
+
+    .barre {
+        width: 100%;
+        margin-bottom: 15px;
+    }
+
+    .button {
+        display: block;
+        margin: 0 auto;
+    }
 }
 
 
@@ -57,6 +77,11 @@ a{
     color: black;
     text-align: center;
     margin-top: 70px;
+}
+@media (max-width: 600px) {
+    .titre {
+        margin-top: 55px;
+    }
 }
 
 .seemore{
