@@ -14,8 +14,7 @@
 }
 
 body {
-margin: 0;
-height: 100vh;
+	margin: 0;
 }
 
 #intro {
@@ -33,9 +32,6 @@ p {
 	width: 80%;
 	max-width: 600px;
 	height: 350px;
-
-	/* padding: 2rem;
-	padding-bottom: 1rem; */
 
 
 	display: flex;
@@ -77,15 +73,13 @@ p {
 
 @media (max-width: 600px) {
 	.container {
-		height: 45vh;
+		height: 320px;
 		padding: 2rem 2rem 3rem 2rem;
 	}
 
 	.titre_connect {
 		font-size: 1.8rem;
 	}
-
-	.chema
 }
 
 
@@ -125,4 +119,8 @@ p {
 .inscrire {
 	text-decoration: none;
 	color: #FF922C;
+}
+
+#end {
+	margin-bottom: 20px;
 }

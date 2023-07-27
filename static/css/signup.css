@@ -13,9 +13,15 @@
     box-sizing: border-box;
 }
 
+
 body {
-margin: 0;
-height: 100vh;
+	margin: 0;
+}
+
+#intro {
+	max-width: 420px;
+	margin: 0 auto;
+	padding: 0 20px;
 }
 
 p {
@@ -24,8 +30,9 @@ p {
 }
 
 .container {
-	width: 50%;
-	height: 70%;
+	width: 80%;
+	max-width: 600px;
+	height: 400px;
 
 	display: flex;
 	flex-direction: column;
@@ -33,7 +40,7 @@ p {
 	align-items: center;
 
 	margin: 0 auto;
-	padding: 2.5rem 1rem;
+	padding: 2.8rem 3rem 3.8rem 3rem;
 
 	background-color: #FFFFFF;
 	border-radius: 20px;
@@ -55,10 +62,8 @@ p {
 
 .champs {
 	/* background-color: red; */
-	height: 85%;
+	height: 70%;
 	width: 100%;
-	padding: 2rem;
-	padding-bottom: 1rem;
 
 	display: flex;
 	flex-direction: column;
@@ -66,6 +71,22 @@ p {
 	align-items: center;
 	
 }
+
+@media (max-width: 600px) {
+	.container {
+		height: 380px;
+		padding: 2rem 2rem 3rem 2rem;
+	}
+
+	.champs {
+		height: 75%;
+	}
+
+	.titre_connect {
+		font-size: 1.8rem;
+	}
+}
+
 .champ {
 	display: block;
 	width: 100%;
@@ -100,4 +121,11 @@ p {
 .conditions {
 	text-decoration: none;
 	color: #FF922C;
+}
+
+#end {
+	max-width: 70%;
+	margin: 20px auto;
+	margin-top: 30px;
+	text-align: center;
 }

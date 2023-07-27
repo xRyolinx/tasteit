@@ -42,10 +42,12 @@
 
 
     <!-- Content -->
-    <p>Inscrivez-vous pour profiter de toutes les fonctionnalitées de notre site</p>
+    <div id="intro">
+        <p>Inscrivez-vous pour profiter de toutes les fonctionnalitées de notre site</p>
+    </div>
     
     <!-- Inscription -->
-    <form method="POST" action="/register" class="container" enctype = "multipart/form-data">
+    <form class="container" method="POST" action="/register" enctype = "multipart/form-data">
         <h1 class="titre_connect">Inscription</h1>
         <div class="champs">
             <input name="username" type="text" autofocus autocomplete="off"
@@ -62,8 +64,10 @@
     </form>
 
     <!-- Fin -->
-    <p>En cliquant sur Inscrivez vous, vous indiquez que vous avez lu, compris et accepté les
-        <a class="conditions" href="">conditions d'utilisation</a>.</p>
+    <p id="end">
+        En cliquant sur Inscrivez vous, vous indiquez que vous avez lu, compris et accepté les
+        <a class="conditions" href="">conditions d'utilisation</a>.
+    </p>
 
 </body>
 </html>
