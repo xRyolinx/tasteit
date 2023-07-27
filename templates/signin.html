@@ -31,25 +31,22 @@
     <!-- Content -->
 
     <!-- Intro -->
-    <p>Connectez-vous pour profiter de toutes les fonctionnalitées <br>
-        de notre site</p>
-
+    <div id="intro">
+        <p>Connectez-vous pour profiter de toutes les fonctionnalitées de notre site</p>
+    </div>
+    
     <!-- Champs a remplir -->
     <form class="container" method="POST" action="/loggedin">
         <h1 class="titre_connect">Connexion</h1>
         <div class="champs">
-            <input name="username" type="text"
-            placeholder="Enter you username or email" class="champ" autofocus>
+            <input name="username" type="text" autocomplete="off"
+            placeholder="Username" class="champ" autofocus>
 
-            <input name="password" type="password"
-            placeholder="Enter your password" class="champ">  
+            <input name="password" type="password" autocomplete="off"
+            placeholder="Password" class="champ">  
             
-            <!-- <div class="submit_container"> -->
-                <input type="submit" class="bouton_connect" value="Sign in">
-            <!-- </div> -->
+            <input type="submit" class="bouton_connect" value="Sign in">
         </div>
-
-       
     </form>
 
     <!-- Create account -->

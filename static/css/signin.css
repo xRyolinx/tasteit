@@ -18,14 +18,25 @@ margin: 0;
 height: 100vh;
 }
 
+#intro {
+	max-width: 420px;
+	margin: 0 auto;
+	padding: 0 20px;
+}
+
 p {
 	text-align: center;
 	margin: 1.5rem 0px;
 }
 
 .container {
-	width: 50%;
-	height: 60%;
+	width: 80%;
+	max-width: 600px;
+	height: 350px;
+
+	/* padding: 2rem;
+	padding-bottom: 1rem; */
+
 
 	display: flex;
 	flex-direction: column;
@@ -33,7 +44,7 @@ p {
 	align-items: center;
 
 	margin: 0 auto;
-	padding: 2.8rem 1rem;
+	padding: 2.8rem 3rem 3.8rem 3rem;
 
 	background-color: #FFFFFF;
 	border-radius: 20px;
@@ -55,17 +66,29 @@ p {
 
 .champs {
 	/* background-color: red; */
-	height: 80%;
+	height: 70%;
 	width: 100%;
-	padding: 2rem;
-	padding-bottom: 1rem;
 
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
 	align-items: center;
-	
 }
+
+@media (max-width: 600px) {
+	.container {
+		height: 45vh;
+		padding: 2rem 2rem 3rem 2rem;
+	}
+
+	.titre_connect {
+		font-size: 1.8rem;
+	}
+
+	.chema
+}
+
+
 .champ {
 	display: block;
 	width: 100%;
