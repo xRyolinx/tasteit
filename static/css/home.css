@@ -21,10 +21,16 @@ body {
     height: 100vh;
 
     background-color: white;
-    opacity: 0.6;
+    opacity: 0.1;
     position: fixed;
     z-index: -99;
     right: 0;
+}
+
+@media (max-width: 1044px) {
+    #bg-sheet {
+        opacity: 0.6;
+    }
 }
 
 main {
@@ -45,6 +51,24 @@ main {
     font-size: 2.9rem;
 }
 
+.text h3, .text p {
+    margin: 0;
+}
+
+@media (max-height: 500px) {
+    .text {
+        font-size: 2.2rem;
+    }
+}
+
+@media (max-height: 400px) {
+    .text {
+        font-size: 2rem;
+    }
+}
+
+
+
 @media (max-width: 600px) {
     main {
         min-width: 250px;
@@ -56,14 +80,15 @@ main {
         align-items: center;
     }
     .text {
-        font-size: 2rem;
+        font-size: 2.2rem;
         text-align: center;
+    }
+
+    .text h3, .text p {
+        margin: 0.8rem 0;
     }
 }
 
-.text h3, .text p {
-    margin: 0;
-}
 
 .button {
     width: 120px;
