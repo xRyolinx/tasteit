@@ -43,6 +43,7 @@
 
     <!-- Content -->
     <div class="contenu">
+        <!-- Menu -->
         <div class="choices">
             <!-- Bonjour + pdp -->
             <div class="top">
@@ -118,6 +119,52 @@
                 <a class="button" href="/logout">Deconnexion</a>
             </div>
         </div>
+
+<!-- ----------------------------------------------------- -->
+        <!-- Rectangle gauche de choix -->
+        <div class="choices_mob">
+            <!-- pdp -->
+            <div class="top_mob">
+                {% if person['pdp'] != '' %}
+                    <img onclick="window.location='/profil'" class="pdp_mob" src="data:;base64,{{ person['pdp'] }}" alt="PDP">
+                {% else %}
+                    <img onclick="window.location='/profil'" class="pdp_mob" src="/static/img/pdp.png" alt="PDP">
+                {% endif %}
+
+            </div>
+
+            <!-- Separator -->
+            <div class="divider-choices"></div>
+
+            <!-- Fonctionanalities -->
+            <div class="bottom">
+                <div class="element">
+                    <img onclick="window.location='/profil';" class="image" src="/static/img/info.png" alt="">
+                </div>
+                <div class="element">
+                    <img onclick="window.location='/messages';" class="image" src="/static/img/messages.png" alt="">
+                </div>
+                <div class="element">
+                    <img class="image" src="/static/img/coeur.png" alt="">
+                </div>
+                <div class="element">
+                    <img class="image" src="/static/img/restaurant.png" alt="">
+                </div>
+                <div class="element">
+                    <img class="image" src="/static/img/commande.png" alt="">
+                </div>
+            </div>
+
+            <!-- Separator -->
+            <div class="divider-choices"></div>
+
+            <!-- Deconnexion -->
+            <div class="deconnexion">
+                <img src="/static/img/logout.png" class="button" onclick="window.location='/logout';">
+            </div>
+        </div>
+
+<!-- ------------------------------------------------------------------------ -->
 
         <div class="separator"></div>
 

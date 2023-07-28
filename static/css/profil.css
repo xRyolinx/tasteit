@@ -1,437 +1,326 @@
+@charset "UTF-8";
 :root {
-    --radius : 30px;
-    --blanc : #FFFFFF;
+  --radius: 30px;
+  --blanc: #FFFFFF;
 }
 
 *, *:before, *:after {
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 body {
-    margin: 0;
+  margin: 0;
 }
 
 a {
-    text-decoration: none;
-    color: black;
+  text-decoration: none;
+  color: black;
 }
 
 #bg {
-    width: 100vw;
-    object-fit: cover;
-
-    position: fixed;
-    z-index: -10;
-    right: 0;
+  width: 100vw;
+  object-fit: cover;
+  position: fixed;
+  z-index: -10;
+  right: 0;
 }
-
 
 /* TOUT APRES NAV */
 .contenu {
-    width: 100%;
-    height: 92vh;
-
-    /* padding: 2rem; */
-
-    /* background-color: blue; */
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  width: 100%;
+  height: 92vh;
+  /* padding: 2rem; */
+  /* background-color: blue; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 /* RECTANGLE GAUCHE */
 .choices {
-    width: 20vw;
-    height: 100%;
-
-    /* border-radius: var(--radius) 0 0 var(--radius); */
-
-    box-shadow: 5px 8px 10px rgb(110, 109, 109);
-    background-color: var(--blanc);
-    /* background-color: red; */
-
-
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-
-    /* BONJOUR + PDP  */
-    .top {
-        height: 24%;
-        width: 100%;
-
-        /* background-color: aqua; */
-
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        align-items: center;
-
-        padding: 0.2rem 0;
-
-
-        /* Bonjour */
-        .bonjour {
-            margin: 0;
-        }
-
-        /* PDP - edit */
-        .pdp_and_buttons {
-            /* position: relative; */
-            height: 80px;
-            width: 120px;
-
-            display: flex;
-            justify-content: center;
-            align-items: flex-end;
-
-            /* background-color: red; */
-
-
-            /* pdp */
-            .pdp_container {
-                position: relative;
-                /* position: absolute; */
-
-                display: flex;
-                justify-content: flex-end;
-                align-items: flex-end;
-
-                height: 100%;
-                aspect-ratio: 1/1;
-
-                /* background-color: green; */
-
-                /* Image and edit */
-                .img_container {
-                    position: absolute;
-                    /* background-color: blue; */
-
-                    height: 100%;
-                    aspect-ratio: 1/1;
-
-                    left: 0;
-                    right: 0;
-                    margin: 0 auto;
-
-                    /* photo */
-                    .pdp {
-                        height: 100%;
-                        aspect-ratio: 1/1;
-                        object-fit: cover;
-            
-                        border-radius: 100%;
-                    }
-                }
-
-                /* Edit */
-                .label {
-                    z-index: 100;
-                    /* background-color: red; */
-                    
-                    display: flex;
-                    align-items: flex-end;
-
-                    /* display: none; */
-
-
-                    /* Button */
-                    .edit_pdp {
-                        width: 15px;
-                        cursor: pointer;
-
-                        /* background-color: gray; */
-                    }
-                }
-
-
-            }
-
-
-            /* save and cancel */
-            #changes_pdp {
-                width: 100%;
-                z-index: 100;
-
-                /* background-color: blue; */
-
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-
-                display: none;
-
-                /* Save, Cancel */
-                #save_pdp, #cancel_pdp {
-                    height: 15px;
-                    object-fit: cover;
-
-                    cursor: pointer;
-                }
-
-            }
-            
-        }
-
-    }
-
-    /* SEPARATEUR ENTRE TOP ET BOTTOM */
-    .divider-choices {
-        height: 5px;
-        width: 80%;
-
-        margin: 10px auto;
-
-        background-color: orange;
-    }
-
-    /* CHOIX DE FONCTIONNALITÉS */
-    .bottom {
-        height: 50%;
-        width: 100%;
-
-        padding: 0.2rem 0;
-
-        /* background-color: aquamarine; */
-
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        align-items: center;
-
-        /* CHOICE */
-        .element {
-            width: 70%;
-            height: 35px;
-            /* background-color: darkmagenta; */
-
-            display: flex;
-            justify-content: left;
-            align-items: center;
-
-
-            /* Icone */
-            .bot_image_container {
-                height: 70%;
-                width: 40px;
-                margin-right: 20px;
-                
-                display: flex;
-                align-items: center;
-                justify-content: center;
-
-                /* background-color: blue; */
-            }
-            .image {
-                height: 100%;
-                object-fit: cover;
-
-                /* background-color: red; */
-            }
-        }
-    }
-
-    /* Dexonnexion */
-    .deconnexion {
-        height: 10%;
-        width: 100%;
-        /* background-color: green; */
-
-        display: flex;
-        align-items: center;
-        justify-content: center;
-
-
-        /* Button */
-        .button {
-            background-color: orange;
-            padding: 8px 12px;
-            border-radius: 20px;
-            
-        }
-    }
+  width: 20vw;
+  height: 100%;
+  /* border-radius: var(--radius) 0 0 var(--radius); */
+  box-shadow: 5px 8px 10px rgb(110, 109, 109);
+  background-color: var(--blanc);
+  /* background-color: red; */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  /* BONJOUR + PDP  */
+  /* SEPARATEUR ENTRE TOP ET BOTTOM */
+  /* CHOIX DE FONCTIONNALITÉS */
+  /* Dexonnexion */
+}
+.choices .top {
+  height: 24%;
+  width: 100%;
+  /* background-color: aqua; */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.2rem 0;
+  /* Bonjour */
+  /* PDP - edit */
+}
+.choices .top .bonjour {
+  margin: 0;
+}
+.choices .top .pdp_and_buttons {
+  /* position: relative; */
+  height: 80px;
+  width: 120px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  /* background-color: red; */
+  /* pdp */
+  /* save and cancel */
+}
+.choices .top .pdp_and_buttons .pdp_container {
+  position: relative;
+  /* position: absolute; */
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+  height: 100%;
+  aspect-ratio: 1/1;
+  /* background-color: green; */
+  /* Image and edit */
+  /* Edit */
+}
+.choices .top .pdp_and_buttons .pdp_container .img_container {
+  position: absolute;
+  /* background-color: blue; */
+  height: 100%;
+  aspect-ratio: 1/1;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  /* photo */
+}
+.choices .top .pdp_and_buttons .pdp_container .img_container .pdp {
+  height: 100%;
+  aspect-ratio: 1/1;
+  object-fit: cover;
+  border-radius: 100%;
+}
+.choices .top .pdp_and_buttons .pdp_container .label {
+  z-index: 100;
+  /* background-color: red; */
+  display: flex;
+  align-items: flex-end;
+  /* display: none; */
+  /* Button */
+}
+.choices .top .pdp_and_buttons .pdp_container .label .edit_pdp {
+  width: 15px;
+  cursor: pointer;
+  /* background-color: gray; */
+}
+.choices .top .pdp_and_buttons #changes_pdp {
+  width: 100%;
+  z-index: 100;
+  /* background-color: blue; */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  display: none;
+  /* Save, Cancel */
+}
+.choices .top .pdp_and_buttons #changes_pdp #save_pdp, .choices .top .pdp_and_buttons #changes_pdp #cancel_pdp {
+  height: 15px;
+  object-fit: cover;
+  cursor: pointer;
+}
+.choices .divider-choices {
+  height: 5px;
+  width: 80%;
+  margin: 10px auto;
+  background-color: orange;
+}
+.choices .bottom {
+  height: 50%;
+  width: 100%;
+  padding: 0.2rem 0;
+  /* background-color: aquamarine; */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  /* CHOICE */
+}
+.choices .bottom .element {
+  width: 70%;
+  height: 35px;
+  /* background-color: darkmagenta; */
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  /* Icone */
+}
+.choices .bottom .element .bot_image_container {
+  height: 70%;
+  width: 40px;
+  margin-right: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* background-color: blue; */
+}
+.choices .bottom .element .image {
+  height: 100%;
+  object-fit: cover;
+  /* background-color: red; */
+}
+.choices .deconnexion {
+  height: 10%;
+  width: 100%;
+  /* background-color: green; */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* Button */
+}
+.choices .deconnexion .button {
+  background-color: orange;
+  padding: 8px 12px;
+  border-radius: 20px;
 }
 
 /* LIGNE VERTICAL SEPARANT CHOIX ET FONCTION */
 .separator {
-    height: 100%;
-    width: 5px;
+  height: 100%;
+  width: 5px;
 }
-
 
 /* FONCTIONNALITÉ */
 .fonction {
-    height: 100%;
-    flex-grow: 1;
-
-    padding: 1rem 3rem 1rem 3rem;
-
-    /* border-radius: 0 var(--radius) var(--radius) 0; */
-
-    box-shadow: 5px 8px 10px rgb(110, 109, 109);
-    background-color: var(--blanc);
-
-
-    display: flex;
-    flex-direction: column;
-
-    /* TITRE */
-    .titre-edit {
-        width: 100%;
-        margin: 0 0 0.5rem 0;
-
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-
-        /* background-color: blueviolet; */
-        
-        /* Titre */
-        .titre {
-            margin: 0;
-            font-weight: bold;
-            font-style: oblique;
-            font-size: 2.2rem;
-
-            /* background-color: green; */
-        }
-
-        /* edit */
-        #edit {
-            width: 20px;
-            aspect-ratio: 1/1;
-            object-fit: cover;
-
-            cursor: pointer;
-        }
-
-        /* changes */
-        #changes {
-
-            width: 80px;
-
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-
-            display: none;
-
-            /* background-color: red; */
-
-            /* Buttons */
-            #save, #cancel {
-                height: 20px;
-                /* aspect-ratio: 1/1; */
-                object-fit: cover;
-    
-                cursor: pointer;
-
-                /* background-color: blue; */
-            }
-        }
-    }
-
-
-    /* SEPARATOR */
-    .divider-fonction {
-        height: 5px;
-        width: 40%;
-
-        background-color: orange;
-    }
-
-    /* INFO */
-    .informations {
-        width: 100%;
-        flex-grow: 1;
-
-        padding: 30px 0;
-
-        /* background-color: aqua; */
-
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        align-items: center;
-        
-        /* CHAQUE INFO */
-        .info {
-            height: 40px;
-            width: 100%;
-
-            /* background-color: blue; */
-
-            display: flex;
-            justify-content: left;
-            align-items: center;
-
-            font-size: 1.2rem;
-            font-style: italic;
-
-
-            /* Key */
-            .key {
-                width: 40%;
-                height: 100%;
-                /* background-color: brown; */
-
-                font-weight: bolder;
-                
-                display: flex;
-                align-items: center;
-            }
-
-            /* Value */
-            .value {
-                height: 100%;
-                width: 35%;
-
-                display: flex;
-                justify-content: left;
-                align-items: center;
-
-                /* background-color:blueviolet; */
-                
-                /* DIV */
-                .stat {
-                    width: 100%;
-                    padding: 0 10px;
-    
-                    /* background-color: red; */
-                }
-
-                /* input */
-                .input {
-                    height: 80%;
-                    width: 100%;
-                    border: 1px solid orange;
-    
-                    border-radius: 10px;
-                    padding: 0 10px;
-    
-                    font-size: 1.1rem;
-                    font-style: italic;
-                    font-family: Arial, Helvetica, sans-serif;
-    
-                    display: none;
-                }
-            }
-
-            /* SERVER MSG */
-            .status {
-                flex-grow: 1;
-                font-size: 0.8rem;
-
-                padding-left: 2rem;
-
-                color: red;
-                
-                /* background-color: blue; */
-            }
-        }
-    }
+  height: 100%;
+  flex-grow: 1;
+  padding: 1rem 3rem 1rem 3rem;
+  /* border-radius: 0 var(--radius) var(--radius) 0; */
+  box-shadow: 5px 8px 10px rgb(110, 109, 109);
+  background-color: var(--blanc);
+  display: flex;
+  flex-direction: column;
+  /* TITRE */
+  /* SEPARATOR */
+  /* INFO */
 }
+.fonction .titre-edit {
+  width: 100%;
+  margin: 0 0 0.5rem 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  /* background-color: blueviolet; */
+  /* Titre */
+  /* edit */
+  /* changes */
+}
+.fonction .titre-edit .titre {
+  margin: 0;
+  font-weight: bold;
+  font-style: oblique;
+  font-size: 2.2rem;
+  /* background-color: green; */
+}
+.fonction .titre-edit #edit {
+  width: 20px;
+  aspect-ratio: 1/1;
+  object-fit: cover;
+  cursor: pointer;
+}
+.fonction .titre-edit #changes {
+  width: 80px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  display: none;
+  /* background-color: red; */
+  /* Buttons */
+}
+.fonction .titre-edit #changes #save, .fonction .titre-edit #changes #cancel {
+  height: 20px;
+  /* aspect-ratio: 1/1; */
+  object-fit: cover;
+  cursor: pointer;
+  /* background-color: blue; */
+}
+.fonction .divider-fonction {
+  height: 5px;
+  width: 40%;
+  background-color: orange;
+}
+.fonction .informations {
+  width: 100%;
+  flex-grow: 1;
+  padding: 30px 0;
+  /* background-color: aqua; */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  /* CHAQUE INFO */
+}
+.fonction .informations .info {
+  height: 40px;
+  width: 100%;
+  /* background-color: blue; */
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  font-size: 1.2rem;
+  font-style: italic;
+  /* Key */
+  /* Value */
+  /* SERVER MSG */
+}
+.fonction .informations .info .key {
+  width: 40%;
+  height: 100%;
+  /* background-color: brown; */
+  font-weight: bolder;
+  display: flex;
+  align-items: center;
+}
+.fonction .informations .info .value {
+  height: 100%;
+  width: 35%;
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  /* background-color:blueviolet; */
+  /* DIV */
+  /* input */
+}
+.fonction .informations .info .value .stat {
+  width: 100%;
+  padding: 0 10px;
+  /* background-color: red; */
+}
+.fonction .informations .info .value .input {
+  height: 80%;
+  width: 100%;
+  border: 1px solid orange;
+  border-radius: 10px;
+  padding: 0 10px;
+  font-size: 1.1rem;
+  font-style: italic;
+  font-family: Arial, Helvetica, sans-serif;
+  display: none;
+}
+.fonction .informations .info .status {
+  flex-grow: 1;
+  font-size: 0.8rem;
+  padding-left: 2rem;
+  color: red;
+  /* background-color: blue; */
+}
+
+/*# sourceMappingURL=profil.css.map */
