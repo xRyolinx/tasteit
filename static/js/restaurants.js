@@ -58,10 +58,14 @@ async function add_el(template, add) {
     }
 
     // last id
+    let seemore = document.querySelector(".seemore");
     if (id == last_id)
     {
-        let seemore = document.querySelector(".seemore");
         seemore.remove();
+    }
+    else
+    {
+        seemore.style.display = "flex";
     }
 }
 
@@ -77,7 +81,7 @@ async function last_async() {
 
 //Global starting elements
 let nb_elements = 8;
-let add_element = 4;
+let add_elements = 4;
 let id = 0;
 let last_id = 0;
 
@@ -88,10 +92,20 @@ document.addEventListener('DOMContentLoaded', async function() {
     await last_async();
 
     //Starting element of global
-    if ((window.matchMedia("(max-width: 1024px)").matches))
+    if ((window.matchMedia("(max-width: 600px)").matches))
     {
-        nb_elements = 2;
-        add_element = 3;
+        nb_elements = 4;
+        add_elements = 4;
+    }
+    else if ((window.matchMedia("(max-width: 830px)").matches))
+    {
+        nb_elements = 4;
+        add_elements = 4;
+    }
+    else if ((window.matchMedia("(max-width: 1024px)").matches))
+    {
+        nb_elements = 6;
+        add_elements = 6;
     }
 
     //Save template
@@ -107,7 +121,7 @@ document.addEventListener('DOMContentLoaded', async function() {
 
     //Voir plus
     document.querySelector('#plus').addEventListener('click', function(event){
-        add_el(copy, add_element);
+        add_el(copy, add_elements);
         event.preventDefault();
     });
 });

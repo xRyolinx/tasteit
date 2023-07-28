@@ -278,7 +278,9 @@ main {
     width: 100%;
     margin: 2rem 0;
 
-    display: flex;
+    /* display: flex; */
+    display: none;
+    
     justify-content: center;
     pointer-events: none;
 }
