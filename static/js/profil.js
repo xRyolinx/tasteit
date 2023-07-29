@@ -102,6 +102,20 @@ function pdp_changes_to_edit()
 
 //Start
 document.addEventListener('DOMContentLoaded', function() {
+    // Size
+    contenu = document.querySelector('.contenu');
+    if (contenu.clientHeight != 680 && contenu.clientHeight != 450)
+    {
+        contenu.style.height = window.innerHeight;
+    }
+    window.addEventListener('resize', () => {
+        if (contenu.clientHeight != 680 && contenu.clientHeight != 450)
+        {
+            contenu.style.height = window.innerHeight;
+        }
+    })
+    
+    // Vars
     let edit = document.querySelector("#edit");
     let changes = document.querySelector("#changes");
     let save = document.querySelector("#save");
