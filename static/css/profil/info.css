@@ -69,6 +69,9 @@
   width: 40%;
   background-color: orange;
 }
+.fonction #informations_container {
+  flex-grow: 1;
+}
 .fonction .informations {
   width: 100%;
   flex-grow: 1;
@@ -137,10 +140,18 @@
   color: red;
   /* background-color: blue; */
 }
-.fonction .informations .save_mob .button {
+.fonction .save_mob {
+  padding-top: 7vh;
+  width: auto;
+  margin: 0 auto;
+  height: 35px;
+  display: flex;
+  align-items: center;
+}
+.fonction .save_mob .button {
   background-color: orange;
-  margin-top: 10px;
-  padding: 5px 20px;
+  font-size: 1.3rem;
+  padding: 5px 25px;
   border-radius: 20px;
   color: white;
   display: none;

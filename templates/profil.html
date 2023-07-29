@@ -148,69 +148,71 @@
             <div class="divider-fonction"></div>
 
             <!-- Infos -->
-            <div class="informations">
-                <input id="id" name="id" type="hidden" value="{{ person['id'] }}">
-                <div class="info">
-                    <div class="key">Username</div>
-                    <div class="value">
-                        <span class="stat">{{ person['username'] }}</span>
-                        <input id="username" name="username" class="input" type="text" value="{{ person['username'] }}">
+            <div id="informations_container" style="display: flex; flex-direction: column;">
+                <div class="informations">
+                    <input id="id" name="id" type="hidden" value="{{ person['id'] }}">
+                    <div class="info">
+                        <div class="key">Username</div>
+                        <div class="value">
+                            <span class="stat">{{ person['username'] }}</span>
+                            <input id="username" name="username" class="input" type="text" value="{{ person['username'] }}">
+                        </div>
+                        <span class="status"></span>
                     </div>
-                    <span class="status"></span>
-                </div>
-                <div class="info">
-                    <div class="key">Passsword</div>
-                    <div class="value">
-                        <span class="stat">{{ person['password'] }}</span>
-                        <input id="password" name="password" class="input" type="text" value="{{ person['password'] }}">
+                    <div class="info">
+                        <div class="key">Passsword</div>
+                        <div class="value">
+                            <span class="stat">{{ person['password'] }}</span>
+                            <input id="password" name="password" class="input" type="text" value="{{ person['password'] }}">
+                        </div>
+                        <span class="status"></span>
                     </div>
-                    <span class="status"></span>
-                </div>
-                <div class="info">
-                    <div class="key">Nom</div>
-                    <div class="value">
-                        <span class="stat">{{ person['last_name'] }}</span>
-                        <input id="last_name" name="last_name" class="input" type="text" value="{{ person['last_name'] }}">
+                    <div class="info">
+                        <div class="key">Nom</div>
+                        <div class="value">
+                            <span class="stat">{{ person['last_name'] }}</span>
+                            <input id="last_name" name="last_name" class="input" type="text" value="{{ person['last_name'] }}">
+                        </div>
+                        <span class="status"></span>
                     </div>
-                    <span class="status"></span>
-                </div>
-                <div class="info">
-                    <div class="key">Prenom</div>
-                    <div class="value">
-                        <span class="stat">{{ person['first_name'] }}</span>
-                        <input id="first_name" name="first_name" class="input" type="text" value="{{ person['first_name'] }}">
+                    <div class="info">
+                        <div class="key">Prenom</div>
+                        <div class="value">
+                            <span class="stat">{{ person['first_name'] }}</span>
+                            <input id="first_name" name="first_name" class="input" type="text" value="{{ person['first_name'] }}">
+                        </div>
+                        <span class="status"></span>
                     </div>
-                    <span class="status"></span>
-                </div>
-                <div class="info">
-                    <div class="key">Adresse</div>
-                    <div class="value">
-                        <span class="stat">{{ person['adress'] }}</span>
-                        <input id="adress" name="adress" class="input" type="text" value="{{ person['adress'] }}">
+                    <div class="info">
+                        <div class="key">Adresse</div>
+                        <div class="value">
+                            <span class="stat">{{ person['adress'] }}</span>
+                            <input id="adress" name="adress" class="input" type="text" value="{{ person['adress'] }}">
+                        </div>
+                        <span class="status"></span>
+                        
                     </div>
-                    <span class="status"></span>
-                    
-                </div>
-                <div class="info">
-                    <div class="key">Telephone</div>
-                    <div class="value">
-                        <span class="stat">{{ person['phone'] }}</span>
-                        <input id="phone" name="phone" class="input" type="text" value="{{ person['phone'] }}">
+                    <div class="info">
+                        <div class="key">Telephone</div>
+                        <div class="value">
+                            <span class="stat">{{ person['phone'] }}</span>
+                            <input id="phone" name="phone" class="input" type="text" value="{{ person['phone'] }}">
+                        </div>
+                        <span class="status"></span>
                     </div>
-                    <span class="status"></span>
-                </div>
-                <div class="info">
-                    <div class="key">Email</div>
-                    <div class="value">
-                        <span class="stat">{{ person['email'] }}</span>
-                        <input id="email" name="email" class="input" type="text" value="{{ person['email'] }}">
+                    <div class="info">
+                        <div class="key">Email</div>
+                        <div class="value">
+                            <span class="stat">{{ person['email'] }}</span>
+                            <input id="email" name="email" class="input" type="text" value="{{ person['email'] }}">
+                        </div>
+                        <span class="status"></span>
                     </div>
-                    <span class="status"></span>
+                    <input type="submit" hidden>
                 </div>
                 <div class="save_mob">
                     <span class="button" id="save_mob">Save</a>
                 </div>
-                <input type="submit" hidden>
             </div>
         </div>
     </div>

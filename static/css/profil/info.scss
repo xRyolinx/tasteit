@@ -93,6 +93,9 @@
     }
 
     /* INFO */
+    #informations_container {
+        flex-grow: 1;
+    }
     .informations {
         width: 100%;
         flex-grow: 1;
@@ -187,16 +190,30 @@
             }
         }
 
-        .save_mob {
-            .button {
-                background-color: orange;
-                margin-top: 10px;
-                padding: 5px 20px;
-                border-radius: 20px;
-                color: white;
+    }
 
-                display: none;
-            }
+    .save_mob {
+        padding-top: 7vh;
+
+        width: auto;
+        margin: 0 auto;
+        height: 35px;
+
+        // background-color: blue;
+
+        display: flex;
+        align-items: center;
+
+        
+        .button {
+            background-color: orange;
+            font-size: 1.3rem;
+            
+            padding: 5px 25px;
+            border-radius: 20px;
+            color: white;
+
+            display: none;
         }
     }
 }

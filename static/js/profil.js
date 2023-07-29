@@ -19,8 +19,8 @@ function convert_to_form(container)
     }
 
     // Insert the form
-    let parent = container.parentElement;
-    parent.appendChild(form);
+    let parent = document.querySelector("#informations_container");
+    parent.prepend(form);
 
     // Delete the container
     container.remove();
@@ -41,7 +41,7 @@ function convert_to_div(form)
 
     // Insert the div
     let parent = form.parentElement;
-    parent.appendChild(container);
+    parent.prepend(container);
 
     // Delete the form
     form.remove();
