@@ -102,21 +102,54 @@ function pdp_changes_to_edit()
 
 function hide_url()
 {
+    // Get back previous size
+    let new_size = contenu.clientHeight;
+    // Add back height
+    if (mode == 'long')
+    {   
+        new_size += size_nav['large'];
+        contenu.style.height = new_size.toString() + 'px';
+    }
+    else if (mode == 'large')
+    {
+        new_size += size_nav['long'];
+        contenu.style.height = new_size.toString() + 'px';
+    }
+
+
+    // Save sizes and states
     let contenu = document.querySelector('.contenu');
     let div = document.querySelector('#hauteur_div');
     let size = div.clientHeight - window.innerHeight;
+
+    if (window.innerHeight > window.innerWidth)
+    {
+        mode = 'long';
+        size_nav['long'] = size;
+    }
+    else
+    {
+        mode = 'large';
+        size_nav['large'] = size;
+    }
     
-    if (contenu.clientHeight > 450)
+    if (contenu.clientHeight - size > 450)
     {
         size = contenu.clientHeight - size;
-        
         contenu.style.height = size.toString() + 'px';
     }
 }
 
+
+let mode = 'none';
+let size_nav = {
+    'long' : 0,
+    'large' : 0
+}
+
 //Start
 document.addEventListener('DOMContentLoaded', function() {
-    // Size
+    // Size   
     hide_url();
     window.addEventListener('resize', hide_url);
     
