@@ -100,20 +100,23 @@ function pdp_changes_to_edit()
 
 
 
+function hide_url()
+{
+    let contenu = document.querySelector('.contenu');
+    let div = document.querySelector('#hauteur_div');
+    let size = div.clientHeight - window.innerHeight;
+
+    if (contenu.clientHeight > 450)
+    {
+        contenu.style.height = contenu.clientHeight - size;
+    }
+}
+
 //Start
 document.addEventListener('DOMContentLoaded', function() {
     // Size
-    contenu = document.querySelector('.contenu');
-    if (contenu.clientHeight != 680 && contenu.clientHeight != 450)
-    {
-        contenu.style.height = window.innerHeight;
-    }
-    window.addEventListener('resize', () => {
-        if (contenu.clientHeight != 680 && contenu.clientHeight != 450)
-        {
-            contenu.style.height = window.innerHeight;
-        }
-    })
+    hide_url();
+    window.addEventListener('resize', hide_url);
     
     // Vars
     let edit = document.querySelector("#edit");
