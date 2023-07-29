@@ -102,6 +102,8 @@ function pdp_changes_to_edit()
 
 function hide_url()
 {
+    let contenu = document.querySelector('.contenu');
+
     // Get back previous size
     let new_size = contenu.clientHeight;
     // Add back height
@@ -118,7 +120,6 @@ function hide_url()
 
 
     // Save sizes and states
-    let contenu = document.querySelector('.contenu');
     let div = document.querySelector('#hauteur_div');
     let size = div.clientHeight - window.innerHeight;
 
