@@ -1,0 +1,170 @@
+@charset "UTF-8";
+:root {
+  --radius: 30px;
+  --blanc: #FFFFFF;
+}
+
+/* FONCTIONNALITÉ */
+.fonction {
+  height: 100%;
+  flex-grow: 1;
+  padding: 1rem 3rem;
+  /* border-radius: 0 var(--radius) var(--radius) 0; */
+  box-shadow: 1px 8px 10px rgb(110, 109, 109);
+  background-color: var(--blanc);
+  display: flex;
+  flex-direction: column;
+  /* TITRE */
+  /* SEPARATOR */
+  /* INFO */
+}
+.fonction .titre-edit {
+  width: 100%;
+  margin: 0 0 0.5rem 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  /* background-color: blueviolet; */
+  /* Titre */
+  /* edit */
+  /* changes */
+}
+.fonction .titre-edit .go_back {
+  display: none;
+  width: 20px;
+}
+.fonction .titre-edit .titre {
+  margin: 0;
+  font-weight: bold;
+  font-style: oblique;
+  font-size: 2.2rem;
+  /* background-color: green; */
+}
+.fonction .titre-edit #edit {
+  width: 20px;
+  aspect-ratio: 1/1;
+  -o-object-fit: cover;
+     object-fit: cover;
+  cursor: pointer;
+}
+.fonction .titre-edit #changes {
+  width: 80px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  display: none;
+  /* background-color: red; */
+  /* Buttons */
+}
+.fonction .titre-edit #changes #save, .fonction .titre-edit #changes #cancel {
+  height: 20px;
+  /* aspect-ratio: 1/1; */
+  -o-object-fit: cover;
+     object-fit: cover;
+  cursor: pointer;
+  /* background-color: blue; */
+}
+.fonction .divider-fonction {
+  height: 5px;
+  width: 40%;
+  background-color: orange;
+}
+.fonction .informations {
+  width: 100%;
+  flex-grow: 1;
+  padding: 30px 0;
+  /* background-color: aqua; */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  /* CHAQUE INFO */
+}
+.fonction .informations .info {
+  height: 40px;
+  width: 100%;
+  /* background-color: blue; */
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  font-size: 1.2rem;
+  font-style: italic;
+  /* Key */
+  /* Value */
+  /* SERVER MSG */
+}
+.fonction .informations .info .key {
+  min-width: 40%;
+  height: 100%;
+  font-weight: bolder;
+  display: flex;
+  align-items: center;
+}
+.fonction .informations .info .value {
+  height: 100%;
+  flex-grow: 1;
+  max-width: 320px;
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  /* background-color:blueviolet; */
+  /* DIV */
+  /* input */
+}
+.fonction .informations .info .value .stat {
+  width: 100%;
+  display: inline-block;
+  word-wrap: break-word;
+  padding: 0 10px;
+  /* background-color: red; */
+}
+.fonction .informations .info .value .input {
+  height: 80%;
+  width: 100%;
+  border: 1px solid orange;
+  border-radius: 10px;
+  padding: 0 10px;
+  font-size: 1.1rem;
+  font-style: italic;
+  font-family: Arial, Helvetica, sans-serif;
+  display: none;
+}
+.fonction .informations .info .status {
+  display: none;
+  flex-grow: 1;
+  font-size: 0.8rem;
+  padding-left: 2rem;
+  color: red;
+  /* background-color: blue; */
+}
+
+@media (max-width: 750px) {
+  .contenu {
+    width: 90%;
+    margin: 0 auto;
+  }
+  .fonction {
+    min-width: 0;
+    max-width: 600px;
+    padding: 1rem 20px;
+  }
+  .fonction .titre-edit .go_back {
+    display: inline;
+  }
+  .fonction .titre-edit .titre {
+    font-size: 1.8rem;
+  }
+  .fonction .titre-edit #edit {
+    width: 17px;
+  }
+  .fonction .divider-fonction {
+    margin: 0 auto;
+    height: 4px;
+  }
+  .fonction .informations {
+    max-height: 450px;
+  }
+  .fonction .informations .info {
+    font-size: 1rem;
+  }
+}/*# sourceMappingURL=info.css.map */

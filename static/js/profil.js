@@ -50,7 +50,18 @@ function convert_to_div(form)
 // Error message
 function error_msg(id, msg)
 {
-    document.querySelector(id).parentElement.parentElement.children[2].innerHTML = msg;
+    let status = document.querySelector(id).parentElement.parentElement.children[2];
+    status.innerHTML = msg;
+    console.log(msg);
+
+    if (msg == '')
+    {
+        status.style.display = "none";
+    }
+    else
+    {
+        status.style.display = "inline";
+    }
 }
 
 // PDP : From Edit to Save/Cancel
@@ -204,7 +215,7 @@ document.addEventListener('DOMContentLoaded', function() {
             // Error msg
             if (values[0] != current_username)
             {
-                document.querySelector('#username').parentElement.parentElement.children[2].innerHTML = 'Username already used';
+                error_msg('#username', 'Username already used');
             }
         }
         

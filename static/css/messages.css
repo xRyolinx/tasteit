@@ -5,8 +5,6 @@
 }
 
 *, *:before, *:after {
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
 
@@ -21,7 +19,8 @@ a {
 
 #bg {
   width: 100vw;
-  object-fit: cover;
+  -o-object-fit: cover;
+     object-fit: cover;
   position: fixed;
   z-index: -10;
   right: 0;
@@ -68,7 +67,8 @@ a {
 .choices .top .pdp {
   width: 100%;
   aspect-ratio: 1/1;
-  object-fit: cover;
+  -o-object-fit: cover;
+     object-fit: cover;
   border-radius: 100%;
   cursor: pointer;
 }
@@ -100,7 +100,8 @@ a {
 }
 .choices .bottom .element .image {
   height: 70%;
-  object-fit: cover;
+  -o-object-fit: cover;
+     object-fit: cover;
   cursor: pointer;
 }
 .choices .deconnexion {
@@ -115,7 +116,8 @@ a {
 .choices .deconnexion .button {
   /* background-color: orange; */
   height: 70%;
-  object-fit: cover;
+  -o-object-fit: cover;
+     object-fit: cover;
   cursor: pointer;
 }
 
@@ -202,7 +204,8 @@ a {
 .boite .courrier .person .pdp_courrier_container .pdp_courrier {
   height: 70%;
   aspect-ratio: 1/1;
-  object-fit: cover;
+  -o-object-fit: cover;
+     object-fit: cover;
   border-radius: 100%;
   cursor: pointer;
 }
@@ -271,7 +274,8 @@ a {
 .messagerie .destinataire .info .pdp_messagerie {
   height: 70%;
   aspect-ratio: 1/1;
-  object-fit: cover;
+  -o-object-fit: cover;
+     object-fit: cover;
   border-radius: 100%;
   cursor: pointer;
 }
@@ -284,7 +288,8 @@ a {
 .messagerie .destinataire .detail {
   height: 50%;
   /* background-color: red; */
-  object-fit: cover;
+  -o-object-fit: cover;
+     object-fit: cover;
 }
 .messagerie .messages_container {
   flex-grow: 1;
@@ -333,7 +338,8 @@ a {
   height: 2.13rem;
   margin-right: 0.5rem;
   aspect-ratio: 1/1;
-  object-fit: cover;
+  -o-object-fit: cover;
+     object-fit: cover;
   border-radius: 100%;
   cursor: pointer;
 }
@@ -396,13 +402,12 @@ a {
 }
 .messagerie .user_input .icones .icone {
   height: 50%;
-  object-fit: cover;
+  -o-object-fit: cover;
+     object-fit: cover;
 }
 
 /* LIGNE VERTICAL SEPARANT CHOIX ET FONCTION */
 .separator {
   height: 100%;
   width: 5px;
-}
-
-/*# sourceMappingURL=messages.css.map */
+}/*# sourceMappingURL=messages.css.map */

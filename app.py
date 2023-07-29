@@ -559,6 +559,10 @@ def aboutus():
 
 
 # ------------------------------- Profil ----------------------------------
+@app.route("/info", methods=["GET", "POST"])
+def info():
+    return render_template("profil.html", person=session['compte'], adr='info')
+    
 @app.route("/profil", methods=["GET", "POST"])
 def profil():
     # Normal page
@@ -566,7 +570,7 @@ def profil():
         if 'compte' not in session:
             return redirect("/signin") 
         
-        return render_template("profil.html", person=session['compte'])
+        return render_template("profil.html", person=session['compte'], adr='profil')
     
     # Update page
     if request.method == 'POST':

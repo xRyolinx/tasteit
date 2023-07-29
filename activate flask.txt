@@ -1,0 +1,1 @@
+& c:/Users/Ryolin/Personal/Projets/TasteIt/.venv/Scripts/Activate.ps1

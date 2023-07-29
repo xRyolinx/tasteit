@@ -1,0 +1,310 @@
+:root {
+    --radius : 30px;
+    --blanc : #FFFFFF;
+}
+
+*, *:before, *:after {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+}
+
+#bg-topright {
+    width: 30vw;
+    min-width: 150px;
+    margin-top: 8vh;
+
+    position: fixed;
+    z-index: -100;
+    right: 0;
+    top: 0;
+}
+
+#bg-botleft {
+    width: 30vw;
+    min-width: 150px;
+    
+    position: fixed;
+    z-index: -100;
+    left: 0;
+    bottom: 0;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+}
+
+#bg {
+    width: 100vw;
+    object-fit: cover;
+
+    position: fixed;
+    z-index: -10;
+    right: 0;
+}
+
+
+/* TOUT APRES NAV */
+.contenu {
+    width: 100%;
+    height: 92vh;
+
+    /* padding: 2rem; */
+
+    /* background-color: blue; */
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* RECTANGLE GAUCHE */
+.choices {
+    width: 20vw;
+    min-width: 230px;
+    
+    height: 100%;
+    padding-top: 1rem;
+
+    /* border-radius: var(--radius) 0 0 var(--radius); */
+
+    box-shadow: 1px 8px 10px rgb(110, 109, 109);
+    background-color: var(--blanc);
+    /* background-color: red; */
+
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+
+    /* BONJOUR + PDP  */
+    .top {
+        height: 24%;
+        width: 100%;
+
+        /* background-color: aqua; */
+
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+
+        padding: 0.2rem 0;
+
+
+        /* Bonjour */
+        .bonjour {
+            margin: 0;
+        }
+
+        /* PDP - edit */
+        .pdp_and_buttons {
+            /* position: relative; */
+            height: 80px;
+            width: 120px;
+
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+
+            /* background-color: red; */
+
+
+            /* pdp */
+            .pdp_container {
+                position: relative;
+                /* position: absolute; */
+
+                display: flex;
+                justify-content: flex-end;
+                align-items: flex-end;
+
+                height: 100%;
+                aspect-ratio: 1/1;
+
+                /* background-color: green; */
+
+                /* Image and edit */
+                .img_container {
+                    position: absolute;
+                    /* background-color: blue; */
+
+                    height: 100%;
+                    aspect-ratio: 1/1;
+
+                    left: 0;
+                    right: 0;
+                    margin: 0 auto;
+
+                    /* photo */
+                    .pdp {
+                        height: 100%;
+                        aspect-ratio: 1/1;
+                        object-fit: cover;
+            
+                        border-radius: 100%;
+                    }
+                }
+
+                /* Edit */
+                .label {
+                    z-index: 100;
+                    /* background-color: red; */
+                    
+                    display: flex;
+                    align-items: flex-end;
+
+                    /* display: none; */
+
+
+                    /* Button */
+                    .edit_pdp {
+                        width: 15px;
+                        cursor: pointer;
+
+                        /* background-color: gray; */
+                    }
+                }
+
+
+            }
+
+
+            /* save and cancel */
+            #changes_pdp {
+                width: 100%;
+                z-index: 100;
+
+                /* background-color: blue; */
+
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+
+                display: none;
+
+                /* Save, Cancel */
+                #save_pdp, #cancel_pdp {
+                    height: 15px;
+                    object-fit: cover;
+
+                    cursor: pointer;
+                }
+
+            }
+            
+        }
+
+    }
+
+    /* SEPARATEUR ENTRE TOP ET BOTTOM */
+    .divider-choices {
+        height: 5px;
+        width: 80%;
+        max-width: 250px;
+
+        margin: 10px auto;
+
+        background-color: orange;
+    }
+
+    /* CHOIX DE FONCTIONNALITÉS */
+    .bottom {
+        height: 50%;
+        width: 100%;
+
+        padding: 0.2rem 0;
+
+        /* background-color: aquamarine; */
+
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        align-items: center;
+
+        /* CHOICE */
+        .element {
+            width: 80%;
+            height: 35px;
+            /* background-color: darkmagenta; */
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+
+            /* Icone */
+            .bot_image_container {
+                height: 70%;
+                width: 40px;
+                margin-right: 20px;
+                
+                display: flex;
+                align-items: center;
+                justify-content: center;
+
+                /* background-color: blue; */
+
+                .image {
+                    height: 100%;
+                    object-fit: cover;
+    
+                    /* background-color: red; */
+                }
+            }
+            
+
+            .text {
+                width: 110px;
+                // background-color: blue;
+            }
+        }
+    }
+
+    /* Dexonnexion */
+    .deconnexion {
+        height: 10%;
+        width: 100%;
+        /* background-color: green; */
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+
+        /* Button */
+        .button {
+            background-color: orange;
+            padding: 8px 12px;
+            border-radius: 20px;
+            
+        }
+    }
+}
+
+
+/* LIGNE VERTICAL SEPARANT CHOIX ET FONCTION */
+.separator {
+    height: 100%;
+    width: 5px;
+}
+
+
+@media (max-width: 750px) {
+    .choices {
+        width: 85%;
+        min-width: 0;
+        max-width: 350px;
+
+    
+        .top {
+            max-height: 130px !important;
+        }
+    }
+}

@@ -1,0 +1,234 @@
+:root {
+    --radius : 30px;
+    --blanc : #FFFFFF;
+}
+
+
+/* FONCTIONNALITÉ */
+.fonction {
+    height: 100%;
+    flex-grow: 1;
+
+    padding: 1rem 3rem;
+
+    /* border-radius: 0 var(--radius) var(--radius) 0; */
+
+    box-shadow: 1px 8px 10px rgb(110, 109, 109);
+    background-color: var(--blanc);
+
+    display: flex;
+    flex-direction: column;
+
+
+    /* TITRE */
+    .titre-edit {
+        width: 100%;
+        margin: 0 0 0.5rem 0;
+
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        /* background-color: blueviolet; */
+
+        // go back
+        .go_back {
+            display: none;
+            width: 20px;
+        }
+        
+        /* Titre */
+        .titre {
+            margin: 0;
+            font-weight: bold;
+            font-style: oblique;
+            font-size: 2.2rem;
+
+            /* background-color: green; */
+        }
+
+        /* edit */
+        #edit {
+            width: 20px;
+            aspect-ratio: 1/1;
+            object-fit: cover;
+
+            cursor: pointer;
+        }
+
+        /* changes */
+        #changes {
+
+            width: 80px;
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            display: none;
+
+            /* background-color: red; */
+
+            /* Buttons */
+            #save, #cancel {
+                height: 20px;
+                /* aspect-ratio: 1/1; */
+                object-fit: cover;
+    
+                cursor: pointer;
+
+                /* background-color: blue; */
+            }
+        }
+    }
+
+
+    /* SEPARATOR */
+    .divider-fonction {
+        // margin-left: 60px;
+        height: 5px;
+        width: 40%;
+
+        background-color: orange;
+    }
+
+    /* INFO */
+    .informations {
+        width: 100%;
+        flex-grow: 1;
+
+        padding: 30px 0;
+
+        /* background-color: aqua; */
+
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+        
+        /* CHAQUE INFO */
+        .info {
+            height: 40px;
+            width: 100%;
+
+            /* background-color: blue; */
+
+            display: flex;
+            justify-content: left;
+            align-items: center;
+
+            font-size: 1.2rem;
+            font-style: italic;
+
+
+            /* Key */
+            .key {
+                min-width: 40%;
+                height: 100%;
+                // background-color: brown;
+
+                font-weight: bolder;
+                
+                display: flex;
+                align-items: center;
+            }
+
+            /* Value */
+            .value {
+                height: 100%;
+                flex-grow: 1;
+                max-width: 320px;
+                // min-width: 35%;
+
+                display: flex;
+                justify-content: left;
+                align-items: center;
+
+                /* background-color:blueviolet; */
+                
+                /* DIV */
+                .stat {
+                    width: 100%;
+                    display: inline-block;
+                    word-wrap:break-word;
+                    padding: 0 10px;
+    
+                    /* background-color: red; */
+                }
+
+                /* input */
+                .input {
+                    height: 80%;
+                    width: 100%;
+                    border: 1px solid orange;
+    
+                    border-radius: 10px;
+                    padding: 0 10px;
+    
+                    font-size: 1.1rem;
+                    font-style: italic;
+                    font-family: Arial, Helvetica, sans-serif;
+    
+                    display: none;
+                }
+            }
+
+            /* SERVER MSG */
+            .status {
+                display: none;
+                flex-grow: 1;
+                font-size: 0.8rem;
+
+                padding-left: 2rem;
+
+                color: red;
+                
+                /* background-color: blue; */
+            }
+        }
+    }
+}
+
+
+
+@media (max-width: 750px) {
+    .contenu {
+        width: 90%;
+        margin: 0 auto;
+    }
+
+    .fonction {
+        min-width: 0;
+        max-width: 600px;
+
+        padding: 1rem 20px;
+
+        .titre-edit {
+            .go_back {
+                display: inline;
+            }
+
+            .titre {
+                font-size: 1.8rem;
+            }
+    
+            #edit {
+                width: 17px;
+            }
+        }
+
+        .divider-fonction {
+            margin: 0 auto;
+            height: 4px;
+        }
+
+        .informations {
+            max-height: 450px;
+
+            
+            .info {
+                font-size: 1rem;
+            }
+        }
+    }
+}

@@ -6,7 +6,12 @@
     <title>{{ person['username'] }}</title>
 
     <!-- css -->
-    <link rel="stylesheet" href="/static/css/profil.css">
+    <link rel="stylesheet" href="/static/css/profil/profil.css">
+    <link rel="stylesheet" href="/static/css/profil/info.css">
+      
+    <!-- for mobile -->
+    <link rel="stylesheet" href='/static/css/profil/{{ adr }}_mob.css'>
+    
     <!-- js -->
     <script src="/static/js/profil.js"></script>
     <!-- Nav -->
@@ -14,7 +19,9 @@
     <script src="/static/navbar/navbar.js"></script>
 </head>
 <body>
-    <img id="bg" src="/static/img/fond2.png" alt="bg_img">
+    <!-- bg -->
+    <img id="bg-topright" src="/static/img/bg-topright.png" alt="bg_img">
+    <img id="bg-botleft" src="/static/img/bg-botleft.png" alt="bg_img">
 
     <!-- Nav -->
     <nav>
@@ -85,7 +92,7 @@
                     <div class="bot_image_container">
                         <img class="image" src="/static/img/info.png" alt="">
                     </div>
-                    <a href="/profil" class="text">Informations</a>
+                    <a href="/info" class="text">Informations</a>
                 </div>
                 <div class="element">
                     <div class="bot_image_container">
@@ -120,22 +127,21 @@
             </div>
         </div>
 
-<!-- ----------------------------------------------------- -->
-
-<!-- ------------------------------------------------------------------------ -->
 
         <div class="separator"></div>
 
         <div class="fonction">
             <!-- Titre -->
             <div class="titre-edit">
+                <img class="go_back" onclick="window.location.pathname = '/profil'" src="/static/img/go_back.png" alt="">
+
                 <p class="titre">Informations</p>
+
                 <img id="edit" src="/static/img/edit.png" alt="">
                 <div id="changes">
                     <img id="cancel" src="/static/img/cancel.png" alt="">
                     <img id="save" src="/static/img/save.png" alt="">
                 </div>
-                
             </div>
 
             <!-- Separator -->
@@ -152,7 +158,7 @@
                     </div>
                     <span class="status"></span>
                 </div>
-                <div class="info" style="margin-bottom: 10px;">
+                <div class="info">
                     <div class="key">Passsword</div>
                     <div class="value">
                         <span class="stat">{{ person['password'] }}</span>

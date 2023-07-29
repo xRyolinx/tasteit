@@ -9,11 +9,13 @@ body {
 }
 
 #bg {
-    height: 100vh;
+    height: 92vh;
+    margin-top: 8vh;
 
     position: fixed;
     z-index: -100;
     right: 0;
+    top: 0;
 }
 
 #bg-sheet {
