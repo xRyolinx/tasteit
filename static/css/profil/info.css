@@ -72,7 +72,7 @@
 .fonction .informations {
   width: 100%;
   flex-grow: 1;
-  padding: 30px 0;
+  padding-top: 30px;
   /* background-color: aqua; */
   display: flex;
   flex-direction: column;
@@ -137,16 +137,25 @@
   color: red;
   /* background-color: blue; */
 }
+.fonction .informations .save_mob .button {
+  background-color: orange;
+  margin-top: 10px;
+  padding: 5px 20px;
+  border-radius: 20px;
+  color: white;
+  display: none;
+}
 
 @media (max-width: 750px) {
   .contenu {
-    width: 90%;
+    width: 100%;
     margin: 0 auto;
   }
   .fonction {
     min-width: 0;
     max-width: 600px;
     padding: 1rem 20px;
+    box-shadow: none;
   }
   .fonction .titre-edit .go_back {
     display: inline;
@@ -155,6 +164,15 @@
     font-size: 1.8rem;
   }
   .fonction .titre-edit #edit {
+    width: 17px;
+  }
+  .fonction .titre-edit #changes {
+    width: auto;
+  }
+  .fonction .titre-edit #changes #save {
+    display: none;
+  }
+  .fonction .titre-edit #changes #cancel {
     width: 17px;
   }
   .fonction .divider-fonction {
@@ -166,5 +184,18 @@
   }
   .fonction .informations .info {
     font-size: 1rem;
+  }
+  .fonction .informations .info .value .input {
+    height: 60%;
+    font-size: 0.9rem;
+  }
+}
+@media (max-height: 500px) {
+  .fonction {
+    padding: 1rem 20px;
+  }
+  .fonction .informations {
+    padding: 0;
+    padding-top: 10px;
   }
 }/*# sourceMappingURL=info.css.map */

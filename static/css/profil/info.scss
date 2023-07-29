@@ -97,7 +97,7 @@
         width: 100%;
         flex-grow: 1;
 
-        padding: 30px 0;
+        padding-top: 30px;
 
         /* background-color: aqua; */
 
@@ -186,14 +186,25 @@
                 /* background-color: blue; */
             }
         }
+
+        .save_mob {
+            .button {
+                background-color: orange;
+                margin-top: 10px;
+                padding: 5px 20px;
+                border-radius: 20px;
+                color: white;
+
+                display: none;
+            }
+        }
     }
 }
 
 
-
 @media (max-width: 750px) {
     .contenu {
-        width: 90%;
+        width: 100%;
         margin: 0 auto;
     }
 
@@ -202,6 +213,8 @@
         max-width: 600px;
 
         padding: 1rem 20px;
+        
+        box-shadow: none;
 
         .titre-edit {
             .go_back {
@@ -215,6 +228,18 @@
             #edit {
                 width: 17px;
             }
+
+            #changes{
+                width: auto;
+
+                #save {
+                    display: none;
+                }
+
+                #cancel {
+                    width: 17px;
+                }
+            }
         }
 
         .divider-fonction {
@@ -225,10 +250,27 @@
         .informations {
             max-height: 450px;
 
-            
+
             .info {
                 font-size: 1rem;
+
+                .value .input {
+                    height: 60%;
+                    font-size: 0.9rem;
+                }
             }
+        }
+    }
+}
+
+
+@media (max-height: 500px) {
+    .fonction {
+        padding: 1rem 20px;
+
+        .informations {
+            padding: 0;
+            padding-top: 10px;
         }
     }
 }

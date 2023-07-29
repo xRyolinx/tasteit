@@ -105,6 +105,8 @@ document.addEventListener('DOMContentLoaded', function() {
     let edit = document.querySelector("#edit");
     let changes = document.querySelector("#changes");
     let save = document.querySelector("#save");
+    let save_mob = document.querySelector("#save_mob");
+    
     let cancel = document.querySelector("#cancel");
     
 
@@ -131,10 +133,16 @@ document.addEventListener('DOMContentLoaded', function() {
         // Convert to changes
         edit.style.display = 'none';
         changes.style.display = 'flex';
+
+        if ((window.matchMedia("(max-width: 750px)").matches))
+        {
+            save_mob.style.display = 'block';
+        }
     });
 
 
     // Save info
+    save_mob.addEventListener("click", function() { save.click() });
     save.addEventListener("click", async function() {
         let check = false;
         // check 3 fields
@@ -227,6 +235,7 @@ document.addEventListener('DOMContentLoaded', function() {
         // Convert to edit
         edit.style.display = 'inline';
         changes.style.display = 'none';
+        save_mob.style.display = 'none';
     });
 
 
@@ -262,6 +271,7 @@ document.addEventListener('DOMContentLoaded', function() {
         // Convert button to edit
         edit.style.display = 'inline';
         changes.style.display = 'none';
+        save_mob.style.display = 'none';
     });
 
 
