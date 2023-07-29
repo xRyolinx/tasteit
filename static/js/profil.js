@@ -105,6 +105,7 @@ function hide_url()
     let contenu = document.querySelector('.contenu');
     let div = document.querySelector('#hauteur_div');
     let size = div.clientHeight - window.innerHeight;
+    alert(size);
 
     if (contenu.clientHeight > 450)
     {
