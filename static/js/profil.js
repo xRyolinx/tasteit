@@ -105,11 +105,12 @@ function hide_url()
     let contenu = document.querySelector('.contenu');
     let div = document.querySelector('#hauteur_div');
     let size = div.clientHeight - window.innerHeight;
-    alert(size);
-
+    
     if (contenu.clientHeight > 450)
     {
-        contenu.style.height = contenu.clientHeight - size;
+        size = contenu.clientHeight - size;
+        
+        contenu.style.height = size.toString() + 'px';
     }
 }
 
