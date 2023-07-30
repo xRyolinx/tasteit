@@ -7,25 +7,28 @@ function update_mode()
     // Save sizes and states
     let div = document.querySelector('#hauteur_div');
     let size = div.clientHeight - window.innerHeight;
-    alert('height: ' + window.innerHeight.toString() + ' | 100vh = ' + div.clientHeight.toString() +
-    ' | size url = ' + size.toString());
+    alert(
+        'height: ' + window.innerHeight.toString() + ' | 100vh = ' + div.clientHeight.toString() +
+        ' | size url = ' + size.toString()
+    );
 
     // If not in navigateur
     if (size < 0)
     {
-        return;
+        return 0;
     }
 
     // Portrait
     if (window.innerHeight > window.innerWidth)
     {
         mode = 'long';
-        size_url = size;
+        return size;
     }
     // Paysage
     else
     {
         mode = 'large';
+        return 0;
     }
 }
 
@@ -34,7 +37,7 @@ function update_mode()
 function update_height()
 {
     // Update mode
-    update_mode();
+    let size_url = update_mode();
 
     // Add back class
     let main = document.querySelector('main');
@@ -66,13 +69,14 @@ function update_height()
         main.style.height = new_size.toString() + 'px';
         console.log('size increased : ' + size_url.toString());
     }
+
+    console.log('Height after modification : ' + new_size.toString());
 }
 
 
 // Global var
 let prev_mode = 'none';
 let mode = 'none';
-let size_url = 0;
 
 
 //Start
