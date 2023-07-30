@@ -37,7 +37,16 @@ function update_height()
 
     // Add back class
     let main = document.querySelector('main');
-    main.setAttribute("style", "height: 92vh");
+    let nav = document.querySelector('nav').clientHeight;
+    if (nav == 45)
+    {
+        main.setAttribute("style", "height: calc(100vh - 45px)");
+    }
+    else
+    {
+        main.setAttribute("style", "height: 92vh");
+    }
+    
 
     // Get current height
     let new_size = main.clientHeight;
@@ -68,21 +77,10 @@ let size_url = 0;
 //Start
 document.addEventListener('DOMContentLoaded', function() {
     // Size
-    // update_height();
+    update_height();
 
     // Rotation
-    // window.addEventListener('resize', () => {
-    //     update_height();
-    // });
-
-    if (/Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent)) {
-        // When ready, auto-scroll 1px to hide URL bar
-        window.addEventListener("load", function () {
-            // Set a timeout...
-            setTimeout(function () {
-                // Hide the address bar!
-                window.scrollTo(0, 1);
-            }, 0);
-        });
-    }
+    window.addEventListener('resize', () => {
+        update_height();
+    });
 });

@@ -49,6 +49,12 @@ main {
     justify-content: space-evenly;
 }
 
+@media (max-height: 562.5px) {
+    main {
+        height: calc(100vh - 45px);
+    }
+}
+
 .text {
     font-size: 2.9rem;
 }
@@ -75,6 +81,7 @@ main {
     main {
         min-width: 250px;
         width: 100vw;
+        max-height: 92vh;
 
         padding: 0 20px;
         margin: 0 auto;
