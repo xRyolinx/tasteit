@@ -204,7 +204,8 @@ a {
   /* background-color: red; */
 }
 .choices .bottom .element .text {
-  width: 120px;
+  width: 130px;
+  background-color: blue;
 }
 .choices .deconnexion {
   height: 10%;

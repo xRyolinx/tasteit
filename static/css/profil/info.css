@@ -159,6 +159,9 @@
 }
 
 @media (max-width: 750px) {
+  #bg-topright, #bg-botleft {
+    display: none;
+  }
   .contenu {
     width: 100%;
     margin: 0 auto;
