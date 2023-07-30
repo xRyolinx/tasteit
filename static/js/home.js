@@ -37,11 +37,11 @@ function update_mode()
 function update_height()
 {
     // Update mode
-    let size_url = update_mode();
+    // let size_url = update_mode();
 
     // Add back normal size
     let body = document.querySelector('body');
-    body.setAttribute("style", "height: 100vh");
+    body.setAttribute("style", "height: " + window.innerHeight.toString() + "px");
     // let nav = document.querySelector('nav').clientHeight;
     // if (nav == 45)
     // {
@@ -54,23 +54,23 @@ function update_height()
     
 
     // Get current height
-    let new_size = body.clientHeight;
+    // let new_size = body.clientHeight;
 
     // Delete height of url in portrait
-    if ((prev_mode == 'large' && mode == 'long') || (prev_mode == 'none'))
-    {
-        new_size -= size_url;
-        body.setAttribute("style", "height: " + new_size.toString() + 'px');
-        console.log('size decreased : ' + size_url.toString());
-    }
+    // if ((prev_mode == 'large' && mode == 'long') || (prev_mode == 'none'))
+    // {
+    //     new_size -= size_url;
+    //     body.setAttribute("style", "height: " + new_size.toString() + 'px');
+    //     console.log('size decreased : ' + size_url.toString());
+    // }
 
-    alert('Height after modification : ' + new_size.toString());
+    // alert('Height after modification : ' + new_size.toString());
 }
 
 
 // Global var
-let prev_mode = 'none';
-let mode = 'none';
+// let prev_mode = 'none';
+// let mode = 'none';
 
 
 //Start

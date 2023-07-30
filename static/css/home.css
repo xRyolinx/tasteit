@@ -12,17 +12,16 @@ body {
 
 #bg {
     height: 92%;
-    margin-top: 8vh;
 
     position: fixed;
     z-index: -100;
     right: 0;
-    top: 0;
+    bottom: 0;
 }
 
 #bg-sheet {
     width: 100vw;
-    height: 100vh;
+    height: 110vh;
 
     background-color: white;
     opacity: 0.1;
@@ -56,6 +55,9 @@ nav {
 }
 
 @media (max-height: 562.5px) {
+    #bg {
+        height: calc(100vh - 45px);
+    }
     nav {
         height: 45px !important;
     }
