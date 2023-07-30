@@ -99,54 +99,66 @@ function pdp_changes_to_edit()
 }
 
 
-
-function hide_url()
+// Update mode and size
+function mode() 
 {
-    let contenu = document.querySelector('.contenu');
-
-    // Get back previous size
-    let new_size = contenu.clientHeight;
-    // Add back height
-    if (mode == 'long')
-    {   
-        new_size += size_nav['large'];
-        contenu.style.height = new_size.toString() + 'px';
-    }
-    else if (mode == 'large')
-    {
-        new_size += size_nav['long'];
-        contenu.style.height = new_size.toString() + 'px';
-    }
-
+    // Update previous mode
+    prev_mode = mode;
 
     // Save sizes and states
     let div = document.querySelector('#hauteur_div');
     let size = div.clientHeight - window.innerHeight;
 
+    // Portrait
     if (window.innerHeight > window.innerWidth)
     {
         mode = 'long';
-        size_nav['long'] = size;
+        size_url = size;
     }
+    // Paysage
     else
     {
         mode = 'large';
-        size_nav['large'] = size;
     }
-    
-    if (contenu.clientHeight - size > 450)
+}
+
+// Update height
+function hide_url()
+{
+    // Update mode
+    mode();
+
+    // Get current height
+    let contenu = document.querySelector('.contenu');
+    let new_size = contenu.clientHeight;
+
+    // Delete height of url in portrait
+    if ((prev_mode == 'large' && mode == 'long') || (prev_mode == 'none'))
     {
-        size = contenu.clientHeight - size;
-        contenu.style.height = size.toString() + 'px';
+        new_size -= size_nav;
+        contenu.style.height = new_size.toString() + 'px';
     }
+    // Add back height of url in paysage
+    else if (prev_mode == 'long' && mode == 'large')
+    {   
+        new_size += size_nav;
+        contenu.style.height = new_size.toString() + 'px';
+    }
+
+    // if (contenu.clientHeight - size > 450)
+    // {
+    //     size = contenu.clientHeight - size;
+    //     contenu.style.height = size.toString() + 'px';
+    // }
 }
 
 
+// Global var
+let prev_mode = 'none';
 let mode = 'none';
-let size_nav = {
-    'long' : 0,
-    'large' : 0
-}
+
+let size_url = 0;
+
 
 //Start
 document.addEventListener('DOMContentLoaded', function() {
