@@ -52,7 +52,6 @@ function error_msg(id, msg)
 {
     let status = document.querySelector(id).parentElement.parentElement.children[2];
     status.innerHTML = msg;
-    console.log(msg);
 
     if (msg == '')
     {
@@ -156,12 +155,6 @@ function update_height()
         contenu.style.height = new_size.toString() + 'px';
         console.log('size increased : ' + size_url.toString());
     }
-
-    // if (contenu.clientHeight - size > 450)
-    // {
-    //     size = contenu.clientHeight - size;
-    //     contenu.style.height = size.toString() + 'px';
-    // }
 }
 
 
