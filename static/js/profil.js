@@ -165,12 +165,39 @@ let mode = 'none';
 let size_url = 0;
 
 
+function resize_profil()
+{
+    let choices = document.querySelectorAll('.text');
+    let max = 0;
+    
+    // Get max
+    for (let i = 0 ; i < choices.length ; i++)
+    {
+        console.log(choices[i].getBoundingClientRect().width);
+        if (max < choices[i].getBoundingClientRect().width)
+        {
+            max = choices[i].getBoundingClientRect().width;
+        }
+    }
+
+    // Update width
+    for (let i = 0 ; i < choices.length ; i++)
+    {
+        choices[i].style.width = max.toString() + 'px';
+    }
+}
+
+
 //Start
 document.addEventListener('DOMContentLoaded', function() {
     // Size   
     update_height();
     // Resize
     window.addEventListener('resize', update_height);
+
+
+    // width of profil'S choices
+    resize_profil();
     
 
     // Vars
