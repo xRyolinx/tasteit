@@ -122,27 +122,33 @@ function update_mode()
     }
 }
 
+
 // Update height
-function hide_url()
+function update_height()
 {
     // Update mode
     update_mode();
 
-    // Get current height
+    // Add back class
     let contenu = document.querySelector('.contenu');
+    contenu.setAttribute("style", "height: 92vh");
+
+    // Get current height
     let new_size = contenu.clientHeight;
 
     // Delete height of url in portrait
     if ((prev_mode == 'large' && mode == 'long') || (prev_mode == 'none'))
     {
         new_size -= size_url;
-        contenu.style.height = new_size.toString() + 'px';
+        contenu.setAttribute("style", "height: " + new_size.toString() + 'px');
+        console.log('size decreased : ' + size_url.toString());
     }
     // Add back height of url in paysage
     else if (prev_mode == 'long' && mode == 'large')
     {   
         new_size += size_url;
         contenu.style.height = new_size.toString() + 'px';
+        console.log('size increased : ' + size_url.toString());
     }
 
     // if (contenu.clientHeight - size > 450)
@@ -156,16 +162,17 @@ function hide_url()
 // Global var
 let prev_mode = 'none';
 let mode = 'none';
-
 let size_url = 0;
 
 
 //Start
 document.addEventListener('DOMContentLoaded', function() {
     // Size   
-    hide_url();
-    window.addEventListener('resize', hide_url);
+    update_height();
+    // Resize
+    window.addEventListener('resize', update_height);
     
+
     // Vars
     let edit = document.querySelector("#edit");
     let changes = document.querySelector("#changes");
