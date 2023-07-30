@@ -109,6 +109,12 @@ function update_mode()
     let div = document.querySelector('#hauteur_div');
     let size = div.clientHeight - window.innerHeight;
 
+    // If not in navigateur
+    if (size < 0)
+    {
+        return;
+    }
+
     // Portrait
     if (window.innerHeight > window.innerWidth)
     {
