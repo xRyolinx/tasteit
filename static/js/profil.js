@@ -167,6 +167,12 @@ let size_url = 0;
 
 function resize_profil()
 {
+    // If not in info or is in paysage
+    if((window.location.pathname.includes('info')) && (window.matchMedia("(max-width: 750px)").matches))
+    {
+        return;
+    }
+
     let choices = document.querySelectorAll('.text');
     let max = 0;
     
@@ -190,14 +196,17 @@ function resize_profil()
 
 //Start
 document.addEventListener('DOMContentLoaded', function() {
-    // Size   
+    // Size
     update_height();
-    // Resize
-    window.addEventListener('resize', update_height);
-
 
     // width of profil'S choices
     resize_profil();
+
+    // Rotation
+    window.addEventListener('resize', () => {
+        update_height();
+        resize_profil();
+    });
     
 
     // Vars
