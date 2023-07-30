@@ -7,6 +7,7 @@ function update_mode()
     // Save sizes and states
     let div = document.querySelector('#hauteur_div');
     let size = div.clientHeight - window.innerHeight;
+    console.log('size : ', size);
 
     // If not in navigateur
     if (size < 0)
