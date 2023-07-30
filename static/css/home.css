@@ -10,6 +10,15 @@ body {
     margin: 0;
 }
 
+#cover {
+    position: fixed;
+    height: 92%;
+    width: 100%;
+    bottom: 0;
+    background: #ffffff;
+    z-index:9999;
+}
+
 #bg {
     height: 92%;
 
@@ -55,14 +64,11 @@ nav {
 }
 
 @media (max-height: 562.5px) {
-    #bg {
+    #cover, #bg , main{
         height: calc(100vh - 45px);
     }
     nav {
         height: 45px !important;
-    }
-    main {
-        height: calc(100vh - 45px);
     }
 }
 
