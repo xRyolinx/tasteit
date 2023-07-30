@@ -68,10 +68,21 @@ let size_url = 0;
 //Start
 document.addEventListener('DOMContentLoaded', function() {
     // Size
-    update_height();
+    // update_height();
 
     // Rotation
-    window.addEventListener('resize', () => {
-        update_height();
-    });
+    // window.addEventListener('resize', () => {
+    //     update_height();
+    // });
+
+    if (/Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent)) {
+        // When ready, auto-scroll 1px to hide URL bar
+        window.addEventListener("load", function () {
+            // Set a timeout...
+            setTimeout(function () {
+                // Hide the address bar!
+                window.scrollTo(0, 1);
+            }, 0);
+        });
+    }
 });
