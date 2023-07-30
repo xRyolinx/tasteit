@@ -40,6 +40,7 @@ function update_height()
     // let size_url = update_mode();
 
     // Add back normal size
+    console.log('window.innerHeigh = ' + window.innerHeight.toString());
     let body = document.querySelector('body');
     body.setAttribute("style", "height: " + window.innerHeight.toString() + "px");
     // let nav = document.querySelector('nav').clientHeight;
@@ -73,10 +74,17 @@ function update_height()
 // let mode = 'none';
 
 
+async function test() {
+    await new Promise(resolve => setTimeout(resolve, 1));
+}
+
+
 //Start
 document.addEventListener('DOMContentLoaded', function() {
     // Size
-    update_height();
+    test()
+    .then(update_height);
+    
 
     // Rotation
     window.addEventListener('resize', () => {
