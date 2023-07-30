@@ -100,7 +100,7 @@ function pdp_changes_to_edit()
 
 
 // Update mode and size
-function mode() 
+function update_mode() 
 {
     // Update previous mode
     prev_mode = mode;
@@ -126,7 +126,7 @@ function mode()
 function hide_url()
 {
     // Update mode
-    mode();
+    update_mode();
 
     // Get current height
     let contenu = document.querySelector('.contenu');
@@ -135,13 +135,13 @@ function hide_url()
     // Delete height of url in portrait
     if ((prev_mode == 'large' && mode == 'long') || (prev_mode == 'none'))
     {
-        new_size -= size_nav;
+        new_size -= size_url;
         contenu.style.height = new_size.toString() + 'px';
     }
     // Add back height of url in paysage
     else if (prev_mode == 'long' && mode == 'large')
     {   
-        new_size += size_nav;
+        new_size += size_url;
         contenu.style.height = new_size.toString() + 'px';
     }
 
