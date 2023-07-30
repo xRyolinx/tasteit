@@ -39,38 +39,32 @@ function update_height()
     // Update mode
     let size_url = update_mode();
 
-    // Add back class
-    let main = document.querySelector('main');
-    let nav = document.querySelector('nav').clientHeight;
-    if (nav == 45)
-    {
-        main.setAttribute("style", "height: calc(100vh - 45px)");
-    }
-    else
-    {
-        main.setAttribute("style", "height: 92vh");
-    }
+    // Add back normal size
+    let body = document.querySelector('body');
+    body.setAttribute("style", "height: 100vh");
+    // let nav = document.querySelector('nav').clientHeight;
+    // if (nav == 45)
+    // {
+    //     body.setAttribute("style", "height: calc(100% - 45px)");
+    // }
+    // else
+    // {
+    //     body.setAttribute("style", "height: 92%");
+    // }
     
 
     // Get current height
-    let new_size = main.clientHeight;
+    let new_size = body.clientHeight;
 
     // Delete height of url in portrait
     if ((prev_mode == 'large' && mode == 'long') || (prev_mode == 'none'))
     {
         new_size -= size_url;
-        main.setAttribute("style", "height: " + new_size.toString() + 'px');
+        body.setAttribute("style", "height: " + new_size.toString() + 'px');
         console.log('size decreased : ' + size_url.toString());
     }
-    // Add back height of url in paysage
-    else if (prev_mode == 'long' && mode == 'large')
-    {   
-        new_size += size_url;
-        main.style.height = new_size.toString() + 'px';
-        console.log('size increased : ' + size_url.toString());
-    }
 
-    console.log('Height after modification : ' + new_size.toString());
+    alert('Height after modification : ' + new_size.toString());
 }
 
 
