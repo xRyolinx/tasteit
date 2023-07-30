@@ -3,3 +3,10 @@
         display: none !important;
     }
 }
+
+/* For bg */
+@media (min-height: 740px) {
+    #bg-topright, #bg-botleft {
+        display: none;
+    }
+}
