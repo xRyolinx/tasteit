@@ -641,35 +641,14 @@ def profil():
     
 
 # ------------------------------ MESSAGES ----------------------------
-@app.route("/discussion", methods=["POST"])
-def messagerie_redirect():
-    # Get all people
-    conn = psycopg2.connect(database='tasteit', user='tasteit_user', host='dpg-cijh0senqql0l1rkun1g-a.frankfurt-postgres.render.com', password='Kp2hBNSkUL6ZKyV0jyPGUeu14sXWSpl4')
-    db = conn.cursor(cursor_factory=RealDictCursor)
-    db.execute('SELECT * FROM people')
-    people = db.fetchall()
-    conn.close()
-    
-    update_people(people)
-    print(people)
-    
-    # get id
-    id = request.form.get('id_destinataire')
-    
-    return render_template('messages.html', person=session['compte'], people=people, adr="discussion", id=id)
-
 
 @app.route("/messages", methods=["GET", "POST"])
 def messagerie():
     # Get all people
-    conn = psycopg2.connect(database='tasteit', user='tasteit_user', host='dpg-cijh0senqql0l1rkun1g-a.frankfurt-postgres.render.com', password='Kp2hBNSkUL6ZKyV0jyPGUeu14sXWSpl4')
-    db = conn.cursor(cursor_factory=RealDictCursor)
     db.execute('SELECT * FROM people')
     people = db.fetchall()
-    conn.close()
-    
     update_people(people)
-    print(people)
+    # print(people)
     
     return render_template('messages.html', person=session['compte'], people=people, adr='messages', id=0)
 

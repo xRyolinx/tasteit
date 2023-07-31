@@ -131,6 +131,8 @@ async function stop_polling()
             await sleep(500);
         }
     }
+    formData.set('id_destinataire' , 0);
+
     console.log('Polling stopped !');
 }
 
@@ -138,23 +140,6 @@ async function stop_polling()
 
 // Load Destinataire
 function load_destinataire(id) {
-    // Check if the request was made by phone on 'message'
-    if (window.innerWidth < 800 && document.styleSheets[2].href.includes('messages_mob'))
-    {
-        // Create form
-        let div = document.createElement('div');
-        div.innerHTML = '<form style="display: hidden;" action="/discussion" method="post">' +
-        '<input type="hidden" value="" name="id_destinataire"></form>';
-        // Insert form
-        document.querySelector('body').append(div);
-        // Update id
-        div.firstChild.firstChild.value = id;
-        // Send form
-        div.firstChild.submit();
-        // End
-        return;
-    }
-
     // Person choosen
     let person = document.getElementById(id);
 
@@ -175,6 +160,19 @@ function load_destinataire(id) {
     // Change global data
     formData.set('id_destinataire' , id);
     formData.set('last_id', 0);
+
+    // Check if the request was made by phone
+    if (window.innerWidth < 800)
+    {
+        // hide boite
+        change_display('.boite', 'none');
+        // display messagerie
+        change_display('.messagerie', 'flex');
+        
+        // poll
+        console.log('Polling started !');
+        short_polling();
+    }
 }
 
 
@@ -214,6 +212,11 @@ async function short_polling()
     }
 }
 
+function change_display(element, display)
+{
+    document.querySelector(element).style.display = display;
+}
+
 
 
 // Global data
@@ -230,6 +233,16 @@ let resizing = false;
 
 //Start
 document.addEventListener('DOMContentLoaded', function() {
+    // Go back to messages
+    document.getElementById('go_back_discu').addEventListener('click', function() {
+        // stop polling
+        stop_polling();
+
+        // Change css
+        change_display('.messagerie', 'none');
+        change_display('.boite', 'flex');
+    });
+
     // initialisation
     init();
 
@@ -243,24 +256,12 @@ document.addEventListener('DOMContentLoaded', function() {
         console.log('Polling started !');
         short_polling();
     }
-    // check if user is already charged
-    else
-    {
-        let destinataire = document.querySelector('.destinataire').id;
-        if (destinataire != 0)
-        {
-            load_destinataire(destinataire);
-            // poll
-            console.log('Polling started !');
-            short_polling();
-        }
-    }
 
     // In case of resize
     window.addEventListener('resize', async function() {
         // update height
         update_height();
-        
+
         // global var of resize
         if (resizing == true)
         {
@@ -269,34 +270,34 @@ document.addEventListener('DOMContentLoaded', function() {
         resizing = true;
 
         // Wait a little
-        await sleep(50);
+        // await sleep(50);
 
-        // If on 'discussion', dont change anything
-        if (document.styleSheets[2].href.includes('discussion_mob'))
-        {
-            return;
-        }
 
         // Get current destinataire id
         let id = formData.get('id_destinataire');
 
-        // If there is already an id destinaire, but turned to phone when on 'messages'
+        // If there is already an id destinaire
         if (id != 0)
         {
+            // turned to phone
             if (window.innerWidth <= 800)
             {
-                // Stop
-                stop_polling();
+                // hide boite
+                change_display('.boite', 'none');
+                // display messagerie
+                change_display('.messagerie', 'flex');
             }
+            // turned to pc
             else
             {
-                // poll
-                console.log('Polling started !');
-                short_polling();
+                // hide boite
+                change_display('.boite', 'flex');
+                // display messagerie
+                change_display('.messagerie', 'flex');
             }
         }
 
-        // No destinataire selectionned and turned to pc when on 'messages'
+        // No destinataire selectionned and turned to pc
         else if (id == 0 && window.innerWidth > 800)
         {
             // Charge the first person
