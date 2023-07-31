@@ -140,6 +140,9 @@ async function stop_polling()
 
 // Load Destinataire
 function load_destinataire(id) {
+    // hash
+    window.location.hash = '1';
+
     // Person choosen
     let person = document.getElementById(id);
 
@@ -232,7 +235,7 @@ let resizing = false;
 
 
 //Start
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', async function() {
     // initialisation
     init();
 
@@ -241,32 +244,30 @@ document.addEventListener('DOMContentLoaded', function() {
         // stop polling
         stop_polling();
 
+        // Go back
+        window.history.back();
+
         // Change css
         change_display('.messagerie', 'none');
         change_display('.boite', 'flex');
     });
 
+
     // Go back trigger on mobile
-    window.addEventListener('popstate', function(event) {
-        alert('back');
-        
-        // If pc or id not loaded
-        if (window.innerWidth > 800 || formData.get('id_destinataire') == 0)
+    window.addEventListener('hashchange', function(event) {
+        // If pc, or destinataire not loaded
+        if (window.innerWidth > 800 || event.oldURL.includes('#1') == false)
         {
             return;
         }
 
-        // Prevent going back
-        // event.preventDefault();
-        alert('back changes !');
-        history.pushState(null, null, window.location.pathname);
+        // stop polling
+        stop_polling();
 
-        // change css
+        // Change css
         change_display('.messagerie', 'none');
         change_display('.boite', 'flex');
-
-    }
-    , false);
+    });
 
     // Get first child for pc
     if (window.innerWidth > 800)
@@ -291,9 +292,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         resizing = true;
 
-        // Wait a little
-        // await sleep(50);
-
 
         // Get current destinataire id
         let id = formData.get('id_destinataire');
@@ -312,7 +310,7 @@ document.addEventListener('DOMContentLoaded', function() {
             // turned to pc
             else
             {
-                // hide boite
+                // display boite
                 change_display('.boite', 'flex');
                 // display messagerie
                 change_display('.messagerie', 'flex');
