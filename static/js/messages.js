@@ -233,6 +233,9 @@ let resizing = false;
 
 //Start
 document.addEventListener('DOMContentLoaded', function() {
+    // initialisation
+    init();
+
     // Go back to messages
     document.getElementById('go_back_discu').addEventListener('click', function() {
         // stop polling
@@ -243,8 +246,27 @@ document.addEventListener('DOMContentLoaded', function() {
         change_display('.boite', 'flex');
     });
 
-    // initialisation
-    init();
+    // Go back trigger on mobile
+    window.addEventListener('popstate', function(event) {
+        alert('back');
+        
+        // If pc or id not loaded
+        if (window.innerWidth > 800 || formData.get('id_destinataire') == 0)
+        {
+            return;
+        }
+
+        // Prevent going back
+        // event.preventDefault();
+        alert('back changes !');
+        history.pushState(null, null, window.location.pathname);
+
+        // change css
+        change_display('.messagerie', 'none');
+        change_display('.boite', 'flex');
+
+    }
+    , false);
 
     // Get first child for pc
     if (window.innerWidth > 800)
