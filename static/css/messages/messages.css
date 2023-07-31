@@ -9,6 +9,8 @@
 }
 
 body {
+  height: 100vh;
+  width: 100vw;
   margin: 0;
 }
 
@@ -29,7 +31,7 @@ a {
 /* TOUT APRES NAV */
 .contenu {
   width: 100%;
-  height: 92vh;
+  height: 92%;
   /* padding: 2rem; */
   /* background-color: blue; */
   display: flex;
@@ -124,6 +126,7 @@ a {
 /* ------------------------ BOITE DE MESSAGES ------------------*/
 .boite {
   width: 30%;
+  max-width: 350px;
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -137,11 +140,22 @@ a {
 .boite .titre-edit {
   width: 100%;
   margin: 0 0 0.5rem 0;
+  padding: 0 20px;
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
   /* background-color: blueviolet; */
   /* Titre */
+}
+@media (max-width: 900px) {
+  .boite .titre-edit {
+    padding: 0 15px;
+  }
+}
+@media (max-width: 850px) {
+  .boite .titre-edit {
+    padding: 0 10px;
+  }
 }
 .boite .titre-edit .titre {
   margin: 0;
@@ -153,6 +167,7 @@ a {
 .boite .divider-boite {
   height: 5px;
   width: 55%;
+  max-width: 200px;
   margin: 0 auto;
   background-color: orange;
 }
@@ -170,7 +185,7 @@ a {
 .boite .courrier {
   width: 100%;
   min-height: 100%;
-  padding-top: 1rem;
+  padding: 1rem 0.5rem 0 0.5rem;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -181,7 +196,6 @@ a {
 .boite .courrier .person {
   height: 60px;
   width: 100%;
-  padding: 0 0.5rem;
   /* border: 0.5px solid black; */
   /* background-color: red; */
   display: flex;
@@ -236,178 +250,24 @@ a {
   background-color: rgb(244, 244, 244);
 }
 
-/* ------------------------ MESSAGERIE ------------------*/
-.messagerie {
-  flex-grow: 1;
-  height: 100%;
-  /* padding: 1rem 3rem 1rem 3rem; */
-  /* border-radius: 0 var(--radius) var(--radius) 0; */
-  box-shadow: 5px 8px 10px rgb(110, 109, 109);
-  background-color: var(--blanc);
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  /* Destinataire */
-  /* Messages */
-  /* Input */
-}
-.messagerie .destinataire {
-  height: 55px;
-  width: 100%;
-  padding: 0 1rem;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background-color: orange;
-  /* Info */
-  /* Detail */
-}
-.messagerie .destinataire .info {
-  height: 100%;
-  /* background-color: red; */
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  /* pdp */
-  /* Nom */
-}
-.messagerie .destinataire .info .pdp_messagerie {
-  height: 70%;
-  aspect-ratio: 1/1;
-  -o-object-fit: cover;
-     object-fit: cover;
-  border-radius: 100%;
-  cursor: pointer;
-}
-.messagerie .destinataire .info .name_message {
-  font-weight: bolder;
-  font-size: 1.3rem;
-  margin: 0;
-  margin-left: 0.6rem;
-}
-.messagerie .destinataire .detail {
-  height: 50%;
-  /* background-color: red; */
-  -o-object-fit: cover;
-     object-fit: cover;
-}
-.messagerie .messages_container {
-  flex-grow: 1;
-  overflow-y: scroll;
-  /* background-color: blue; */
-}
-.messagerie .messages_container::-webkit-scrollbar {
-  background-color: white;
-  width: 12px;
-}
-.messagerie .messages_container::-webkit-scrollbar-thumb {
-  background: orange;
-}
-.messagerie .messages {
-  /* background-color: red; */
-  min-height: 100%;
-  padding: 1rem;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  align-items: flex-end;
-  /* Sent messages */
-  /* Sent messages */
-  /* Messages in the conversation */
-}
-.messagerie .messages .msg_sent {
-  width: 100%;
-  margin: 0.5rem 0;
-  margin-left: auto;
-  text-align: end;
-  /* background-color: blue; */
-}
-.messagerie .messages .msg_sent .msg {
-  background-color: rgb(255, 194, 80);
-}
-.messagerie .messages .msg_received {
-  width: 100%;
-  margin-top: 0.5rem;
-  display: flex;
-  align-items: flex-end;
-  /* background-color: blue; */
-  /* PDP OF MESSAGE RECEIVED */
-  /* TEXT OF MSG */
-}
-.messagerie .messages .msg_received .pdp_message {
-  height: 2.13rem;
-  margin-right: 0.5rem;
-  aspect-ratio: 1/1;
-  -o-object-fit: cover;
-     object-fit: cover;
-  border-radius: 100%;
-  cursor: pointer;
-}
-.messagerie .messages .msg_received .txt_msg {
-  height: 100%;
-  width: 100%;
-  /* background-color: red; */
-  /* NAME OF MAIL'S SENDER */
-}
-.messagerie .messages .msg_received .txt_msg .name_msg {
-  margin: 0;
-  padding: 0rem 1rem 0.4rem 1rem;
-  color: rgb(206, 206, 206);
-  font-size: 0.9rem;
-}
-.messagerie .messages .msg {
-  margin: 0;
-  max-width: 70%;
-  clear: both;
-  display: inline-block;
-  border-radius: 20px;
-  padding: 0.5rem 1rem;
-  text-align: start;
-  word-wrap: break-word;
-  background-color: rgb(206, 206, 206);
-  /* background-color: blue; */
-}
-.messagerie .user_input {
-  height: 40px;
-  display: flex;
-  justify-content: left;
-  align-items: center;
-  margin: 0.9rem 1rem;
-  padding: 0 1.5rem;
-  border-radius: 20px;
-  background-color: rgb(215, 215, 215);
-  /* background-color: blue; */
-  /* TEXT */
-  /* Icones */
-}
-.messagerie .user_input .text_zone, .messagerie .user_input .text_zone:focus {
-  height: 100%;
-  width: 90%;
-  border: none;
-  outline: none;
-  font-size: 1rem;
-  background-color: transparent;
-  /* background-color: green; */
-}
-.messagerie .user_input .icones {
-  height: 100%;
-  min-width: 70px;
-  flex-grow: 1;
-  margin-left: 1.5rem;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  /* background-color: red; */
-  /* icone */
-}
-.messagerie .user_input .icones .icone {
-  height: 50%;
-  -o-object-fit: cover;
-     object-fit: cover;
-}
-
 /* LIGNE VERTICAL SEPARANT CHOIX ET FONCTION */
 .separator {
   height: 100%;
   width: 5px;
+}
+
+@media (max-width: 800px) {
+  .boite {
+    width: 100%;
+    max-width: 100vw;
+  }
+  .boite .titre-edit {
+    padding: 0 15px;
+  }
+  .boite .courrier {
+    padding: 1rem 1rem 0 1rem;
+  }
+  .separator {
+    display: none;
+  }
 }/*# sourceMappingURL=messages.css.map */

@@ -54,8 +54,8 @@ function update_messages(response)
         response.forEach(message => {
             // Name and pdp
             let destinataire = document.querySelector('.destinataire');
-            let username = destinataire.children[0].children[1].innerHTML;
-            let pdp = destinataire.children[0].children[0].src;
+            let username = destinataire.children[1].children[1].innerHTML;
+            let pdp = destinataire.children[1].children[0].src;
 
             if (message['id_sent'] == destinataire.id)
             {
@@ -98,9 +98,41 @@ async function polling(formdata) {
 }
 
 
+// stop polling
+async function stop_polling()
+{
+    if (formData.get('id_destinataire') != 0)
+    {
+        end = true;
+        while (end == true)
+        {
+            await sleep(500);
+        }
+    }
+    console.log('Polling stopped !');
+}
+
+
 
 // Load Destinataire
 function load_destinataire(id) {
+    // Check if the request was made by phone on 'message'
+    if (window.innerWidth < 800 && document.styleSheets[2].href.includes('messages_mob'))
+    {
+        // Create form
+        let div = document.createElement('div');
+        div.innerHTML = '<form style="display: hidden;" action="/discussion" method="post">' +
+        '<input type="hidden" value="" name="id_destinataire"></form>';
+        // Insert form
+        document.querySelector('body').append(div);
+        // Update id
+        div.firstChild.firstChild.value = id;
+        // Send form
+        div.firstChild.submit();
+        // End
+        return;
+    }
+
     // Person choosen
     let person = document.getElementById(id);
 
@@ -109,10 +141,10 @@ function load_destinataire(id) {
     let destinataire = document.querySelector('.destinataire');
     destinataire.id = id;
     // pdp
-    let pdp = destinataire.children[0].children[0];
+    let pdp = destinataire.children[1].children[0];
     pdp.src = person.children[0].children[0].src;
     // username
-    let username = destinataire.children[0].children[1];
+    let username = destinataire.children[1].children[1];
     username.innerHTML = person.children[1].children[0].innerHTML;
 
     // Clear discussion
@@ -127,6 +159,9 @@ function load_destinataire(id) {
 // Short polling
 async function short_polling()
 {
+    // Update recur
+    recur_num++;
+
     // Wait response
     let result = await polling(formData);
 
@@ -142,8 +177,19 @@ async function short_polling()
         await sleep(500);
     }
 
+
     // Re-run polling
-    short_polling();
+    if (end == false)
+    {
+        short_polling();
+    }
+    
+    // End
+    recur_num--;
+    if (recur_num == 0)
+    {
+        end = false;
+    }
 }
 
 
@@ -154,12 +200,91 @@ formData.set('id_destinataire' , 0);
 formData.set('last_id', 0);
 
 
+let recur_num = 0;
+let end = false;
+
+let resizing = false;
+
+
 //Start
 document.addEventListener('DOMContentLoaded', function() {
-    // Get first child
-    let first = document.querySelector('.courrier').firstElementChild.id;
-    load_destinataire(first);
+    // Get first child for pc
+    if (window.innerWidth > 800)
+    {
+        let first = document.querySelector('.courrier').firstElementChild.id;
+        load_destinataire(first);
 
+        // poll
+        console.log('Polling started !');
+        short_polling();
+    }
+    // check if user is already charged
+    else
+    {
+        let destinataire = document.querySelector('.destinataire').id;
+        if (destinataire != 0)
+        {
+            load_destinataire(destinataire);
+            // poll
+            console.log('Polling started !');
+            short_polling();
+        }
+    }
+
+    // In case of resize
+    window.addEventListener('resize', async function() {
+        // global var of resize
+        if (resizing == true)
+        {
+            return;
+        }
+        resizing = true;
+
+        // Wait a little
+        await sleep(50);
+
+        // If on 'discussion', dont change anything
+        if (document.styleSheets[2].href.includes('discussion_mob'))
+        {
+            return;
+        }
+
+        // Get current destinataire id
+        let id = formData.get('id_destinataire');
+
+        // If there is already an id destinaire, but turned to phone when on 'messages'
+        if (id != 0)
+        {
+            if (window.innerWidth <= 800)
+            {
+                // Stop
+                stop_polling();
+            }
+            else
+            {
+                // poll
+                console.log('Polling started !');
+                short_polling();
+            }
+        }
+
+        // No destinataire selectionned and turned to pc when on 'messages'
+        else if (id == 0 && window.innerWidth > 800)
+        {
+            // Charge the first person
+            let first = document.querySelector('.courrier').firstElementChild.id;
+            load_destinataire(first);
+
+            // poll
+            console.log('Polling started !');
+            short_polling();
+        }
+        // end
+        resizing = false;
+    })
+
+
+    
     // Sending message
     let input = document.querySelector('.text_zone');
     let send = document.querySelector('#send');
@@ -193,9 +318,4 @@ document.addEventListener('DOMContentLoaded', function() {
         // Input to blank
         input.value = '';
     });
-
-
-    // Short polling
-    short_polling();
-    
 })

@@ -10,6 +10,8 @@
 }
 
 body {
+    height: 100vh;
+    width: 100vw;
     margin: 0;
 }
 
@@ -31,7 +33,7 @@ a {
 /* TOUT APRES NAV */
 .contenu {
     width: 100%;
-    height: 92vh;
+    height: 92%;
 
     /* padding: 2rem; */
 
@@ -157,6 +159,8 @@ a {
 /* ------------------------ BOITE DE MESSAGES ------------------*/
 .boite {
     width: 30%;
+    max-width: 350px;
+
     height: 100%;
 
     display: flex;
@@ -172,9 +176,16 @@ a {
     .titre-edit {
         width: 100%;
         margin: 0 0 0.5rem 0;
+        padding: 0 20px;
+        @media (max-width: 900px) {
+            padding: 0 15px;
+        }
+        @media (max-width: 850px) {
+            padding: 0 10px;
+        }
 
         display: flex;
-        justify-content: center;
+        justify-content: space-between;
         align-items: center;
         /* background-color: blueviolet; */
         
@@ -194,6 +205,7 @@ a {
     .divider-boite {
         height: 5px;
         width: 55%;
+        max-width: 200px;
         margin: 0 auto;
 
         background-color: orange;
@@ -216,7 +228,7 @@ a {
         width: 100%;
         min-height: 100%;
 
-        padding-top: 1rem;
+        padding: 1rem 0.5rem 0 0.5rem;
         
 
         display: flex;
@@ -231,7 +243,6 @@ a {
             height: 60px;
             width: 100%;
 
-            padding: 0 0.5rem;
 
             /* border: 0.5px solid black; */
             
@@ -309,238 +320,28 @@ a {
 }
 
 
-
-/* ------------------------ MESSAGERIE ------------------*/
-.messagerie {
-    flex-grow: 1;
-    height: 100%;
-
-    /* padding: 1rem 3rem 1rem 3rem; */
-
-    /* border-radius: 0 var(--radius) var(--radius) 0; */
-
-    box-shadow: 5px 8px 10px rgb(110, 109, 109);
-    background-color: var(--blanc);
-
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-
-
-    /* Destinataire */
-    .destinataire {
-        height: 55px;
-        width: 100%;
-
-        padding: 0 1rem;
-
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-
-        background-color: orange;
-
-        /* Info */
-        .info {
-            height: 100%;
-            /* background-color: red; */
-
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-
-            /* pdp */
-            .pdp_messagerie {
-                height: 70%;
-                aspect-ratio: 1/1;
-                object-fit: cover;
-
-                border-radius: 100%;
-
-                cursor: pointer;
-            }
-
-            /* Nom */
-            .name_message {
-                font-weight: bolder;
-                font-size: 1.3rem;
-
-                margin: 0;
-                margin-left: 0.6rem;           
-            }
-        }
-
-        /* Detail */
-        .detail {
-            height: 50%;
-            /* background-color: red; */
-
-            object-fit: cover;
-        }
-    }
-
-    /* Messages */
-    .messages_container {
-        flex-grow: 1;
-        overflow-y: scroll;
-        /* background-color: blue; */
-    }
-
-    .messages_container::-webkit-scrollbar {
-        background-color: white;
-        width: 12px;
-    }
-    
-    .messages_container::-webkit-scrollbar-thumb {
-        background: orange; 
-    }
-    
-
-
-    .messages {
-        /* background-color: red; */
-        min-height: 100%;
-
-        padding: 1rem;
-
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-end;
-        align-items: flex-end;
-        
-        /* Sent messages */
-        .msg_sent { 
-            width: 100%;
-            margin: 0.5rem 0;
-            margin-left : auto;
-            
-            text-align: end;
-
-            /* background-color: blue; */
-
-            .msg {
-                background-color: rgb(255, 194, 80);
-            }
-        }
-
-        /* Sent messages */
-        .msg_received { 
-            width: 100%;
-
-            margin-top: 0.5rem;
-
-            display: flex;
-            align-items: flex-end;
-            
-            /* background-color: blue; */
-
-            /* PDP OF MESSAGE RECEIVED */
-            .pdp_message {
-                height: 2.13rem;
-                margin-right: 0.5rem;
-                
-                aspect-ratio: 1/1;
-                object-fit: cover;
-
-                border-radius: 100%;
-
-                cursor: pointer;
-            }
-            /* TEXT OF MSG */
-            .txt_msg {
-                height: 100%;
-                width: 100%;
-
-                /* background-color: red; */
-
-                /* NAME OF MAIL'S SENDER */
-                .name_msg {
-                    margin: 0;
-                    padding: 0rem 1rem 0.4rem 1rem;
-                    color: rgb(206, 206, 206);
-                    font-size: 0.9rem;
-                }
-            }
-        }
-
-        /* Messages in the conversation */
-        .msg {
-            margin: 0;
-            max-width: 70%;
-            
-            clear: both;
-            display: inline-block;
-
-            border-radius: 20px;
-            padding: 0.5rem 1rem;
-
-            text-align: start;
-            word-wrap:break-word;
-        
-            background-color: rgb(206, 206, 206);
-            /* background-color: blue; */
-        }
-    }
-
-    /* Input */
-    .user_input {
-        height: 40px;
-
-        display: flex;
-        justify-content: left;
-        align-items: center;
-
-        margin: 0.9rem 1rem;
-        padding: 0 1.5rem;
-        border-radius: 20px;
-
-        background-color: rgb(215, 215, 215);
-        /* background-color: blue; */
-
-        /* TEXT */
-        .text_zone, .text_zone:focus {
-            height: 100%;
-            width: 90%;
-
-            border: none;
-            outline: none;
-
-            font-size: 1rem;
-
-            background-color: transparent;
-            /* background-color: green; */
-            
-        }
-
-
-        /* Icones */
-        .icones {
-            height: 100%;
-            min-width: 70px;
-
-            flex-grow: 1;
-
-            margin-left: 1.5rem;
-
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-
-            /* background-color: red; */
-
-
-            /* icone */
-            .icone {
-                height: 50%;
-                object-fit: cover;
-            }
-        }
-    }
-}
-
-
 /* LIGNE VERTICAL SEPARANT CHOIX ET FONCTION */
 .separator {
     height: 100%;
     width: 5px;
 }
+
+
+@media (max-width: 800px) {
+    .boite {
+        width: 100%;
+        max-width: 100vw;
+
+        .titre-edit {
+            padding: 0 15px;
+        }
+
+        .courrier {
+            padding: 1rem 1rem 0 1rem;
+        }
+    }
+    .separator {
+        display: none;
+    }
+}
+

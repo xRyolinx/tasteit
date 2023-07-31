@@ -9,7 +9,9 @@
     <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
 
     <!-- css -->
-    <link rel="stylesheet" href="/static/css/messages.css">
+    <link rel="stylesheet" href="/static/css/messages/messages.css">
+    <link rel="stylesheet" href="/static/css/messages/discussion.css">
+    <link rel="stylesheet" href="/static/css/messages/{{ adr }}_mob.css">
     <!-- js -->
     <script src="/static/js/messages.js"></script>
 
@@ -18,8 +20,6 @@
     <script src="/static/navbar/navbar.js"></script>
 </head>
 <body>
-    <img id="bg" src="/static/img/fond2.png" alt="bg_img">
-
     <!-- Nav -->
     <nav>
         <a id="nav_marque" href="/">Taste IT</a>
@@ -47,56 +47,14 @@
 
     <!-- Content -->
     <div class="contenu">
-        <!-- Rectangle gauche de choix -->
-        <div class="choices">
-            <!-- pdp -->
-            <div class="top">
-                {% if person['pdp'] != '' %}
-                    <img onclick="window.location='/profil'" class="pdp" src="data:;base64,{{ person['pdp'] }}" alt="PDP">
-                {% else %}
-                    <img onclick="window.location='/profil'" class="pdp" src="/static/img/pdp.png" alt="PDP">
-                {% endif %}
-
-            </div>
-
-            <!-- Separator -->
-            <div class="divider-choices"></div>
-
-            <!-- Fonctionanalities -->
-            <div class="bottom">
-                <div class="element">
-                    <img onclick="window.location='/profil';" class="image" src="/static/img/info.png" alt="">
-                </div>
-                <div class="element">
-                    <img onclick="window.location='/messages';" class="image" src="/static/img/messages.png" alt="">
-                </div>
-                <div class="element">
-                    <img class="image" src="/static/img/coeur.png" alt="">
-                </div>
-                <div class="element">
-                    <img class="image" src="/static/img/restaurant.png" alt="">
-                </div>
-                <div class="element">
-                    <img class="image" src="/static/img/commande.png" alt="">
-                </div>
-            </div>
-
-            <!-- Separator -->
-            <div class="divider-choices"></div>
-
-            <!-- Deconnexion -->
-            <div class="deconnexion">
-                <img src="/static/img/logout.png" class="button" onclick="window.location='/logout';">
-            </div>
-        </div>
-
-        <div class="separator"></div>
-
         <!-- Choix de personnes -->
         <div class="boite">
             <!-- Titre -->
             <div class="titre-edit">
+                <img style="width: 30px;" src="/static/img/go_back.png" alt="go back"
+                onclick="window.location.pathname = '/profil';">
                 <p class="titre">Messages</p>
+                <div style="width: 30px; height: 1px"></div>
             </div>
 
             <!-- Separator -->
@@ -133,7 +91,9 @@
         <!-- Messagerie -->
         <div class="messagerie">
             <!-- Info destinataire -->
-            <div id="1" class="destinataire">
+            <div id="{{ id }}" class="destinataire">
+                <img id="go_back_discu" style="display: none;" src="/static/img/goback_black.png" alt="go back"
+                    onclick="window.location.pathname = '/messages';">
                 <div class="info">
                     <img class="pdp_messagerie" src="/static/img/pdp.png" alt="">
                     <p class="name_message">Rabia Manil</p>
