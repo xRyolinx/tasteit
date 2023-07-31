@@ -358,7 +358,7 @@ a {
 
 @media (max-height: 562.5px) {
     #cover, .contenu{
-        height: calc(100vh - 45px);
+        height: calc(100% - 45px);
     }
     nav {
         height: 45px !important;
