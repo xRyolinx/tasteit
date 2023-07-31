@@ -1,4 +1,3 @@
-@charset "UTF-8";
 :root {
   --radius: 30px;
   --blanc: #FFFFFF;
@@ -28,108 +27,16 @@ a {
   color: black;
 }
 
-#bg {
-  width: 100vw;
-  -o-object-fit: cover;
-     object-fit: cover;
-  position: fixed;
-  z-index: -10;
-  right: 0;
-}
-
 /* TOUT APRES NAV */
 .contenu {
   width: 100%;
   height: 92%;
+  overflow: hidden;
   /* padding: 2rem; */
   /* background-color: blue; */
   display: flex;
   justify-content: center;
   align-items: center;
-}
-
-/* ------------------------RECTANGLE GAUCHE --------------------------*/
-.choices {
-  width: 5%;
-  height: 100%;
-  /* border-radius: var(--radius) 0 0 var(--radius); */
-  box-shadow: 5px 8px 10px rgb(110, 109, 109);
-  background-color: var(--blanc);
-  /* background-color: red; */
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  /* ------------------------- PDP -----------------------*/
-  /* ---------------SEPARATEUR ENTRE TOP ET BOTTOM ---------*/
-  /* ----------------CHOIX DE FONCTIONNALITÉS ---------------*/
-  /*---------------- Dexonnexion-------------- */
-}
-.choices .top {
-  width: 100%;
-  /* background-color: aqua; */
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0 0.5rem;
-  /* PDP */
-}
-.choices .top .pdp {
-  width: 100%;
-  aspect-ratio: 1/1;
-  -o-object-fit: cover;
-     object-fit: cover;
-  border-radius: 100%;
-  cursor: pointer;
-}
-.choices .divider-choices {
-  height: 5px;
-  width: 80%;
-  margin: 10px auto;
-  background-color: orange;
-}
-.choices .bottom {
-  height: 50%;
-  width: 100%;
-  padding: 0.2rem 0;
-  /* background-color: aquamarine; */
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-  /* CHOICE */
-}
-.choices .bottom .element {
-  width: 70%;
-  height: 35px;
-  /* background-color: darkmagenta; */
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  /* Icone */
-}
-.choices .bottom .element .image {
-  height: 70%;
-  -o-object-fit: cover;
-     object-fit: cover;
-  cursor: pointer;
-}
-.choices .deconnexion {
-  height: 35px;
-  width: 100%;
-  /* background-color: green; */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  /* Button */
-}
-.choices .deconnexion .button {
-  /* background-color: orange; */
-  height: 70%;
-  -o-object-fit: cover;
-     object-fit: cover;
-  cursor: pointer;
 }
 
 /* ------------------------ BOITE DE MESSAGES ------------------*/
