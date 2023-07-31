@@ -8,6 +8,15 @@
   box-sizing: border-box;
 }
 
+#cover {
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  background: #ffffff;
+  z-index: 9999;
+}
+
 body {
   height: 100vh;
   width: 100vw;
@@ -269,5 +278,13 @@ a {
   }
   .separator {
     display: none;
+  }
+}
+@media (max-height: 562.5px) {
+  #cover, .contenu {
+    height: calc(100vh - 45px);
+  }
+  nav {
+    height: 45px !important;
   }
 }/*# sourceMappingURL=messages.css.map */
