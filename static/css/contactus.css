@@ -7,7 +7,7 @@
 }
 
 body, html {
-	height: 100vh;
+	/* height: 100vh; */
 	font-family: Montserrat-Regular, sans-serif;
 }
 
@@ -135,6 +135,7 @@ iframe {
 .container-contact1 {
   align-self: stretch;  
   min-height: 530px;
+  background-color: white;
 
   width: 100%;
   max-width: 1200px;
