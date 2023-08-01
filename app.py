@@ -551,10 +551,10 @@ def restaurant():
 
 
 
-# ------------------------------ About us ----------------------------------------
-@app.route("/aboutus", methods=["GET"])
-def aboutus():
-    return render_template("aboutus.html", session=session)
+# ------------------------------ Contact us ----------------------------------------
+@app.route("/contact", methods=["GET"])
+def contact():
+    return render_template("contactus.html", session=session)
 
 
 

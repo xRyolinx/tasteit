@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact us</title>
+    <!-- css -->
+    <link rel="stylesheet" href="/static/css/contactus.css">
+    <!-- js -->
+    <script src="/static/js/contactus.js"></script>
+    <!-- Nav -->
+    <link rel="stylesheet" href="/static/navbar/navbar.css">
+    <script src="/static/navbar/navbar.js"></script>
+
+</head>
+<body>
+        <!-- bg -->
+    <img id="bg-topright" src="/static/img/bg-topright.png" alt="bg_img">
+    <img id="bg-botleft" src="/static/img/bg-botleft.png" alt="bg_img">
+
+    
+    <!-- Nav -->
+    <nav>
+        <a id="nav_marque" href="/">Taste IT</a>
+        
+        <button id="nav_button">
+            <img src="/static/navbar/menu.png" alt="menu">
+        </button>
+
+        <div id="nav_add">
+        <a id="nav_home" class="nav_el" href="/">Home</a>
+        <a class="nav_el" href="/dishes">Dishes</a>
+        <a class="nav_el" href="/restaurants">Restaurants</a>
+        <a class="nav_el" href="/contact">Contact us</a>
+        <!-- Compte / Connexion -->
+        {% if 'compte' in session %}
+            {% if session['compte']['pdp'] != '' %}
+                <img class="nav_pdp" src="data:;base64,{{ session['compte']['pdp'] }}" alt="PDP"
+                onclick="window.location = '/profil';">
+            {% else %}
+                <img class="nav_pdp" src="/static/img/pdp.png" alt="PDP"
+                onclick="window.location = '/profil';">
+            {% endif %}
+        {% else %}
+            <a class="nav_el" href="/signin">Sign in</a>
+        {% endif %}
+        </div>
+    </nav>
+
+    <!-- content -->
+    <div class="contact1">
+		<div class="container-contact1">
+			<div class="contact1-pic js-tilt" data-tilt>
+				<img src="/static/img/mail.png" alt="IMG">
+			</div>
+
+			<form action="/contact" method="post" class="contact1-form validate-form">
+				<span class="contact1-form-title" style="color: orange; font-weight: bold;">
+					Contact us
+				</span>
+
+				<div class="wrap-input1 validate-input" data-validate = "Name is required">
+					<input class="input1" type="text" name="name" placeholder="Name">
+					<span class="shadow-input1"></span>
+				</div>
+
+				<div class="wrap-input1 validate-input" data-validate = "Valid email is required: ex@abc.xyz">
+					<input class="input1" type="text" name="email" placeholder="Email">
+					<span class="shadow-input1"></span>
+				</div>
+
+				<div class="wrap-input1 validate-input" data-validate = "Subject is required">
+					<input class="input1" type="text" name="subject" placeholder="Subject">
+					<span class="shadow-input1"></span>
+				</div>
+
+				<div class="wrap-input1 validate-input" data-validate = "Message is required">
+					<textarea class="input1" name="message" placeholder="Message"></textarea>
+					<span class="shadow-input1"></span>
+				</div>
+
+				<div class="container-contact1-form-btn">
+					<button class="contact1-form-btn">
+						<span>
+							Send Email
+							<i class="fa fa-long-arrow-right" aria-hidden="true"></i>
+						</span>
+					</button>
+				</div>
+			</form>
+		</div>
+	</div>
+    
+</body>
+</html>
