@@ -134,7 +134,7 @@ iframe {
 
 .container-contact1 {
   align-self: stretch;  
-  /* min-height: 500px; */
+  min-height: 530px;
 
   width: 100%;
   max-width: 1200px;

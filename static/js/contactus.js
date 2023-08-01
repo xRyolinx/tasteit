@@ -1,4 +1,20 @@
+function resize()
+{
+    // height of content
+    let height = window.innerHeight - document.querySelector('nav').offsetHeight;
+
+    if (height > 540)
+    {
+        let main = document.querySelector('.contact1');
+        main.setAttribute('style', 'height: ' + height.toString() + 'px');
+    }
+}
+
+
 document.addEventListener('DOMContentLoaded', function() {
+    window.addEventListener('resize', resize);
+
+    // form
     let form = document.querySelector('form');
     form.addEventListener('submit', function(event) {
         // vider les champs
