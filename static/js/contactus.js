@@ -3,7 +3,7 @@ function resize()
     // height of content
     let height = window.innerHeight - document.querySelector('nav').offsetHeight;
 
-    if (height > 540)
+    if (height > 530)
     {
         let main = document.querySelector('.contact1');
         main.setAttribute('style', 'height: ' + height.toString() + 'px');
