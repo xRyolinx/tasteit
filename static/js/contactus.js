@@ -12,6 +12,10 @@ function resize()
 
 
 document.addEventListener('DOMContentLoaded', function() {
+    // Update height
+    resize();
+    
+    // resize 
     window.addEventListener('resize', resize);
 
     // form
