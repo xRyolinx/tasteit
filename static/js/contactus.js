@@ -1,5 +1,13 @@
-function resize()
+// sleep time expects milliseconds
+function sleep(time)
 {
+    return new Promise((resolve) => setTimeout(resolve, time));
+}
+
+
+async function resize()
+{
+    await sleep(100);
     // height of content
     let height = window.innerHeight - document.querySelector('nav').offsetHeight;
 
