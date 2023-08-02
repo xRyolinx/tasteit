@@ -69,5 +69,18 @@
         <a class="conditions" href="">conditions d'utilisation</a>.
     </p>
 
+    <!-- block space -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            let inputs = document.querySelectorAll('.champ');
+            for (let i = 0 ; i < inputs.length ; i++)
+            {
+                inputs[i].addEventListener('input', function() {
+                    inputs[i].value = inputs[i].value.replace(/ /g, '');
+                })
+            }
+        });
+    </script>
+
 </body>
 </html>

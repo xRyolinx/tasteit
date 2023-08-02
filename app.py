@@ -122,7 +122,7 @@ def register():
     # Inscrire l'eleve
     if request.method == 'POST':
         # Check if username used
-        username = request.form.get("username")
+        username = request.form.get("username").replace(' ', '')
         db.execute("SELECT id FROM people WHERE username=%s", [username])
         response = db.fetchall()
         
@@ -131,8 +131,8 @@ def register():
             return render_template('not_registered.html') 
         
         
-        email = request.form.get("email")
-        password = request.form.get("password")
+        email = request.form.get("email").replace(' ', '')
+        password = request.form.get("password").replace(' ', '')
 
         # PDP
         # pdp = None

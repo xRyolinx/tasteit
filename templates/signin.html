@@ -55,6 +55,18 @@
         <a class="inscrire" href="/register" id="create">Create one now</a>
     </p>
 
+    <!-- block space -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            let inputs = document.querySelectorAll('.champ');
+            for (let i = 0 ; i < inputs.length ; i++)
+            {
+                inputs[i].addEventListener('input', function() {
+                    inputs[i].value = inputs[i].value.replace(/ /g, '');
+                })
+            }
+        });
+    </script>
         
 </body>
 </html>
