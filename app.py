@@ -220,7 +220,7 @@ def dishes_list():
     search = request.args.get("q")
     
     if (search != None):
-        search = "name LIKE '%" + search + "%'"
+        search = (f"name ~* '{search}'")
     else:
         search = ''
         
@@ -414,7 +414,7 @@ def restaurants_list():
     search = request.args.get("q")
     
     if (search != None):
-        search = "name LIKE '%" + search + "%'"
+        search = (f"name ~* '{search}'")
     else:
         search = ''
         
@@ -577,7 +577,7 @@ def profil():
         # UPDATE PDP
         pdp = request.files.get('pdp')
         if pdp != None:
-            id = request.form.get('id')
+            id = session['compte']['id']
             pdp = pdp.stream.read()
             
             # Add to database
@@ -593,7 +593,7 @@ def profil():
             
         
         # UPDATE INFO
-        id = request.form.get("id")
+        id = session['compte']['id']
         username = request.form.get("username")
         password = request.form.get("password")
         first_name = request.form.get("first_name")
