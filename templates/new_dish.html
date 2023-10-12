@@ -16,6 +16,14 @@
         <p>Prix :</p>
         <input name="price" type="text">
 
+        <p>Restaurant :</p>
+        <select name="restaurant">
+            <option disabled selected value="none">-- Restaurant --</option>
+            {% for restaurant in restaurants %}
+                <option value="{{ restaurant['id'] }}">{{ restaurant['name'] }}</option>
+            {% endfor %}
+        </select>
+
         <p>Photo :</p>
         <input name="photo" type="file">
 

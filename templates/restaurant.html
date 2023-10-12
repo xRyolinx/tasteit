@@ -1,9 +1,9 @@
-<!DOCTYPE html>
-<html>
-<head>
+{% extends 'layout.html' %}
+
+{% block head %}
+
     <title>{{ restaurant["name"] }}</title>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
     <!-- css -->
@@ -11,36 +11,11 @@
     <!-- Nav -->
     <link rel="stylesheet" href="/static/navbar/navbar.css">
     <script src="/static/navbar/navbar.js"></script>
-</head>
 
-<body>
-    <!-- Nav -->
-    <nav>
-        <a id="nav_marque" href="/">Taste IT</a>
-        
-        <button id="nav_button">
-            <img src="/static/navbar/menu.png" alt="menu">
-        </button>
+{% endblock %}
 
-        <div id="nav_add">
-        <a id="nav_home" class="nav_el" href="/">Home</a>
-        <a class="nav_el" href="/dishes">Dishes</a>
-        <a class="nav_el" href="/restaurants">Restaurants</a>
-        <a class="nav_el" href="/contact">Contact us</a>
-        <!-- Compte / Connexion -->
-        {% if 'compte' in session %}
-            {% if session['compte']['pdp'] != '' %}
-                <img class="nav_pdp" src="data:;base64,{{ session['compte']['pdp'] }}" alt="PDP"
-                onclick="window.location = '/profil';">
-            {% else %}
-                <img class="nav_pdp" src="/static/img/pdp.png" alt="PDP"
-                onclick="window.location = '/profil';">
-            {% endif %}
-        {% else %}
-            <a class="nav_el" href="/signin">Sign in</a>
-        {% endif %}
-        </div>
-    </nav>
+
+{% block body %}
 
     <!-- Content -->
     <div class="main">
@@ -79,7 +54,7 @@
 
                 <!-- Image -->
                 <section class="Rside">
-                    {% if restaurant["photo"] in ['', '0', 0] %}
+                    {% if not restaurant["photo"] %}
                         <img src="/static/img/restaurant 1.png" alt="Photo" style="object-fit: cover">
                     {% else %}
                         <img src="data:;base64,{{ restaurant['photo'] }}" alt="Photo" style="object-fit: cover">
@@ -139,11 +114,9 @@
         </div>
     </div>
 
-
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
         AOS.init();
     </script>
-
-</body>
-</html>
+    
+{% endblock %}

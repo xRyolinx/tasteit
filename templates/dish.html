@@ -1,49 +1,20 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+{% extends 'layout.html' %}
+
+{% block head %}
+
     <title>{{ dish["name"] }}</title>
+
     <!-- Bibli -->
-    <!-- <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet"> -->
     <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
-    <!-- <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script> -->
     <!-- css -->
     <link rel="stylesheet" href="/static/css/dish.css">
-    <!-- Nav -->
-    <link rel="stylesheet" href="/static/navbar/navbar.css">
-    <script src="/static/navbar/navbar.js"></script>
-</head>
-<body>
-    <!-- Nav -->
-    <nav>
-        <a id="nav_marque" href="/">Taste IT</a>
-        
-        <button id="nav_button">
-            <img src="/static/navbar/menu.png" alt="menu">
-        </button>
 
-        <div id="nav_add">
-        <a id="nav_home" class="nav_el" href="/">Home</a>
-        <a class="nav_el" href="/dishes">Dishes</a>
-        <a class="nav_el" href="/restaurants">Restaurants</a>
-        <a class="nav_el" href="/contact">Contact us</a>
-        <!-- Compte / Connexion -->
-        {% if 'compte' in session %}
-            {% if session['compte']['pdp'] != '' %}
-                <img class="nav_pdp" src="data:;base64,{{ session['compte']['pdp'] }}" alt="PDP"
-                onclick="window.location = '/profil';">
-            {% else %}
-                <img class="nav_pdp" src="/static/img/pdp.png" alt="PDP"
-                onclick="window.location = '/profil';">
-            {% endif %}
-        {% else %}
-            <a class="nav_el" href="/signin">Sign in</a>
-        {% endif %}
-        </div>
-    </nav>
+{% endblock %}
 
+
+{% block body %}
+
+    <!-- Content -->
     <!-- Content -->
     <div class="container">
         <div class="nom-food">
@@ -86,7 +57,7 @@
 
             <!-- Image -->
             <div class="image">
-                {% if dish["photo"] == '' %}
+                {% if not dish["photo"] %}
                     <img src="/static/img/food1.png" alt="Photo">
                 {% else %}
                     <img src="data:;base64,{{ dish['photo'] }}" alt="Photo">
@@ -136,9 +107,8 @@
     </div>
 
 
-    <!-- <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script> -->
     <script>
         AOS.init();
     </script>
-</body>
-</html>
+    
+{% endblock %}

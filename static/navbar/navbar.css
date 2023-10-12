@@ -121,6 +121,7 @@ nav {
     border: none;
     padding: 0;
     background-color: inherit;
+    display: none;
 }
 #nav_button img {
     width:30px;

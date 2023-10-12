@@ -1,6 +1,11 @@
-{% extends "template.html" %}
+{% extends "layout.html" %}
 
 {% block body %}
+    <style>
+        body {
+            margin: 0;
+        }
+    </style>
     <ul>
         {% for person in registrants %}
             <div style="width: 70vw; display: flex; justify-content: space-between; align-items: center;">
@@ -9,8 +14,8 @@
                     <p>{{ person["email"] }}</p>
                     <p>{{ person["password"] }}</p>
 
-                    {% if person['pdp'] != '' %}
-                        <img src="data:;base64,{{ person['pdp'] }}" style="width : 10vw;" alt="PDP" >
+                    {% if person['photo'] %}
+                        <img src="data:;base64,{{ person['photo'] }}" style="width : 10vw;" alt="PDP" >
                     {% else %}
                         <img src="/static/img/pdp.png" style="width : 10vw;" alt="PDP" >
                     {% endif %}

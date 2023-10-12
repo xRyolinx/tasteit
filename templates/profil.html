@@ -1,8 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+{% extends 'layout.html' %}
+
+{% block head %}
+
     <title>{{ person['username'] }}</title>
 
     <!-- css -->
@@ -14,40 +13,21 @@
     
     <!-- js -->
     <script src="/static/js/profil.js"></script>
-    <!-- Nav -->
-    <link rel="stylesheet" href="/static/navbar/navbar.css">
-    <script src="/static/navbar/navbar.js"></script>
-</head>
-<body>
+
+{% endblock %}
+
+
+{% block beforenav %}
+
     <div id="hauteur_div" style="height: 100vh; width: 0; position: absolute;"></div>
     <!-- bg -->
     <img id="bg-topright" src="/static/img/bg-topright.png" alt="bg_img">
     <img id="bg-botleft" src="/static/img/bg-botleft.png" alt="bg_img">
-    
-    <!-- Nav -->
-    <nav>
-        <a id="nav_marque" href="/">Taste IT</a>
-        
-        <button id="nav_button">
-            <img src="/static/navbar/menu.png" alt="menu">
-        </button>
 
-        <div id="nav_add">
-        <a id="nav_home" class="nav_el" href="/">Home</a>
-        <a class="nav_el" href="/dishes">Dishes</a>
-        <a class="nav_el" href="/restaurants">Restaurants</a>
-        <a class="nav_el" href="/contact">Contact us</a>
-        <!-- Compte -->
-        {% if person['pdp'] != '' %}
-            <img class="nav_pdp" src="data:;base64,{{ person['pdp'] }}" alt="PDP"
-            onclick="window.location = '/profil';">
-        {% else %}
-            <img class="nav_pdp" src="/static/img/pdp.png" alt="PDP"
-            onclick="window.location = '/profil';">
-        {% endif %}
-        
-        </div>
-    </nav>
+{% endblock %}
+
+
+{% block body %}
 
     <!-- Content -->
     <div class="contenu">
@@ -60,12 +40,12 @@
                 <!-- pdp -->
                 <div class="pdp_and_buttons">
                     <div class="pdp_container">
-                        <!-- photo -->
+                        <!-- pdp -->
                         <div class="img_container">
-                            {% if person['pdp'] != '' %}
-                                <img class="pdp" src="data:;base64,{{ person['pdp'] }}" alt="PDP">
+                            {% if person['photo'] %}
+                                <img class="pdp" src="data:;base64,{{ person['photo'] }}" alt="pdp">
                             {% else %}
-                                <img class="pdp" src="/static/img/pdp.png" alt="PDP">
+                                <img class="pdp" src="/static/img/pdp.png" alt="pdp">
                             {% endif %}
                         </div>
 
@@ -111,7 +91,7 @@
                     <div class="bot_image_container">
                         <img class="image" src="/static/img/restaurant.png" alt="">
                     </div>
-                    <a class="text">Mes restaurants</a>
+                    <a href="/mes-restaurants" class="text">Mes restaurants</a>
                 </div>
                 <div class="element">
                     <div class="bot_image_container">
@@ -216,5 +196,5 @@
             </div>
         </div>
     </div>
-</body>
-</html>
+    
+{% endblock %}

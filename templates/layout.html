@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Plateforme e-commerce de restauration en Algérie">
+    <meta property="og:image" content="/static/img/home_img.png" />
+
+    <!-- Nav -->
+    <link rel="stylesheet" href="/static/navbar/navbar.css">
+    <script src="/static/navbar/navbar.js"></script>
+
+    <style>
+        body {
+            margin: 0;
+        }
+    </style>
+
+    {% block head %}{% endblock %}
+
+</head>
+<body>
+    
+    {% block beforenav %}{% endblock %}
+
+    <!-- Nav -->
+    <nav>
+        <a id="nav_marque" href="/">Taste IT</a>
+        
+        <button id="nav_button">
+            <img src="/static/navbar/menu.png" alt="menu">
+        </button>
+
+        <div id="nav_add">
+        <a id="nav_home" class="nav_el" href="/">Home</a>
+        <a class="nav_el" href="/dishes">Dishes</a>
+        <a class="nav_el" href="/restaurants">Restaurants</a>
+        <a class="nav_el" href="/contact">Contact us</a>
+        <!-- Compte / Connexion -->
+        {% if 'compte' in session %}
+            {% if session['compte']['photo'] %}
+                <img class="nav_pdp" src="data:;base64,{{ session['compte']['photo'] }}" alt="photo"
+                onclick="window.location = '/profil';">
+            {% else %}
+                <img class="nav_pdp" src="/static/img/pdp.png" alt="photo"
+                onclick="window.location = '/profil';">
+            {% endif %}
+        {% else %}
+            <a class="nav_el" href="/signin">Sign in</a>
+        {% endif %}
+        </div>
+    </nav>
+
+    {% block body %}{% endblock %}
+
+</body>
+</html>

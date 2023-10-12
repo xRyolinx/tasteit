@@ -1,8 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+{% extends 'layout.html' %}
+
+{% block head %}
+
     <title>Dishes</title>
 
     <!-- css -->
@@ -17,42 +16,20 @@
         }
     </script>
     <script src="/static/js/restaurants.js"></script>
-    <!-- Nav -->
-    <link rel="stylesheet" href="/static/navbar/navbar.css">
-    <script src="/static/navbar/navbar.js"></script>
-</head>
-<body>
+
+{% endblock %}
+
+
+{% block beforenav %}
+
     <!-- bg -->
     <img id="bg-topright" src="/static/img/bg-topright.png" alt="bg_img">
     <img id="bg-botleft" src="/static/img/bg-botleft.png" alt="bg_img">
-    
-    <!-- Nav -->
-    <nav>
-        <a id="nav_marque" href="/">Taste IT</a>
-        
-        <button id="nav_button">
-            <img src="/static/navbar/menu.png" alt="menu">
-        </button>
 
-        <div id="nav_add">
-        <a id="nav_home" class="nav_el" href="/">Home</a>
-        <a class="nav_el" href="/dishes">Dishes</a>
-        <a class="nav_el" href="/restaurants">Restaurants</a>
-        <a class="nav_el" href="/contact">Contact us</a>
-        <!-- Compte / Connexion -->
-        {% if 'compte' in session %}
-            {% if session['compte']['pdp'] != '' %}
-                <img class="nav_pdp" src="data:;base64,{{ session['compte']['pdp'] }}" alt="PDP"
-                onclick="window.location = '/profil';">
-            {% else %}
-                <img class="nav_pdp" src="/static/img/pdp.png" alt="PDP"
-                onclick="window.location = '/profil';">
-            {% endif %}
-        {% else %}
-            <a class="nav_el" href="/signin">Sign in</a>
-        {% endif %}
-        </div>
-    </nav>
+{% endblock %}
+
+
+{% block body %}
 
     <!-- Content -->
     <!-- Barre de recherche -->
@@ -107,9 +84,9 @@
         </article>
     </main>
 
+    <!-- see more -->
     <div class="seemore">
         <a id="plus" href="">see more</a>
     </div>
-
-</body>
-</html>
+    
+{% endblock %}

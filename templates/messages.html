@@ -1,8 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+{% extends 'layout.html' %}
+
+{% block head %}
+
     <title>Messagerie</title>
 
     <!-- socket -->
@@ -14,38 +13,18 @@
     <!-- js -->
     <script src="/static/js/messages.js"></script>
 
-    <!-- Nav -->
-    <link rel="stylesheet" href="/static/navbar/navbar.css">
-    <script src="/static/navbar/navbar.js"></script>
-</head>
-<body>
+{% endblock %}
+
+
+{% block beforenav %}
+
     <!-- For covering until loaded -->
     <div id="cover"></div>
-    
-    <!-- Nav -->
-    <nav>
-        <a id="nav_marque" href="/">Taste IT</a>
-        
-        <button id="nav_button">
-            <img src="/static/navbar/menu.png" alt="menu">
-        </button>
 
-        <div id="nav_add">
-        <a id="nav_home" class="nav_el" href="/">Home</a>
-        <a class="nav_el" href="/dishes">Dishes</a>
-        <a class="nav_el" href="/restaurants">Restaurants</a>
-        <a class="nav_el" href="/contact">Contact us</a>
-        <!-- Compte -->
-        {% if person['pdp'] != '' %}
-            <img class="nav_pdp" src="data:;base64,{{ person['pdp'] }}" alt="PDP"
-            onclick="window.location = '/profil';">
-        {% else %}
-            <img class="nav_pdp" src="/static/img/pdp.png" alt="PDP"
-            onclick="window.location = '/profil';">
-        {% endif %}
-        
-        </div>
-    </nav>
+{% endblock %}
+
+
+{% block body %}
 
     <!-- Content -->
     <div class="contenu">
@@ -70,8 +49,8 @@
                         <div id={{ user['id'] }} onClick="load_destinataire({{ user['id'] }});" class="person">
                             <!-- style="background-color: orange;" -->
                             <div class="pdp_courrier_container">
-                                {% if user['pdp'] != '' %}
-                                    <img class="pdp_courrier" style="cursor: default;" src="data:;base64,{{ user['pdp'] }}" alt="PDP">
+                                {% if user['photo'] %}
+                                    <img class="pdp_courrier" style="cursor: default;" src="data:;base64,{{ user['photo'] }}" alt="PDP">
                                 {% else %}
                                     <img class="pdp_courrier" style="cursor: default;" src="/static/img/pdp.png" alt="PDP">
                                 {% endif %}
@@ -122,5 +101,5 @@
 
 
     </div>
-</body>
-</html>
+    
+{% endblock %}

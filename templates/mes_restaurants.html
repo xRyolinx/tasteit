@@ -1,52 +1,35 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Messagerie</title>
+{% extends 'layout.html' %}
+
+{% block head %}
+
+    <title>Mes restaurants</title>
 
     <!-- css -->
     <link rel="stylesheet" href="/static/css/mes_restaurants.css">
+    <link rel="stylesheet" href="/static/css/profil/profil.css">
     <!-- js -->
     <script src="/static/js/mes_restaurants.js"></script>
+    <script src="/static/js/profil.js"></script>
 
-    <!-- Nav -->
-    <link rel="stylesheet" href="/static/navbar/navbar.css">
-    <script src="/static/navbar/navbar.js"></script>
-</head>
-<body>
+{% endblock %}
+
+
+{% block beforenav %}
+
+    <!-- bg -->
     <img id="bg" src="/static/img/fond2.png" alt="bg_img">
 
-    <!-- Nav -->
-    <nav>
-        <a id="nav_marque" href="/">Taste IT</a>
-        
-        <button id="nav_button">
-            <img src="/static/navbar/menu.png" alt="menu">
-        </button>
+{% endblock %}
 
-        <div id="nav_add">
-        <a id="nav_home" class="nav_el" href="/">Home</a>
-        <a class="nav_el" href="/dishes">Dishes</a>
-        <a class="nav_el" href="/restaurants">Restaurants</a>
-        <a class="nav_el" href="/contact">Contact us</a>
-        <!-- Compte -->
-        {% if person['pdp'] != '' %}
-            <img class="nav_pdp" src="data:;base64,{{ person['pdp'] }}" alt="PDP"
-            onclick="window.location = '/profil';">
-        {% else %}
-            <img class="nav_pdp" src="/static/img/pdp.png" alt="PDP"
-            onclick="window.location = '/profil';">
-        {% endif %}
-        
-        </div>
-    </nav>
+
+{% block body %}
 
     <!-- Content -->
     <div class="contenu">
-        <!-- Rectangle gauche de choix -->
+        <!-- menu -->
+        <!-- Rectangle gauche de choix
         <div class="choices">
-            <!-- pdp -->
+            pdp
             <div class="top">
                 {% if person['pdp'] != '' %}
                     <img onclick="window.location='/profil'" class="pdp" src="data:;base64,{{ person['pdp'] }}" alt="PDP">
@@ -56,10 +39,10 @@
 
             </div>
 
-            <!-- Separator -->
+            Separator
             <div class="divider-choices"></div>
 
-            <!-- Fonctionanalities -->
+            Fonctionanalities
             <div class="bottom">
                 <div class="element">
                     <img onclick="window.location='/profil';" class="image" src="/static/img/info.png" alt="">
@@ -78,21 +61,121 @@
                 </div>
             </div>
 
-            <!-- Separator -->
+            Separator
             <div class="divider-choices"></div>
 
-            <!-- Deconnexion -->
+            Deconnexion
             <div class="deconnexion">
                 <img src="/static/img/logout.png" class="button" onclick="window.location='/logout';">
             </div>
-        </div>
+        </div>-->
+        <div class="choices">
+            <!-- Bonjour + pdp -->
+            <div class="top">
+                <!-- Bonjour -->
+                <p class="bonjour">Bonjour, {{ person['username'] }}</p>
+                <!-- pdp -->
+                <div class="pdp_and_buttons">
+                    <div class="pdp_container">
+                        <!-- pdp -->
+                        <div class="img_container">
+                            {% if person['photo'] %}
+                                <img class="pdp" src="data:;base64,{{ person['photo'] }}" alt="pdp">
+                            {% else %}
+                                <img class="pdp" src="/static/img/pdp.png" alt="pdp">
+                            {% endif %}
+                        </div>
 
+                        <!-- Edit -->
+                        <label id="label_edit_pdp" class="label" for="pdp">
+                            <img class="edit_pdp" src="/static/img/edit.png" alt="">
+                        </label>
+                        <!-- Input -->
+                        <input id="pdp" type="file" name="pdp" hidden>
+                    </div>
+
+                    <!-- Save and cancel -->
+                    <div id="changes_pdp">
+                        <img id="cancel_pdp" src="/static/img/cancel.png" alt="">
+                        <img id="save_pdp" src="/static/img/save.png" alt="">
+                    </div>
+                </div>
+                
+            </div>
+            <!-- Separator -->
+            <div class="divider-choices"></div>
+            <!-- Fonctionanalities -->
+            <div class="bottom">
+                <div class="element">
+                    <div class="bot_image_container">
+                        <img class="image" src="/static/img/info.png" alt="">
+                    </div>
+                    <a href="/info" class="text">Informations</a>
+                </div>
+                <div class="element">
+                    <div class="bot_image_container">
+                        <img class="image" src="/static/img/coeur.png" alt="">
+                    </div>
+                    <a class="text">Favoris</a>
+                </div>
+                <div class="element">
+                    <div class="bot_image_container">
+                        <img class="image" src="/static/img/messages.png" alt="">
+                    </div>
+                    <a href="/messages" class="text">Messages</a>
+                </div>
+                <div class="element">
+                    <div class="bot_image_container">
+                        <img class="image" src="/static/img/restaurant.png" alt="">
+                    </div>
+                    <a class="text">Mes restaurants</a>
+                </div>
+                <div class="element">
+                    <div class="bot_image_container">
+                        <img class="image" src="/static/img/commande.png" alt="">
+                    </div>
+                    <a class="text">Mes commandes</a>
+                </div>
+            </div>
+            <!-- Separator -->
+            <div class="divider-choices"></div>
+            <!-- Deconnexion -->
+            <div class="deconnexion">
+                <a class="button" href="/logout">Deconnexion</a>
+            </div>
+        </div>
 
         <div class="separator"></div>
 
+        <div style="padding: 0 80px; background-color: white; height: 100%;">
+            <p>Mes restaurants:</p>
+            <ul>
+                {% for restau in restaurants %}
+                    <li>
+                        <p style="font-weight: bold;">{{ restau['name'] }}</p>
+                        <p style="margin-top: 5px;">Plats:</p>
+                        <ul>
+                            {% for plat in restau['plats'] %}
+                                <li>{{ plat['name'] }}</li>
+                            {% else %}
+                                <li>Pas de plats. <a style="color: green" href="/dishes/new">Ajoutez en ici</a></li>
+                            {% endfor %}
+                        </ul>
+                    </li>
+                {% else %}
+                    <li>Pas de restaurants. <a href="/restaurants/new">Créez en des maintenant!</a></li>
+                {% endfor %}
+
+                <li>
+                    <p><a style="color: blue" href="/restaurants/new">Ajouter restaurant</a></p>
+                    </li>
+            </ul>
+        </div>
+
+
         <!-- Restau -->
-        <div class="restaurant_container">
-            <!-- Titre -->
+        <!-- <div class="restaurant_container">
+            Titre
             <div class="titre_container">
                 <p class="titre">Restaurant : </p>
                 <div class="name_container">
@@ -100,9 +183,8 @@
                     <img class="choose" src="/static/img/save.png" alt="">
                 </div>
             </div>
-        </div>
-
+        </div> -->
 
     </div>
-</body>
-</html>
+    
+{% endblock %}

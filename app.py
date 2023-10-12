@@ -3,18 +3,18 @@ from flask_session import Session
 import time
 import psycopg2
 from psycopg2.extras import RealDictCursor
-
 # from flask_socketio import SocketIO, send, emit
-
 from cs50 import SQL
-
 # from werkzeug.utils import secure_filename
 from base64 import b64encode
+
+# functions
+from helpers.helpers import login_required
 
 
 # DB
 # db = SQL("sqlite:///tasteit.db")
-conn = psycopg2.connect(database='tasteit', user='tasteit_user', host='dpg-cijh0senqql0l1rkun1g-a.frankfurt-postgres.render.com', password='Kp2hBNSkUL6ZKyV0jyPGUeu14sXWSpl4')
+conn = psycopg2.connect(database='tasteit_dkvk', user='tasteit_dkvk_user', host='dpg-ckcr1smct0pc73dmsutg-a.oregon-postgres.render.com', password='8TsNuqYfV3gSgZF6dcoiozotXSL0BOdh')
 db = conn.cursor(cursor_factory=RealDictCursor)
 
 
@@ -32,14 +32,7 @@ Session(app)
 # ------------------------------ DB FUNCTIONS-----------------------
 # def select()
 
-# -------------------------- FONCTIONS ---------------------
-
-# Convert none values to ''
-def convertion(dictionnaire):
-    for key in dictionnaire:
-        if (dictionnaire[key] == None) or (dictionnaire[key] == 'None'):
-            dictionnaire[key] = ''
-            
+# -------------------------- FONCTIONS ---------------------     
             
 # Update session
 def update_session(id):
@@ -47,26 +40,24 @@ def update_session(id):
     db.execute("SELECT * FROM people WHERE id = %s", [id])
     results = db.fetchall()
     person = results[0]
-    # PDP
-    update_person(person)
-    # Blank
-    convertion(person)
+    
+    # photo
+    decode_photo(person)
 
     # Save in session
     session['compte'] = person.copy()
 
 
 # Update person
-def update_person(person):
-    if person['pdp'] != None:
-            person['pdp'] = b64encode(person['pdp']).decode("utf-8")
+def decode_photo(person):
+    if person['photo']:
+        person['photo'] = b64encode(person['photo']).decode("utf-8")
 
 
 # Update people
-def update_people(people):
+def decode_photo_group(people):
     for person in people:
-        update_person(person)
-        convertion(person)
+        decode_photo(person)
 
 
 # ---------------------------------- HOME -------------------------------------
@@ -77,7 +68,7 @@ def home():
     return render_template("home.html", session=session)
 
 @app.route("/home")
-def home_red():
+def home_redirect():
     return redirect("/")
 
 
@@ -86,29 +77,38 @@ def home_red():
 # Connexion
 @app.route("/signin", methods=["GET", "POST"])
 def login():
-    return render_template("signin.html", session=session)
-
-
-# Loggedin
-@app.route("/loggedin", methods=["GET", "POST"])
-def loggedin():
-    username = request.form.get("username")
-    password = request.form.get("password")
+    # login page
+    if request.method == 'GET':
+        return render_template("signin.html", session=session)
     
-    # Check dans la base de donnees
-    db.execute("SELECT * FROM people")
-    inscrits = db.fetchall()
-    
-    for person in inscrits:
-        if (username == person["username"]) and (password == person["password"]):
-            # Save in session
-            update_session(person['id'])
-            
-            return render_template("loggedin.html", name=username)
+    # Se connecter
+    if request.method == 'POST':
+        username = request.form.get("username")
+        password = request.form.get("password")
+        
+        # Check dans la base de donnees
+        db.execute("SELECT * FROM people")
+        inscrits = db.fetchall()
+        
+        for person in inscrits:
+            if (username == person["username"]) and (password == person["password"]):
+                # Save in session
+                update_session(person['id'])
+                
+                return render_template("loggedin.html", name=username)
 
-    # Non enregistre
+        # Non enregistre
+        return redirect("/signin")
+    
+# ------------------------------- DECONNEXION -------------------------------------
+
+# Deconnexion
+@app.route("/logout", methods=["GET", "POST"])
+def logout():
+    if 'compte' in session:
+        del session['compte']
     return redirect("/signin")
-
+    
 
 # -------------------------------- INSCRIPTION ---------------------------------------
 
@@ -134,11 +134,11 @@ def register():
         email = request.form.get("email").replace(' ', '')
         password = request.form.get("password").replace(' ', '')
 
-        # PDP
-        # pdp = None
-        # img_bytes = request.files["pdp"]
+        # photo
+        # photo = None
+        # img_bytes = request.files["photo"]
         # if img_bytes != None:
-            # pdp = img_bytes.stream.read()
+            # photo = img_bytes.stream.read()
 
         # Champs manquants
         if (not username) or (not email) or (not password):
@@ -157,11 +157,10 @@ def register():
 
 # Afficher les inscrits
 @app.route("/inscrits")
+@login_required
 def registerants():
-    # If not connected
+    # check if admin
     global session
-    if 'compte' not in session: #NOT LOGGED IN
-        return redirect("/signin")
     if session['compte']['admin'] == 0: #NOT ADMIN
         return redirect("/signin")
     
@@ -170,26 +169,10 @@ def registerants():
     db.execute("SELECT * FROM people")
     inscrits = db.fetchall()
     
-    for person in inscrits:
-        # Convert types of none
-        convertion(person)
+    # decode photos
+    decode_photo_group(inscrits)
         
-        # pdp
-        if person['pdp'] != '':
-            person['pdp'] = b64encode(person['pdp']).decode("utf-8")
-        
-
     return render_template("inscrits.html", registrants=inscrits)
-
-
-# ------------------------------- DECONNEXION -------------------------------------
-
-# Deconnexion
-@app.route("/logout", methods=["GET", "POST"])
-def logout():
-    if 'compte' in session:
-        session.clear()
-    return redirect("/signin")
 
 
 # ------------------------------- FONCTIONNALITÉS -------------------------------------
@@ -270,47 +253,50 @@ def dishes_list():
     # Selectionner les plats de la bdd
     db.execute(query)
     plats = db.fetchall()
-    
-    # Trouver les restaurants associés
+        
+    # Trouver le restaurants associé
     for i in range(0,len(plats)):
-        db.execute('''SELECT name FROM restaurants WHERE id =
-                   (SELECT restaurant_id FROM restaurant_dish WHERE dish_id = %s)'''
-                   , [plats[i]["id"]])
+        db.execute('''SELECT name FROM restaurants WHERE id = 
+                   (SELECT restaurant_id from dishes WHERE id = %s)''', [plats[i]["id"]])
+        response = db.fetchall()
+        restau = response[0]["name"]
         
-        restauts = db.fetchall()
+        # Valeur du restau 
+        plats[i]["restaurant"] = restau
         
-        # Valeur du restau
-        restaurant = "Inconnu"
-        if (restauts != []):        
-            restaurant = restauts[0]["name"]
-            
-        plats[i]["restaurant"] = restaurant
-        
-    # Arranger les images
-    for plat in plats:
-        if plat['photo'] != None:
-            plat['photo'] = b64encode(plat['photo']).decode("utf-8")
+        # Arranger les images
+        decode_photo(plats[i])
     
+    # end
     return plats
     
 
 # Page d'insertion de plat
-@app.route("/dishes/new", methods=["GET", "POST"])
+@app.route("/dishes/new", methods=["GET", "POST"], endpoint='new_dish')
+@login_required
 def new_dish():
-    return render_template("new_dish.html")
+    db.execute("SELECT name, id FROM restaurants WHERE person_id = %s", [session['compte']['id']])
+    restauts = db.fetchall()
+
+    return render_template("new_dish.html", restaurants=restauts)
 
 # Sauvegarder le plat
-@app.route("/dishes/insert", methods=["POST"])
+@app.route("/dishes/insert", methods=["POST"], endpoint='insert_dish')
+@login_required
 def insert_dish():
+    restaurant_id = int(request.form.get("restaurant"))
     nom = request.form.get("name")
     type = request.form.get("type")
     price = int(request.form.get("price"))
     
     img_bytes = request.files["photo"]
-    photo = img_bytes.stream.read()
+    photo = None
+    if img_bytes:
+        photo = img_bytes.stream.read()
     
-    db.execute('''INSERT INTO dishes (name, type, price, rating, photo) VALUES(%s, %s, %s, 0, %s)'''
-               , (nom, type, price, photo))
+    db.execute('''INSERT INTO dishes (restaurant_id, name, type, price, rating, photo)
+               VALUES(%s, %s, %s, %s, 0, %s)'''
+               , (restaurant_id, nom, type, price, photo))
     
     conn.commit()
     
@@ -331,55 +317,32 @@ def dish():
     plat = db.fetchall()
     
     # Check
-    if (plat == []):
+    if not plat:
         return "DISH DOESN'T EXIST !"
     
-    # Simplify from array (bcz only one element)
     plat = plat[0]
-
-
-    
-    # Get ingredients
-    # db.execute('''SELECT name FROM ingredients WHERE id IN
-    #             (SELECT ingredient_id FROM dish_ingredient WHERE dish_id = %s);
-    #             ''', id)
-    
-    # ingredients_list = db.fetchall()
     
     # If no ingredient
     ingredients = []
     ingredients.append("Inconnu")
-    # # else
-    # if (ingredients_list != []): 
-    #     # From dict to array
-    #     ingredients = []
-    #     for ingredient in ingredients_list:
-    #         ingredients.append(ingredient["name"])
-
-    # Insert ingredients into plat
+    
     plat["ingredients"] = ingredients
     
     
         
     # Get restaurant
     db.execute( '''SELECT name FROM restaurants WHERE id =
-                (SELECT restaurant_id FROM restaurant_dish WHERE dish_id = %s)
+                (SELECT restaurant_id FROM dishes WHERE id = %s)
                 ''', id)  
-    restauts = db.fetchall()
-    
-    # Check
-    restaurant = "Inconnu"
-    if (restauts != []):        
-        restaurant = restauts[0]["name"]
+    response = db.fetchall()
+    restaurant = response[0]["name"]
 
     # Insert restaurant into plat
     plat["restaurant"] = restaurant
     
     
     # Arranger l'image
-    if plat['photo'] != 0:
-        plat['photo'] = b64encode(plat['photo']).decode("utf-8")
-    
+    decode_photo(plat)
 
     # End
     return render_template("dish.html", dish=plat, session=session)
@@ -475,24 +438,29 @@ def restaurants_list():
     
 
 # Page d'insertion de restaurant
-@app.route("/restaurants/new", methods=["GET", "POST"])
+@app.route("/restaurants/new", methods=["GET", "POST"], endpoint='new_restaurant')
+@login_required
 def new_restaurant():
     return render_template("new_restaurant.html")
 
 # Sauvegarder le restaurant
-@app.route("/restaurants/insert", methods=["POST"])
+@app.route("/restaurants/insert", methods=["POST"], endpoint='insert_restaurant')
+@login_required
 def insert_restaurant():
+    id = session['compte']['id']
     nom = request.form.get("name")
     type = request.form.get("type")
     adress = request.form.get("adress")
     
     img_bytes = request.files["photo"]
-    photo = img_bytes.stream.read()
+    photo = None
+    if img_bytes:
+        photo = img_bytes.stream.read()
     
     db.execute('''
-                    INSERT INTO restaurants (name, type, work_hours, work_days, adress, rating, photo)
-                    VALUES(%s, %s, 0, 0, %s, 0, %s)
-               ''', (nom, type, adress, photo))
+                    INSERT INTO restaurants (person_id, name, type, work_hours, work_days, adress, rating, photo)
+                    VALUES(%s, %s, %s, 0, 0, %s, 0, %s)
+               ''', (id, nom, type, adress, photo))
     conn.commit()
     
     return redirect("/restaurants")
@@ -559,29 +527,37 @@ def contact():
 
 
 # ------------------------------- Profil ----------------------------------
-@app.route("/info", methods=["GET", "POST"])
+@app.route("/info", methods=["GET", "POST"], endpoint='info')
+@login_required
 def info():
-    return render_template("profil.html", person=session['compte'], adr='info')
+    person = session['compte']
+    for key in person:
+        if not person[key]:
+            person[key] = ''
+            
+    return render_template("profil.html", person=person, adr='info')
     
-@app.route("/profil", methods=["GET", "POST"])
+@app.route("/profil", methods=["GET", "POST"], endpoint='profil')
+@login_required
 def profil():
     # Normal page
-    if request.method == 'GET':
-        if 'compte' not in session:
-            return redirect("/signin") 
-        
-        return render_template("profil.html", person=session['compte'], adr='profil')
-    
+    if request.method == 'GET':            
+        person = session['compte']
+        for key in person:
+            if not person[key]:
+                person[key] = ''
+        return render_template("profil.html", person=person, adr='profil')
+
     # Update page
     if request.method == 'POST':
-        # UPDATE PDP
-        pdp = request.files.get('pdp')
-        if pdp != None:
+        # UPDATE photo
+        photo = request.files.get('photo')
+        if photo != None:
             id = session['compte']['id']
-            pdp = pdp.stream.read()
+            photo = photo.stream.read()
             
             # Add to database
-            db.execute("UPDATE people SET pdp = %s WHERE id = %s", (pdp, id))
+            db.execute("UPDATE people SET photo = %s WHERE id = %s", (photo, id))
             conn.commit()
             
             # Save in session
@@ -639,22 +615,24 @@ def profil():
         
         return check_username
     
-
+    
 # ------------------------------ MESSAGES ----------------------------
 
-@app.route("/messages", methods=["GET", "POST"])
+@app.route("/messages", methods=["GET", "POST"], endpoint='messages')
+@login_required
 def messagerie():
     # Get all people
     db.execute('SELECT * FROM people')
     people = db.fetchall()
-    update_people(people)
+    decode_photo_group(people)
     # print(people)
     
     return render_template('messages.html', person=session['compte'], people=people, adr='messages', id=0)
 
 
 # ----------------------------- ENVOYER MSG ------------------------------
-@app.route('/send', methods=['POST'])
+@app.route('/send', methods=['POST'], endpoint='send_msg')
+@login_required
 def send():
     # Id of logged account
     id = session['compte']['id']
@@ -671,7 +649,8 @@ def send():
     return {'status' : 'ok'}
 
 # -------------------------------- Receiving messages ----------------------------------
-@app.route('/receive', methods=['POST'])
+@app.route('/receive', methods=['POST'], endpoint='receive_msg')
+@login_required
 def receive():
     
     # Id of logged account
@@ -702,3 +681,18 @@ def receive():
             'status' : False
         }
     
+    
+    
+# --------------------------- MES RESTAURANTS -----------------------------
+@app.route('/mes-restaurants', methods=['GET', 'POST'], endpoint='mes restaurants')
+@login_required
+def mes_restaurants_view():
+    db.execute('SELECT id, name FROM restaurants WHERE person_id = %s', [session['compte']['id']])
+    restauts = db.fetchall()
+    
+    for restau in restauts:
+        db.execute('SELECT name FROM dishes WHERE restaurant_id = %s', [restau['id']])
+        plats = db.fetchall()
+        restau['plats'] = plats
+    
+    return render_template('mes_restaurants.html', person=session['compte'], restaurants=restauts)

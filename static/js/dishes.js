@@ -20,7 +20,7 @@ async function add_el(template, add) {
         
         // Modify
         // Image
-        if (!(plats[i]['photo'] == ''))
+        if (plats[i]['photo'])
         {
             let img = element.children[0].children[0];
             img.src = "data:;base64," + plats[i]['photo'];
