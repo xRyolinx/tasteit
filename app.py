@@ -14,8 +14,21 @@ from helpers.helpers import login_required
 
 # DB
 # db = SQL("sqlite:///tasteit.db")
-conn = psycopg2.connect(database='tasteit_dkvk', user='tasteit_dkvk_user', host='dpg-ckcr1smct0pc73dmsutg-a.oregon-postgres.render.com', password='8TsNuqYfV3gSgZF6dcoiozotXSL0BOdh')
-db = conn.cursor(cursor_factory=RealDictCursor)
+
+conn, db = None, None
+def set_cursor():
+    global conn
+    global db
+    conn = psycopg2.connect(database='tasteit_dkvk',
+                            user='tasteit_dkvk_user',
+                            host='dpg-ckcr1smct0pc73dmsutg-a.oregon-postgres.render.com',
+                            password='8TsNuqYfV3gSgZF6dcoiozotXSL0BOdh',
+                            keepalives=1,
+                            )
+
+    db = conn.cursor(cursor_factory=RealDictCursor)
+
+set_cursor()
 
 
 # Run flask
@@ -87,8 +100,14 @@ def login():
         password = request.form.get("password")
         
         # Check dans la base de donnees
-        db.execute("SELECT * FROM people")
-        inscrits = db.fetchall()
+        check_db = True
+        while check_db:
+            try:
+                db.execute("SELECT * FROM people")
+                inscrits = db.fetchall()
+                check_db = False
+            except psycopg2.InterfaceError:
+                set_cursor()
         
         for person in inscrits:
             if (username == person["username"]) and (password == person["password"]):
@@ -123,8 +142,16 @@ def register():
     if request.method == 'POST':
         # Check if username used
         username = request.form.get("username").replace(' ', '')
-        db.execute("SELECT id FROM people WHERE username=%s", [username])
-        response = db.fetchall()
+        
+        check_db = True
+        while check_db:
+            try:
+                db.execute("SELECT id FROM people WHERE username=%s", [username])
+                response = db.fetchall()
+                check_db = False
+            except psycopg2.InterfaceError:
+                set_cursor()
+        
         
         # IF EXISTS
         if response != []:
@@ -145,9 +172,16 @@ def register():
             return render_template("not_registered.html")
 
         # Inserer
-        db.execute("INSERT INTO people (username, email, password, admin) VALUES(%s, %s, %s, 0)",
+        check_db = True
+        while check_db:
+            try:
+                db.execute("INSERT INTO people (username, email, password, admin) VALUES(%s, %s, %s, 0)",
                 (username, email, password))
-        conn.commit()
+                conn.commit()
+                check_db = False
+            except psycopg2.InterfaceError:
+                set_cursor()
+        
 
         return render_template("registered.html")
 
@@ -200,18 +234,19 @@ def dishes_search():
 def dishes_list():
     
     # SEARCH
+    print('start...')
     search = request.args.get("q")
     
+    search = ''
     if (search != None):
-        search = (f"name ~* '{search}'")
-    else:
-        search = ''
-        
+        search = (f"name ~* '{search}'")        
         
         
     # Last id
     t = request.args.get("t")
     if (t != None):
+        print('fetching last id...')
+        
         # La condition de recherche
         if (search == ''):
             condition = ''
@@ -220,9 +255,18 @@ def dishes_list():
                     
         # Query depuis bdd
         query = 'SELECT MAX(id) as max FROM dishes' + condition
-        db.execute(query)
-        response = db.fetchall()
+        check_db = True
+        while check_db:
+            try:
+                db.execute(query)
+                response = db.fetchall()
+                check_db = False
+            except psycopg2.InterfaceError:
+                set_cursor()
+        
         response = response[0]['max']
+        print('got last id!')
+        
         
         # Last id
         last = response
@@ -248,17 +292,38 @@ def dishes_list():
     nb = int(request.args.get("n"))
     
     # query for sqlite
+    
     query = 'SELECT * FROM dishes WHERE ' + condition + ' LIMIT ' + str(nb)
     
     # Selectionner les plats de la bdd
-    db.execute(query)
-    plats = db.fetchall()
+    check_db = True
+    while check_db:
+        try:
+            print('fetching dishes1...')
+            db.execute(query)
+            
+            print('fetching dishes2...')
+            plats = db.fetchall()
+            
+            check_db = False
+        except psycopg2.InterfaceError:
+            set_cursor()
+    print('got dishes!')
+        
+    
         
     # Trouver le restaurants associé
     for i in range(0,len(plats)):
-        db.execute('''SELECT name FROM restaurants WHERE id = 
+        check_db = True
+        while check_db:
+            try:
+                db.execute('''SELECT name FROM restaurants WHERE id = 
                    (SELECT restaurant_id from dishes WHERE id = %s)''', [plats[i]["id"]])
-        response = db.fetchall()
+                response = db.fetchall()
+                check_db = False
+            except psycopg2.InterfaceError:
+                set_cursor()
+        
         restau = response[0]["name"]
         
         # Valeur du restau 
