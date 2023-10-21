@@ -32,6 +32,7 @@
 .fonction .titre-edit .go_back {
   display: none;
   width: 20px;
+  cursor: pointer;
 }
 .fonction .titre-edit .titre {
   margin: 0;
