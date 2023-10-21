@@ -32,7 +32,7 @@
         <div class="boite">
             <!-- Titre -->
             <div class="titre-edit">
-                <img style="width: 30px;" src="/static/img/go_back.png" alt="go back"
+                <img style="width: 30px; cursor: pointer;" src="/static/img/go_back.png" alt="go back"
                 onclick="window.location.pathname = '/profil';">
                 <p class="titre">Messages</p>
                 <div style="width: 30px; height: 1px"></div>
@@ -50,9 +50,9 @@
                             <!-- style="background-color: orange;" -->
                             <div class="pdp_courrier_container">
                                 {% if user['photo'] %}
-                                    <img class="pdp_courrier" style="cursor: default;" src="data:;base64,{{ user['photo'] }}" alt="PDP">
+                                    <img class="pdp_courrier" src="data:;base64,{{ user['photo'] }}" alt="PDP">
                                 {% else %}
-                                    <img class="pdp_courrier" style="cursor: default;" src="/static/img/pdp.png" alt="PDP">
+                                    <img class="pdp_courrier" src="/static/img/pdp.png" alt="PDP">
                                 {% endif %}
                             </div>
                             <div class="courrier_txt">

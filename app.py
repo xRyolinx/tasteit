@@ -176,7 +176,7 @@ def register():
         while check_db:
             try:
                 db.execute("INSERT INTO people (username, email, password, admin) VALUES(%s, %s, %s, 0)",
-                (username, email, password))
+                            (username, email, password))
                 conn.commit()
                 check_db = False
             except psycopg2.InterfaceError:
@@ -459,9 +459,16 @@ def restaurants_list():
                     
         # Query depuis bdd
         query = 'SELECT MAX(id) as max FROM restaurants' + condition
-        db.execute(query)
         
-        response = db.fetchall()
+        check_db = True
+        while check_db:
+            try:
+                db.execute(query)
+                response = db.fetchall()
+                check_db = False
+            except psycopg2.InterfaceError:
+                set_cursor()
+        
         response = response[0]['max']
         
         # Last id
@@ -491,8 +498,15 @@ def restaurants_list():
     query = 'SELECT * FROM restaurants WHERE ' + condition + ' LIMIT ' + str(nb)
     
     # Selectionner les restaurants de la bdd
-    db.execute(query)
-    plats = db.fetchall()
+    check_db = True
+    while check_db:
+        try:
+            db.execute(query)
+            plats = db.fetchall()
+            check_db = False
+        except psycopg2.InterfaceError:
+            set_cursor()
+    
         
     # Arranger les images
     for plat in plats:
