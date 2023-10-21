@@ -401,7 +401,7 @@ document.addEventListener('DOMContentLoaded', function() {
     save_pdp.addEventListener('click', async function() {
         // Send file
         let formData = new FormData();
-        formData.append('pdp', pdp.files[0]); 
+        formData.append(pdp.name, pdp.files[0]); 
 
         let response = await fetch('/profil', {   
             method: 'POST',

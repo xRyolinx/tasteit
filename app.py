@@ -617,7 +617,9 @@ def profil():
     if request.method == 'POST':
         # UPDATE photo
         photo = request.files.get('photo')
-        if photo != None:
+        print(photo)
+        if photo:
+            print('h')
             id = session['compte']['id']
             photo = photo.stream.read()
             
