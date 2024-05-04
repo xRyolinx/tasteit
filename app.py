@@ -19,10 +19,10 @@ conn, db = None, None
 def set_cursor():
     global conn
     global db
-    conn = psycopg2.connect(database='tasteit_dkvk',
-                            user='tasteit_dkvk_user',
-                            host='dpg-ckcr1smct0pc73dmsutg-a.oregon-postgres.render.com',
-                            password='8TsNuqYfV3gSgZF6dcoiozotXSL0BOdh',
+    conn = psycopg2.connect(database='tasteit_we38',
+                            user='tasteit_we38_user',
+                            host='dpg-cor0isnsc6pc73dhc9tg-a.oregon-postgres.render.com',
+                            password='l4uwKK5gXF4wlGTchSnQhI49QPysGiyq',
                             keepalives=1,
                             )
 
