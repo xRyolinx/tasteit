@@ -1,5 +1,9 @@
 from flask import Flask, render_template, request, redirect, session
 from flask_session import Session
+
+from flask_socketio import SocketIO
+
+
 import time
 import psycopg2
 from psycopg2.extras import RealDictCursor
@@ -35,6 +39,15 @@ set_cursor()
 app = Flask(__name__)
 app.debug = True
 app.use_reloader=True
+
+# socket
+socketio = SocketIO(app)
+
+
+# @socketio.on('connect')
+# def connect(data):
+#     print("hello")
+
 
 # Configure Session
 app.config["SESSION_PERMANENT"] = False
@@ -777,3 +790,9 @@ def mes_restaurants_view():
         restau['plats'] = plats
     
     return render_template('mes_restaurants.html', person=session['compte'], restaurants=restauts)
+
+
+# run
+import socket_func
+if __name__ == '__main__':
+    socketio.run(app)
